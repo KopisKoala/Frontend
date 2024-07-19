@@ -2,16 +2,27 @@ package com.example.whashow
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
+import com.example.whashow.apiManager.ApiManager
+import com.example.whashow.data.KakaoLogin
+import com.example.whashow.data.KakaoLoginRequest
+import com.example.whashow.data.Reissue
+import com.example.whashow.data.getNickname
+import com.example.whashow.data.getNicknameRequest
 import com.example.whashow.databinding.ActivityMainBinding
+import com.example.whashow.login.LocalDataSource
 import com.example.whashow.ui.home.HomeFragment
 import com.example.whashow.ui.mypage.MypageFragment
 import com.example.whashow.ui.pairing.PairingFragment
 import com.example.whashow.ui.recommand.GenreFragment
 import com.example.whashow.ui.recommand.RecommandResultFragment
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
@@ -126,6 +137,35 @@ class MainActivity : AppCompatActivity() {
                 addToBackStack(null)
             }
 
+    }
+    fun reissue(){
+        val Call: Call<Reissue> =
+            ApiManager.loginService.reissue(LocalDataSource.getRefreshToken().toString())
+
+        // 비동기적으로 요청 수행
+        Call.enqueue(object : Callback<Reissue> {
+            override fun onResponse(
+                call: Call<Reissue>,
+                response: Response<Reissue>
+            ) {
+                if (response.isSuccessful) {
+                    val data=response.body()?.result
+                    LocalDataSource.setAccessToken(data!!.accessToken)
+                    LocalDataSource.setRefreshToken(data!!.refreshToken)
+
+                } else {
+                    // 서버에서 오류 응답을 받은 경우 처리
+                    Log.d("로그인 토큰 서버", response.toString())
+                }
+
+            }
+
+            override fun onFailure(call: Call<Reissue>, t: Throwable) {
+                // 통신 실패 처리
+                Log.d("로그인 토큰 서버", t.message.toString())
+            }
+
+        })
     }
 
 }

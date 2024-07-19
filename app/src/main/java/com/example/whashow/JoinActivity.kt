@@ -107,6 +107,7 @@ class JoinActivity: AppCompatActivity() {
                             if (response.isSuccessful) {
                                 val data = response.body()?.result
                                 LocalDataSource.setAccessToken(data!!.accessToken)
+                                LocalDataSource.setRefreshToken(data!!.refreshToken)
                                 Log.d("로그인 토큰 서버", LocalDataSource.getAccessToken().toString())
 
                                 val Call2: Call<getNickname> =

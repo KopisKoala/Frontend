@@ -17,6 +17,13 @@ object LocalDataSource {
     fun getAccessToken() : String? {
         return sharedPreferences.getString("access_token","")
     }
+    fun setRefreshToken(token: String) {
+        sharedPreferences.edit().putString("refresh_token", token).apply()
+    }
+
+    fun getRefreshToken() : String? {
+        return sharedPreferences.getString("refresh_token","")
+    }
 
     fun setUserId(id: String) {
         sharedPreferences.edit().putString("user_id", id).apply()
