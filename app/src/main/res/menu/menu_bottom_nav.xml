@@ -3,18 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     >
     <item android:id="@+id/navigation_home"
-
+        android:icon="@drawable/selector_home_ic"
         android:title="홈"
         />
     <item android:id="@+id/navigation_recommand"
-
+        android:icon="@drawable/selector_recommand_ic"
         android:title="뉴스"
         />
     <item android:id="@+id/navigation_pairing"
+        android:icon="@drawable/selector_pairing_ic"
         android:title="페어링"
         />
     <item android:id="@+id/navigation_mypage"
-
+        android:icon="@drawable/selector_mypage_ic"
         android:title="마이"
         />
 
