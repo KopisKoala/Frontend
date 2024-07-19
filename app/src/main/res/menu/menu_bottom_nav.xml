@@ -8,7 +8,7 @@
         />
     <item android:id="@+id/navigation_recommand"
         android:icon="@drawable/selector_recommand_ic"
-        android:title="뉴스"
+        android:title="추천"
         />
     <item android:id="@+id/navigation_pairing"
         android:icon="@drawable/selector_pairing_ic"

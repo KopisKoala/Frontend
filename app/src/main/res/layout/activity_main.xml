@@ -11,13 +11,59 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="70dp"
         android:background="@android:color/transparent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:titleTextColor="@color/black">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/toolbar_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/bar_logo"
+            android:visibility="gone"
+            />
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/btn_main_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/img_search"
+            android:layout_gravity="end"
+            android:layout_marginEnd="20dp"
+            android:visibility="gone"
+            />
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/btn_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/btn_back"
+            android:visibility="gone"
+            android:layout_gravity="start"
+            android:layout_marginStart="20dp"
+            />
+        <TextView
+            android:id="@+id/back_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:textSize="15sp"
+            android:text="박물관"
+            android:fontFamily="@font/inter_regular"
+            android:layout_marginStart="15dp"
+            />
+        <TextView
+            android:id="@+id/main_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="페어링"
+            android:visibility="visible"
+            android:textSize="20sp"
+            android:fontFamily="@font/inter_semi_bold"
+            android:layout_marginStart="20dp"
+            />
 
     </androidx.appcompat.widget.Toolbar>
     <FrameLayout
@@ -28,7 +74,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/navigation_main"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="70dp"
         />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -44,7 +90,8 @@
         app:itemTextColor="@color/black"
         app:itemBackground="@android:color/transparent"
         app:menu="@menu/menu_bottom_nav"
-        style="@style/BottomNavigationViewNoRipple">
+        style="@style/BottomNavigationViewNoRipple"
+        android:visibility="visible">
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 
