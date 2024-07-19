@@ -16,6 +16,7 @@ import java.util.concurrent.TimeUnit
 object ApiManager {
 
 
+    //테스트 커밋
     private var BASE_URL = BuildConfig.AUTH_BASE_URL
 
     val loggingInterceptor= HttpLoggingInterceptor().apply {
