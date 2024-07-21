@@ -22,6 +22,12 @@ class GenreFragment : BaseFragment<FragmentGenreBinding>(R.layout.fragment_genre
 
     override fun initDataBinding() {
         super.initDataBinding()
+        binding.genreMusical.setOnClickListener {
+            (activity as MainActivity).addFragment(DayandPlaceFragment())
+        }
+        binding.genrePlay.setOnClickListener {
+            (activity as MainActivity).addFragment(DayandPlaceFragment())
+        }
     }
 
     override fun initAfterBinding() {

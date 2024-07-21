@@ -63,6 +63,9 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
     implementation("com.kakao.sdk:v2-user:2.20.1")//카카오로그인
     implementation("com.kakao.sdk:v2-all:2.20.1") // 카카오 전체 모듈 설치, 2.11.0 버전부터 지원
+    //달력 UI
+    implementation("com.github.prolificinteractive:material-calendarview:2.0.1")
+    implementation("com.jakewharton.threetenabp:threetenabp:1.2.1")
     //네비게이션
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.7")
     implementation("androidx.navigation:navigation-ui-ktx:2.7.7")
