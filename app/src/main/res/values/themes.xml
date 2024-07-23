@@ -31,7 +31,9 @@
     <style name="CalendarWidgetHeader">
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">@color/black</item>
+        <item name="android:fontFamily">@font/inter_regular</item>
     </style>
+
 
     <style name="Theme.Whashow" parent="Base.Theme.Whashow" />
 </resources>

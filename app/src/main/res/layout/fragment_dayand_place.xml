@@ -3,90 +3,108 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.recommand.DayandPlaceFragment"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
+        android:id="@+id/sv_1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        >
-        <TextView
-            android:id="@+id/day_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="2. 공연을 관람할 날짜를 선택해주세요."
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="20dp"
-            android:layout_marginStart="10dp"
-            android:fontFamily="@font/inter_semi_bold"
-            android:textSize="17sp"/>
-        <com.prolificinteractive.materialcalendarview.MaterialCalendarView
-            android:id="@+id/calendar_view"
+        android:fillViewport="true"
+        android:scrollbars="none"
+        android:background="@color/white">
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:theme="@style/CalenderViewCustom"
-            app:mcv_selectionMode="range"
-            app:mcv_showOtherDates="all"
-            app:mcv_firstDayOfWeek="sunday"
-            app:mcv_rightArrow="@drawable/ic_next"
-            app:mcv_leftArrow="@drawable/ic_previous"
-            app:mcv_dateTextAppearance="@style/CalenderViewDateCustomText"
-            app:mcv_weekDayTextAppearance="@style/CalenderViewWeekCustomText"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/day_text"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginTop="30dp"
-        />
-        <TextView
-            android:id="@+id/space_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="3. 공연을 관람할 장소를 선택해주세요."
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/calendar_view"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="10dp"
-            android:fontFamily="@font/inter_semi_bold"
-            android:textSize="17sp"/>
+            android:layout_height="match_parent">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/space_text"
-            android:layout_marginTop="20dp"
-            android:layout_marginStart="10dp"
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="800dp"
             >
-            <Spinner
-                android:id="@+id/spinner_recommand_register"
-                android:layout_width="126dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@drawable/spinner_recommand_space_background"/>
-        </LinearLayout>
-        <ImageView
-            android:id="@+id/btn_previous"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/btn_text_previous"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginStart="50dp"
-            android:layout_marginBottom="40dp"
-            />
-        <ImageView
-            android:id="@+id/btn_next"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/btn_text_next"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginEnd="50dp"
-            android:layout_marginBottom="40dp"
-            />
+            <TextView
+                android:id="@+id/day_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2. 공연을 관람할 날짜를 선택해주세요."
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="20dp"
+                android:fontFamily="@font/inter_semi_bold"
+                android:textColor="@color/black"
+                android:textSize="17sp"/>
+            <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+                android:id="@+id/calendar_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:theme="@style/CalenderViewCustom"
+                app:mcv_selectionMode="range"
+                app:mcv_showOtherDates="all"
+                app:mcv_firstDayOfWeek="sunday"
+                app:mcv_rightArrow="@drawable/ic_next"
+                app:mcv_leftArrow="@drawable/ic_previous"
+                app:mcv_dateTextAppearance="@style/CalenderViewDateCustomText"
+                app:mcv_weekDayTextAppearance="@style/CalenderViewWeekCustomText"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/day_text"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="30dp"
+                />
+            <TextView
+                android:id="@+id/space_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3. 공연을 관람할 장소를 선택해주세요."
+                android:textColor="@color/black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/calendar_view"
+                android:layout_marginTop="30dp"
+                android:layout_marginStart="20dp"
+                android:fontFamily="@font/inter_semi_bold"
+                android:textSize="17sp"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/space_text"
+                android:layout_marginTop="30dp"
+                android:layout_marginStart="20dp"
+
+                >
+                <Spinner
+                    android:id="@+id/spinner_recommand_register"
+                    android:layout_width="126dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/spinner_recommand_space_background"/>
+            </LinearLayout>
+            <ImageView
+                android:id="@+id/btn_previous"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/btn_text_previous"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginStart="50dp"
+                android:layout_marginBottom="40dp"
+                />
+            <ImageView
+                android:id="@+id/btn_next"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/btn_text_next"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginEnd="50dp"
+                android:layout_marginBottom="40dp"
+                />
 
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        </RelativeLayout>
+
+    </ScrollView>
+
 </layout>

@@ -35,7 +35,7 @@ import java.util.Calendar.getInstance
 class DayandPlaceFragment : BaseFragment<FragmentDayandPlaceBinding>(R.layout.fragment_dayand_place) {
     override fun initStartView() {
         super.initStartView()
-        (activity as MainActivity).binding.backTitle.text = "서버연결"
+        (activity as MainActivity).binding.backTitle.text = "뮤지컬"
         (activity as MainActivity).ShowBackandTitle()
         (activity as MainActivity).binding.navigationMain.visibility = View.GONE
     }
@@ -103,16 +103,12 @@ class DayandPlaceFragment : BaseFragment<FragmentDayandPlaceBinding>(R.layout.fr
         }
 
         val outCategoryList = listOf(
-            "운동",
-            "책",
-            "지출 카테고리3",
-            "지출 카테고리4",
-            "지출 카테고리5",
-            "지출 카테고리6",
-            "지출 카테고리7",
-            "지출 카테고리8",
-            "지출 카테고리9",
-            "지출 카테고리10",
+            "서울",
+            "경기",
+            "인천",
+            "부산",
+            "대구",
+            "대전"
         )
 
         // spinnerRecommandSpace를 레이아웃 파일에서 가져옴
@@ -125,6 +121,13 @@ class DayandPlaceFragment : BaseFragment<FragmentDayandPlaceBinding>(R.layout.fr
             override fun onNothingSelected(p0: AdapterView<*>?) {
                 // 선택되지 않은 경우
             }
+        }
+
+        binding.btnPrevious.setOnClickListener {
+            (activity as MainActivity).onBackPressed()
+        }
+        binding.btnNext.setOnClickListener {
+            (activity as MainActivity).addFragment(PriceFragment())
         }
 
     }
