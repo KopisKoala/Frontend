@@ -55,7 +55,5 @@ class PriceFragment : BaseFragment<FragmentPriceBinding>(R.layout.fragment_price
 
     override fun initAfterBinding() {
         super.initAfterBinding()
-
-
     }
 }

@@ -34,6 +34,11 @@
         <item name="android:fontFamily">@font/inter_regular</item>
     </style>
 
-
+    <style name="AppTheme.NumberPicker" parent="">
+        <item name="android:textColorPrimary">#7A3E65</item>
+        <item name="android:textSize">16sp</item>
+        <item name="selectableItemBackground">@color/gray</item>
+        <item name="colorControlNormal">#7A3E65</item>
+    </style>
     <style name="Theme.Whashow" parent="Base.Theme.Whashow" />
 </resources>

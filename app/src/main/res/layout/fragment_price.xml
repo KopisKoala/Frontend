@@ -34,6 +34,7 @@
             android:id="@+id/price_picker"
             android:layout_width="200dp"
             android:layout_height="272dp"
+            android:theme="@style/AppTheme.NumberPicker"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
