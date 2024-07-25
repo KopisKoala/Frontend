@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
 import com.example.whashow.MainActivity
 import com.example.whashow.R
 import com.example.whashow.base.BaseFragment
@@ -21,6 +22,18 @@ class PairingFragment : BaseFragment<FragmentPairingBinding>(R.layout.fragment_p
 
     override fun initDataBinding() {
         super.initDataBinding()
+        binding.search.isSubmitButtonEnabled = true
+        binding.search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+
+                return true
+            }
+        })
     }
 
     override fun initAfterBinding() {
