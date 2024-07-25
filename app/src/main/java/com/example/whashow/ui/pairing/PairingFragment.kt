@@ -34,7 +34,9 @@ class PairingFragment : BaseFragment<FragmentPairingBinding>(R.layout.fragment_p
                 if (query=="손승연"){
                     (activity as MainActivity).addFragment(ActorSearchFragment())
                 }
-
+                if (query=="위키드"){
+                    (activity as MainActivity).addFragment(PerformanceResultFragment())
+                }
                 return false
             }
 
