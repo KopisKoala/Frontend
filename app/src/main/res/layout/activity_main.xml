@@ -64,6 +64,7 @@
             android:textSize="20sp"
             android:fontFamily="@font/inter_semi_bold"
             android:layout_marginStart="20dp"
+            android:textColor="@color/black"
             />
 
     </androidx.appcompat.widget.Toolbar>

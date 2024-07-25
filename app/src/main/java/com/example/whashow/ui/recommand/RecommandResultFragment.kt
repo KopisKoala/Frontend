@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.Spinner
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -82,6 +84,24 @@ class RecommandResultFragment : BaseFragment<FragmentRecommandResultBinding>(R.l
                 tagListAdapter.notifyDataSetChanged()
             }
         })
+
+        //정렬
+        val resultList = listOf(
+            "인기 순",
+            "거리 순"
+        )
+
+        // spinnerRecommandSpace를 레이아웃 파일에서 가져옴
+        val spinnerSortResult: Spinner = binding.spinnerSortResult
+        spinnerSortResult.adapter= SortResultSpinnerAdapter(requireContext(),R.layout.item_spinner_sort_result,resultList)
+        spinnerSortResult.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                val value = spinnerSortResult.getItemAtPosition(p2).toString()
+            }
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+                // 선택되지 않은 경우
+            }
+        }
     }
 
     override fun initAfterBinding() {
