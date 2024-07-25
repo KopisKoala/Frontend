@@ -19,6 +19,7 @@ class SelectBottomSheet : BottomSheetDialogFragment()  {
 
     private var binding: PairingBottomSheetBinding?=null
     private lateinit var selectListAdapter: SelectAdapter
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -49,6 +50,7 @@ class SelectBottomSheet : BottomSheetDialogFragment()  {
         })
         binding!!.selectResult.setOnClickListener {
             (activity as MainActivity).addFragment(PairingResultFragment())
+            dismiss()
         }
     }
 

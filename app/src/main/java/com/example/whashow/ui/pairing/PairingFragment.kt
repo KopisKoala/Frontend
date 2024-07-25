@@ -45,6 +45,16 @@ class PairingFragment : BaseFragment<FragmentPairingBinding>(R.layout.fragment_p
                 return true
             }
         })
+        //네비바 생기는거 방지
+        binding.search.setOnCloseListener(object :SearchView.OnCloseListener{
+            override fun onClose(): Boolean {
+                (activity as MainActivity).binding.navigationMain.visibility=View.VISIBLE
+                return true
+            }
+        })
+        binding.search.setOnClickListener {
+            (activity as MainActivity).binding.navigationMain.visibility=View.GONE
+        }
 
         val recentList = arrayListOf(
             RecentPairing(R.drawable.img_actor1,R.drawable.img_actor2,"옥주현 정선아", "위키드", arrayListOf(

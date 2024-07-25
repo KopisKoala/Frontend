@@ -20,6 +20,7 @@ class PairingResultFragment : BaseFragment<FragmentPairingResultBinding>(R.layou
 
     override fun initDataBinding() {
         super.initDataBinding()
+
     }
 
     override fun initAfterBinding() {
