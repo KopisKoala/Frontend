@@ -5,56 +5,72 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
+import androidx.recyclerview.widget.GridLayoutManager
+import com.example.whashow.MainActivity
 import com.example.whashow.R
+import com.example.whashow.base.BaseFragment
+import com.example.whashow.databinding.FragmentActorSearchBinding
+import com.example.whashow.databinding.FragmentPerformanceResultBinding
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+class PerformanceResultFragment : BaseFragment<FragmentPerformanceResultBinding>(R.layout.fragment_performance_result) {
 
-/**
- * A simple [Fragment] subclass.
- * Use the [PerformanceResultFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class PerformanceResultFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+    private lateinit var performanceListManager: GridLayoutManager
+    private lateinit var performanceListAdapter: PerformanceAdapterGrid
+    override fun initStartView() {
+        super.initStartView()
+        (activity as MainActivity).binding.backTitle.text="페어링 검색"
+        (activity as MainActivity).ShowBackandTitle()
+        (activity as MainActivity).binding.navigationMain.visibility=View.GONE
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_performance_result, container, false)
-    }
+    override fun initDataBinding() {
+        super.initDataBinding()
+        binding.search.isSubmitButtonEnabled = true
+        binding.search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment PerformanceResultFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            PerformanceResultFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+                if (query=="손승연"){
+                    (activity as MainActivity).addFragment(ActorSearchFragment())
                 }
+                if (query=="위키드"){
+                    (activity as MainActivity).addFragment(PerformanceResultFragment())
+                }
+                return false
             }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+
+                return true
+            }
+        })
+
+        val performanceList = arrayListOf(
+            Performance(R.drawable.img_actor1,R.drawable.img_actor2,"옥주현 정선아", "위키드", "13", arrayListOf(
+                Hashtag("웅장한"), Hashtag("멋있는")
+            ) ),
+            Performance(R.drawable.img_actor3,R.drawable.img_actor2,"손승연 정선아", "위키드", "25", arrayListOf(Hashtag("환상의 하모니")) )
+        )
+
+        performanceListManager = GridLayoutManager(requireContext(), 2)
+        performanceListAdapter = PerformanceAdapterGrid(performanceList)
+
+        val actorRecyclerList = binding.performanceRv.apply {
+            setHasFixedSize(true)
+            layoutManager = performanceListManager
+            adapter = performanceListAdapter
+        }
+
+        binding.recommandResult.setOnClickListener {
+            val modal = SelectBottomSheet()
+            modal.show(parentFragmentManager, SelectBottomSheet.TAG)
+        }
+
+
+    }
+
+    override fun initAfterBinding() {
+        super.initAfterBinding()
+
     }
 }

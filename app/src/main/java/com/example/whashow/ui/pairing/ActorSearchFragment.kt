@@ -31,6 +31,12 @@ class ActorSearchFragment : BaseFragment<FragmentActorSearchBinding>(R.layout.fr
         binding.search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
 
+                if (query=="손승연"){
+                    (activity as MainActivity).addFragment(ActorSearchFragment())
+                }
+                if (query=="위키드"){
+                    (activity as MainActivity).addFragment(PerformanceResultFragment())
+                }
                 return false
             }
 
