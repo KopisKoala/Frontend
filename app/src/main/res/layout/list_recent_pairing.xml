@@ -58,7 +58,7 @@
         android:id="@+id/name_pairing"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="옥주현 & 정선아"
+        android:text="옥주현  정선아"
         android:textSize="14sp"
         android:textColor="@color/black"
         android:fontFamily="@font/inter_medium"
