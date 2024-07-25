@@ -58,7 +58,7 @@ class RecommandResultFragment : BaseFragment<FragmentRecommandResultBinding>(R.l
             )
         )
 
-        var tagList = arrayListOf(
+        val tagList = arrayListOf(
             Tag("인천문화예술회관"),
             Tag("경기아트센터소극장"),
             Tag("반포심산아트홀"),
