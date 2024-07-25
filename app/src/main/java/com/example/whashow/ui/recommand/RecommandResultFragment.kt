@@ -23,9 +23,9 @@ class RecommandResultFragment : BaseFragment<FragmentRecommandResultBinding>(R.l
     private lateinit var tagListAdapter: TagAdapter
     override fun initStartView() {
         super.initStartView()
-        (activity as MainActivity).binding.mainTitle.text="공연 추천"
-        (activity as MainActivity).ShowTitle()
-        (activity as MainActivity).binding.navigationMain.visibility=View.VISIBLE
+        (activity as MainActivity).binding.backTitle.text="공연 추천"
+        (activity as MainActivity).ShowBackandTitle()
+        (activity as MainActivity).binding.navigationMain.visibility=View.GONE
     }
 
     override fun initDataBinding() {
