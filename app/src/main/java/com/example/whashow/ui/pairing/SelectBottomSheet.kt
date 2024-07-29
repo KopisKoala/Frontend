@@ -4,15 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.LayoutRes
-import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.whashow.MainActivity
 import com.example.whashow.R
+import com.example.whashow.databinding.ListPairingSelectBinding
 import com.example.whashow.databinding.PairingBottomSheetBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import kotlinx.coroutines.selects.select
 
 
 class SelectBottomSheet : BottomSheetDialogFragment()  {
@@ -33,21 +30,22 @@ class SelectBottomSheet : BottomSheetDialogFragment()  {
         super.onViewCreated(view, savedInstanceState)
 
         val selectList = arrayListOf(
-            Select(R.drawable.img_actor1,"손승연"),
-            Select(R.drawable.img_actor2,"정선아"),
-            Select(R.drawable.img_actor3,"옥주현"),
-            Select(R.drawable.img_actor4,"나하나")
+            Select(R.drawable.img_actor1,"손승연",false),
+            Select(R.drawable.img_actor2,"정선아",false),
+            Select(R.drawable.img_actor3,"옥주현",false),
+            Select(R.drawable.img_actor4,"나하나",false)
         )
         selectListAdapter = SelectAdapter(selectList)
         binding!!.selectRv.adapter = selectListAdapter
         binding!!.selectRv.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
-        selectListAdapter.setMyItemClickListener(object: SelectAdapter.MyItemClickListener{
+        /*selectListAdapter.setMyItemClickListener(object: SelectAdapter.MyItemClickListener{
             override fun onClick(position: Int) {
+
                 selectListAdapter.notifyDataSetChanged()
             }
-        })
+        })*/
         binding!!.selectResult.setOnClickListener {
             (activity as MainActivity).addFragment(PairingResultFragment())
             dismiss()
