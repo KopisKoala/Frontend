@@ -20,16 +20,18 @@
         >
 
         <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:src="@drawable/img_profile"
             />
         <TextView
+            android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="뮤적 84"
             android:textColor="@color/black"
-            android:textSize="10sp"
+            android:textSize="12sp"
             android:fontFamily="@font/inter_semi_bold"
             android:layout_marginStart="7dp"
             android:layout_marginTop="4dp"/>
@@ -42,7 +44,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="10sp"
+            android:textSize="12sp"
             android:text="평점"
             android:textColor="@color/black"
             />
@@ -56,6 +58,7 @@
             android:rating="1"
             android:stepSize="0.5"
             android:layout_marginStart="6dp"
+            android:layout_marginTop="2dp"
             android:progressTint="#FFE500"
             android:progressBackgroundTint="@color/gray"
             />
@@ -66,8 +69,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/pairing_purple_rectangle"
-            android:paddingStart="5dp"
-            android:paddingEnd="5dp"
+            android:paddingStart="6dp"
+            android:paddingEnd="6dp"
             android:paddingTop="3dp"
             android:paddingBottom="3dp"
             android:text="# 짜릿하다"
@@ -77,10 +80,11 @@
             android:layout_marginTop="8dp"
             />
     <TextView
+        android:id="@+id/review"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="옥주현 배우와 정선아 배우의 연기가 너무 좋았어요. 다음에 위키드를 관람한다면 두 배우의 호흡을 보고 싶어요!"
-        android:textSize="10sp"
+        android:textSize="12sp"
         android:fontFamily="@font/inter_medium"
         android:textColor="@color/black"
         android:layout_marginTop="8dp"
@@ -90,28 +94,31 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
         <ImageView
+            android:id="@+id/checked"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/heart_purple"
             android:visibility="gone"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="10dp"
             />
         <ImageView
+            android:id="@+id/unchecked"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/heart_gray"
             android:visibility="visible"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="12dp"
             />
         <TextView
+            android:id="@+id/like_num"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="5"
-            android:textSize="10sp"
+            android:textSize="12sp"
             android:fontFamily="@font/inter_medium"
             android:textColor="@color/black"
             android:layout_marginStart="5dp"
-            android:layout_marginTop="6dp"/>
+            android:layout_marginTop="8dp"/>
     </LinearLayout>
 
 

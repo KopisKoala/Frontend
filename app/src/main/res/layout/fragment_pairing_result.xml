@@ -148,7 +148,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="전체 리뷰"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 android:fontFamily="@font/inter_semi_bold"
                 android:textColor="@color/black"
                 android:layout_marginStart="20dp"
@@ -168,12 +168,12 @@
                 >
                 <Spinner
                     android:id="@+id/spinner_review_sort"
-                    android:layout_width="70dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:layout_marginTop="6dp"
+                    android:layout_marginTop="3dp"
                     android:background="@drawable/spinner_recommand_result"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -185,7 +185,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="start"
             tools:listitem="@layout/list_review_item"
-            android:layout_marginTop="16dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             />

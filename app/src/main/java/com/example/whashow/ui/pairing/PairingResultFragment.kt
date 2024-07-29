@@ -13,11 +13,12 @@ import com.example.whashow.R
 import com.example.whashow.base.BaseFragment
 import com.example.whashow.databinding.FragmentPairingResultBinding
 import com.example.whashow.ui.recommand.SortResultSpinnerAdapter
+import com.example.whashow.ui.recommand.Tag
 import com.example.whashow.ui.recommand.TagAdapter
 
 class PairingResultFragment : BaseFragment<FragmentPairingResultBinding>(R.layout.fragment_pairing_result) {
 
-    //private lateinit var tagListAdapter: TagAdapter
+    private lateinit var reviewAdapter: ReviewAdapter
     override fun initStartView() {
         super.initStartView()
         (activity as MainActivity).binding.backTitle.text="페어링 추천받기"
@@ -49,10 +50,15 @@ class PairingResultFragment : BaseFragment<FragmentPairingResultBinding>(R.layou
         }
 
         //리뷰
-        /*tagListAdapter = TagAdapter(tagList)
-        binding.tagRv.adapter = tagListAdapter
-        binding.tagRv.layoutManager =
-            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)*/
+        val reviewList = arrayListOf(
+            Review(R.drawable.img_profile, "뮤덕 84", 3.5F,"짜릿하다","옥주현 배우와 정선아 배우의 연기가 너무 좋았어요. 다음에 위키드를 관람한다면 두 배우의 호흡을 보고 싶어요!",true,"5" ),
+            Review(R.drawable.img_profile, "금연이", 5F,"소름돋는다","무대를 찢어버리셨다. 역시 손승연 정선아였다.",false,"13" )
+        )
+
+        reviewAdapter = ReviewAdapter(reviewList)
+        binding.reviewRv.adapter = reviewAdapter
+        binding.reviewRv.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
     }
 
