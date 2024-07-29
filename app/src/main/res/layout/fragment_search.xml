@@ -6,45 +6,42 @@
         android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.SearchActivity">
+        tools:context=".ui.home.SearchActivity">
 
         <!--검색 창-->
         <androidx.appcompat.widget.SearchView
-            android:id="@+id/searchView"
+            android:id="@+id/search"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="70dp"
             android:focusable="true"
-            android:padding="10dp"
-            android:queryBackground="@null"
-            android:scaleType="centerInside"
-            android:textColorHint="#000000"
+            android:padding="20dp"
+            app:searchIcon="@drawable/ic_search"
             app:iconifiedByDefault="false"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.494"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_weight="1"
-            app:queryHint="배우 또는 공연을 검색해 주세요." />
+            app:queryHint="배우 또는 공연을 검색해 주세요."
+            tools:ignore="MissingConstraints" />
 
         <TextView
-            android:id="@+id/title_SearchedPerformance"
+            android:id="@+id/performance_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="80dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="20dp"
             android:text="최근 검색한 공연"
-            android:layout_margin="50dp"
-            android:textStyle="bold"
             android:textSize="20sp"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/searchView" />
+            app:layout_constraintTop_toBottomOf="@+id/search" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rc_SearchedPerformance"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_marginTop="20dp"
-            app:layout_constraintStart_toStartOf="@+id/title_SearchedPerformance"
-            app:layout_constraintTop_toBottomOf="@+id/title_SearchedPerformance" />
+            android:layout_height="wrap_content"
+            android:layout_margin="30dp"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="@+id/performance_title"
+            app:layout_constraintTop_toBottomOf="@+id/performance_title"
+            tools:listitem="@layout/list_grid_recommand_item" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

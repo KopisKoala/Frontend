@@ -1,60 +1,89 @@
 package com.example.whashow.ui.recommand
 
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.whashow.MainActivity
 import com.example.whashow.R
+import com.example.whashow.base.BaseFragment
+import com.example.whashow.databinding.FragmentRecommandResultBinding
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+class RecommandResultFragment : BaseFragment<FragmentRecommandResultBinding>(R.layout.fragment_recommand_result) {
 
-/**
- * A simple [Fragment] subclass.
- * Use the [RecommandResultFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class RecommandResultFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+    private lateinit var postListManager: GridLayoutManager
+    private lateinit var postListAdapter: RecommandAdapterGrid
+    private lateinit var tagListAdapter: TagAdapter
+    override fun initStartView() {
+        super.initStartView()
+        (activity as MainActivity).binding.mainTitle.text="공연 추천"
+        (activity as MainActivity).ShowTitle()
+        (activity as MainActivity).binding.navigationMain.visibility=View.VISIBLE
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_recommand_result, container, false)
-    }
+    override fun initDataBinding() {
+        super.initDataBinding()
+        // 위젯 사용 시
+        binding.search.isSubmitButtonEnabled = true
+        binding.search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment RecommandResultFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            RecommandResultFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+                return false
             }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+
+                return true
+            }
+        })
+
+        var postList = arrayListOf(
+            RecommandResult(
+                R.drawable.img_recommand_post,"2020 신년 콘서트 VOICE OF THE MAS..", "인천문화예술회관 대공연장 (1.2km)", 3.5F,"(434)"
+            ),
+            RecommandResult(R.drawable.img_recommand_post2,"예술 회복 지원 사업 뮤지컬 한여름밤의 꿈", "경기아트센터 소극장 (2.3km)", 2F,"(12)"
+            ),
+            RecommandResult(
+                R.drawable.img_recommand_post3,"서초 문화재단 SSUM 타는 콘서트", "경기아트센터 소극장 (2.3km)", 5F,"(35)"
+            ),
+            RecommandResult(
+                R.drawable.img_recommand_post4,"대한민국 대표 창작 뮤지컬 빨래", "동양예술극장 1관",4.5F,"(125)"
+            )
+        )
+
+        var tagList = arrayListOf(
+            Tag("인천문화예술회관"),
+            Tag("경기아트센터소극장"),
+            Tag("반포심산아트홀"),
+        )
+
+        postListManager = GridLayoutManager(requireContext(), 2)
+        postListAdapter = RecommandAdapterGrid(postList)
+
+        val postRecyclerList = binding.recommandRv.apply {
+            setHasFixedSize(true)
+            layoutManager = postListManager
+            adapter = postListAdapter
+        }
+
+        tagListAdapter = TagAdapter(tagList)
+        binding.tagRv.adapter = tagListAdapter
+        binding.tagRv.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+
+        tagListAdapter.setMyItemClickListener(object:TagAdapter.MyItemClickListener{
+            override fun onDeleteClick(position: Int) {
+                tagListAdapter.removeItem(position)
+                tagListAdapter.notifyDataSetChanged()
+            }
+        })
+    }
+
+    override fun initAfterBinding() {
+        super.initAfterBinding()
+
+
     }
 }
+
+

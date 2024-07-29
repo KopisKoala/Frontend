@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <TextView
+        android:id="@+id/tag_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/recommand_tag_ractangle"
+        android:text="인천문화예술회관"
+        android:fontFamily="@font/inter_semi_bold"
+        android:textSize="10sp"
+        android:textColor="#7A3E65"
+        android:paddingStart="15dp"
+        android:paddingEnd="35dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginEnd="4dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+    />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/close"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        app:layout_constraintEnd_toEndOf="@id/tag_text"
+        app:layout_constraintTop_toTopOf="@id/tag_text"
+        app:layout_constraintBottom_toBottomOf="@id/tag_text"
+        android:layout_marginEnd="9dp"
+        />
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/recommand_close"
+        app:layout_constraintEnd_toEndOf="@id/tag_text"
+        app:layout_constraintTop_toTopOf="@id/tag_text"
+        app:layout_constraintBottom_toBottomOf="@id/tag_text"
+        android:layout_marginEnd="15dp"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
