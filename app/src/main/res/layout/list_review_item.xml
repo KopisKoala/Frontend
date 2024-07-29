@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+    android:layout_marginBottom="14dp"
+    android:orientation="vertical"
+       >
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#F5F5F5"
+        />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        >
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/img_profile"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="뮤적 84"
+            android:textColor="@color/black"
+            android:textSize="10sp"
+            android:fontFamily="@font/inter_semi_bold"
+            android:layout_marginStart="7dp"
+            android:layout_marginTop="4dp"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="10sp"
+            android:text="평점"
+            android:textColor="@color/black"
+            />
+        <RatingBar
+            android:id="@+id/ratingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:isIndicator="false"
+            style="?android:attr/ratingBarStyleSmall"
+            android:numStars="5"
+            android:rating="1"
+            android:stepSize="0.5"
+            android:layout_marginStart="6dp"
+            android:progressTint="#FFE500"
+            android:progressBackgroundTint="@color/gray"
+            />
+    </LinearLayout>
+
+        <TextView
+            android:id="@+id/paring_feature"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/pairing_purple_rectangle"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp"
+            android:text="# 짜릿하다"
+            android:textSize="12sp"
+            android:textColor="#7A3E65"
+            android:fontFamily="@font/inter_regular"
+            android:layout_marginTop="8dp"
+            />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="옥주현 배우와 정선아 배우의 연기가 너무 좋았어요. 다음에 위키드를 관람한다면 두 배우의 호흡을 보고 싶어요!"
+        android:textSize="10sp"
+        android:fontFamily="@font/inter_medium"
+        android:textColor="@color/black"
+        android:layout_marginTop="8dp"
+        />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/heart_purple"
+            android:visibility="gone"
+            android:layout_marginTop="8dp"
+            />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/heart_gray"
+            android:visibility="visible"
+            android:layout_marginTop="8dp"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="5"
+            android:textSize="10sp"
+            android:fontFamily="@font/inter_medium"
+            android:textColor="@color/black"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="6dp"/>
+    </LinearLayout>
+
+
+
+
+</LinearLayout>
