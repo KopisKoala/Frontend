@@ -76,6 +76,7 @@
                 />
 
             <TextView
+                android:id="@+id/change_nickname"
                 android:layout_width="160dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/btn_stroke_rectangle"

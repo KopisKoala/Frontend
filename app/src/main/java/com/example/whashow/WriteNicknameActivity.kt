@@ -27,17 +27,14 @@ class WriteNicknameActivity : AppCompatActivity() {
         binding= ActivityWriteNicknameBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // 닉네임 변수 초기화
-        var nickName: String?
-
         binding.btnStart.setOnClickListener {
             // EditText에서 닉네임을 가져옴
-            nickName = binding.editText.text.toString()
+            val nickName = binding.editText.text.toString()
 
-            if (!nickName.isNullOrEmpty()) {
+            if (nickName.isNotEmpty()) {
                 val Call2: Call<getNickname> =
                     ApiManager.loginService.getNickname(
-                        "Bearer "+ LocalDataSource.getAccessToken()!!, getNicknameRequest(nickName!!)
+                        "Bearer "+ LocalDataSource.getAccessToken()!!, getNicknameRequest(nickName)
                     )
                 // 비동기적으로 요청 수행
                 Call2.enqueue(object : Callback<getNickname> {
