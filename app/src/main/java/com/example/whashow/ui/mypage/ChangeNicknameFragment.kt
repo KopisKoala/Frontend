@@ -12,6 +12,7 @@ import com.example.whashow.MainActivity
 import com.example.whashow.R
 import com.example.whashow.apiManager.ApiManager
 import com.example.whashow.base.BaseFragment
+import com.example.whashow.data.Info
 import com.example.whashow.data.getNickname
 import com.example.whashow.data.getNicknameRequest
 import com.example.whashow.databinding.FragmentChangeNicknameBinding
@@ -73,6 +74,33 @@ class ChangeNicknameFragment : BaseFragment<FragmentChangeNicknameBinding>(R.lay
                 }
             }
         }
+
+        val Call: Call<Info> =
+            ApiManager.mypageService.getInfo(
+                "Bearer "+ LocalDataSource.getAccessToken()!!)
+        // 비동기적으로 요청 수행
+        Call.enqueue(object : Callback<Info> {
+            override fun onResponse(
+                call: Call<Info>,
+                response: Response<Info>
+            ) {
+                if (response.isSuccessful) {
+                    val data = response.body()?.result
+                    Log.d("정보 조회 서버", response.body()?.result.toString())
+                    binding.currentNickname.text=data?.nickname
+
+                } else {
+                    // 서버에서 오류 응답을 받은 경우 처리
+                    Log.d("정보 조회 서버", response.toString())
+                }
+
+            }
+            override fun onFailure(call: Call<Info>, t: Throwable) {
+                // 통신 실패 처리
+                Log.d("정보 조회 서버", t.message.toString())
+            }
+
+        })
     }
 
     override fun initAfterBinding() {
