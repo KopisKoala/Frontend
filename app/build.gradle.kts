@@ -61,8 +61,13 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.2.1")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
-    implementation("com.kakao.sdk:v2-user:2.20.1")//카카오로그인
-    implementation("com.kakao.sdk:v2-all:2.20.1") // 카카오 전체 모듈 설치, 2.11.0 버전부터 지원
+    //카카오 로그인
+    implementation("com.kakao.sdk:v2-user:2.20.1")
+    implementation("com.kakao.sdk:v2-all:2.20.1")
+    //이미지 출력
+    implementation("com.github.bumptech.glide:glide:4.16.0")
+    annotationProcessor("com.github.bumptech.glide:compiler:4.16.0")
+    implementation("jp.wasabeef:glide-transformations:4.3.0")
     //프로필 이미지뷰
     implementation ("de.hdodenhof:circleimageview:3.1.0")
     //카드뷰

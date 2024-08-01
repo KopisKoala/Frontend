@@ -21,6 +21,9 @@ class MypageFragment : BaseFragment<FragmentMypageBinding>(R.layout.fragment_myp
 
     override fun initDataBinding() {
         super.initDataBinding()
+        binding.toMember.setOnClickListener {
+            (activity as MainActivity).addFragment(MemberInfoFragment())
+        }
     }
 
     override fun initAfterBinding() {
