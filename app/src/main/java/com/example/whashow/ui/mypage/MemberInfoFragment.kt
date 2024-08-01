@@ -1,21 +1,15 @@
 package com.example.whashow.ui.mypage
 
 import android.Manifest
-import android.app.Activity
 import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Build
-import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
@@ -26,14 +20,19 @@ import com.example.whashow.apiManager.ApiManager
 import com.example.whashow.base.BaseFragment
 import com.example.whashow.data.AddProfile
 import com.example.whashow.data.Info
-import com.example.whashow.data.getNickname
-import com.example.whashow.data.getNicknameRequest
+import com.example.whashow.data.changeProfileRequestBody
 import com.example.whashow.databinding.FragmentMemberInfoBinding
-import com.example.whashow.databinding.FragmentPairingBinding
 import com.example.whashow.login.LocalDataSource
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import retrofit2.http.Multipart
+import java.io.ByteArrayOutputStream
+import java.io.File
+import java.io.FileOutputStream
 
 
 class MemberInfoFragment : BaseFragment<FragmentMemberInfoBinding>(R.layout.fragment_member_info) {
@@ -59,10 +58,13 @@ class MemberInfoFragment : BaseFragment<FragmentMemberInfoBinding>(R.layout.frag
                             .placeholder(R.drawable.img_profile) // 이미지 로딩 중에 표시될 placeholder 이미지
                             .error(R.drawable.img_profile) // 이미지 로딩 실패 시 표시될 이미지
                             .into(binding.profile)
+                        val file = getFileFromUri(uri)
+                        val requestFile = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), file!!)
+                        val profileImg=MultipartBody.Part.createFormData("profile",file.name,requestFile)
 
                         val Call: Call<AddProfile> =
                             ApiManager.mypageService.changeProfile(
-                                "Bearer "+ LocalDataSource.getAccessToken()!!, imageUri.toString())
+                                "Bearer "+ LocalDataSource.getAccessToken()!!,profileImg)
                         // 비동기적으로 요청 수행
                         Call.enqueue(object : Callback<AddProfile> {
                             override fun onResponse(
@@ -89,6 +91,19 @@ class MemberInfoFragment : BaseFragment<FragmentMemberInfoBinding>(R.layout.frag
                 }
             }
         }
+
+    // Uri를 실제 파일로 변환하는 함수
+    private fun getFileFromUri(uri: Uri): File? {
+        val filePathColumn = arrayOf(MediaStore.Images.Media.DATA)
+        context?.contentResolver?.query(uri, filePathColumn, null, null, null)?.use { cursor ->
+            if (cursor.moveToFirst()) {
+                val columnIndex = cursor.getColumnIndexOrThrow(filePathColumn[0])
+                val filePath = cursor.getString(columnIndex)
+                return File(filePath)
+            }
+        }
+        return null
+    }
     override fun initStartView() {
         super.initStartView()
         (activity as MainActivity).binding.backTitle.text="회원정보"
