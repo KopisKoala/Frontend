@@ -1,0 +1,69 @@
+package com.example.whashow.ui.pairing
+
+import android.os.Bundle
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.Spinner
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.whashow.MainActivity
+import com.example.whashow.R
+import com.example.whashow.base.BaseFragment
+import com.example.whashow.databinding.FragmentPairingResultBinding
+import com.example.whashow.ui.recommand.SortResultSpinnerAdapter
+import com.example.whashow.ui.recommand.Tag
+import com.example.whashow.ui.recommand.TagAdapter
+
+class PairingResultFragment : BaseFragment<FragmentPairingResultBinding>(R.layout.fragment_pairing_result) {
+
+    private lateinit var reviewAdapter: ReviewAdapter
+    override fun initStartView() {
+        super.initStartView()
+        (activity as MainActivity).binding.backTitle.text="페어링 추천받기"
+        (activity as MainActivity).ShowBackandTitle()
+        (activity as MainActivity).binding.navigationMain.visibility=View.GONE
+    }
+
+    override fun initDataBinding() {
+        super.initDataBinding()
+
+        //정렬
+        val resultList = listOf(
+            "최신 순",
+            "좋아요 순",
+            "별점 낮은 순",
+            "별점 높은 순"
+        )
+
+        // spinnerRecommandSpace를 레이아웃 파일에서 가져옴
+        val spinnerSortResult: Spinner = binding.spinnerReviewSort
+        spinnerSortResult.adapter= SortResultSpinnerAdapter(requireContext(),R.layout.item_spinner_sort_result,resultList)
+        spinnerSortResult.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                val value = spinnerSortResult.getItemAtPosition(p2).toString()
+            }
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+                // 선택되지 않은 경우
+            }
+        }
+
+        //리뷰
+        val reviewList = arrayListOf(
+            Review(R.drawable.img_profile, "뮤덕 84", 3.5F,"짜릿하다","옥주현 배우와 정선아 배우의 연기가 너무 좋았어요. 다음에 위키드를 관람한다면 두 배우의 호흡을 보고 싶어요!",true,"5" ),
+            Review(R.drawable.img_profile, "금연이", 5F,"소름돋는다","무대를 찢어버리셨다. 역시 손승연 정선아였다.",false,"13" )
+        )
+
+        reviewAdapter = ReviewAdapter(reviewList)
+        binding.reviewRv.adapter = reviewAdapter
+        binding.reviewRv.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+
+    }
+
+    override fun initAfterBinding() {
+        super.initAfterBinding()
+
+    }
+}

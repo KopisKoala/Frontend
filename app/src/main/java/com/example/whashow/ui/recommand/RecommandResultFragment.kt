@@ -1,6 +1,10 @@
 package com.example.whashow.ui.recommand
 
 import android.view.View
+import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.Spinner
+
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,9 +20,9 @@ class RecommandResultFragment : BaseFragment<FragmentRecommandResultBinding>(R.l
     private lateinit var tagListAdapter: TagAdapter
     override fun initStartView() {
         super.initStartView()
-        (activity as MainActivity).binding.mainTitle.text="공연 추천"
-        (activity as MainActivity).ShowTitle()
-        (activity as MainActivity).binding.navigationMain.visibility=View.VISIBLE
+        (activity as MainActivity).binding.backTitle.text="공연 추천"
+        (activity as MainActivity).ShowBackandTitle()
+        (activity as MainActivity).binding.navigationMain.visibility=View.GONE
     }
 
     override fun initDataBinding() {
@@ -51,7 +55,7 @@ class RecommandResultFragment : BaseFragment<FragmentRecommandResultBinding>(R.l
             )
         )
 
-        var tagList = arrayListOf(
+        val tagList = arrayListOf(
             Tag("인천문화예술회관"),
             Tag("경기아트센터소극장"),
             Tag("반포심산아트홀"),
@@ -77,6 +81,24 @@ class RecommandResultFragment : BaseFragment<FragmentRecommandResultBinding>(R.l
                 tagListAdapter.notifyDataSetChanged()
             }
         })
+
+        //정렬
+        val resultList = listOf(
+            "인기 순",
+            "거리 순"
+        )
+
+        // spinnerRecommandSpace를 레이아웃 파일에서 가져옴
+        val spinnerSortResult: Spinner = binding.spinnerSortResult
+        spinnerSortResult.adapter= SortResultSpinnerAdapter(requireContext(),R.layout.item_spinner_sort_result,resultList)
+        spinnerSortResult.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                val value = spinnerSortResult.getItemAtPosition(p2).toString()
+            }
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+                // 선택되지 않은 경우
+            }
+        }
     }
 
     override fun initAfterBinding() {

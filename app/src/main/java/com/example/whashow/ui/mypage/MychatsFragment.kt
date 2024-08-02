@@ -27,6 +27,7 @@ class MychatsFragment : BaseFragment<FragmentMychatsBinding>(R.layout.fragment_m
             tab.text = information[position]
         }.attach()
 
+
     }
 
     override fun initAfterBinding() {

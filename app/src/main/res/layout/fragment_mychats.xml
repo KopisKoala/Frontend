@@ -12,17 +12,23 @@
             android:id="@+id/mychat_tb"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:tabIndicatorFullWidth="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:tabTextColor="@color/black"
+            app:tabRippleColor="#00ff0000"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/mychat_vp"
             android:layout_width="match_parent"
-            android:layout_height="400dp"
+            android:layout_height="750dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/mychat_tb" />
+            app:layout_constraintTop_toBottomOf="@+id/mychat_tb"
+            app:layout_constraintVertical_bias="1.0" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

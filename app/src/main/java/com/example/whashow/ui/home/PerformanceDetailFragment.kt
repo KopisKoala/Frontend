@@ -1,60 +1,40 @@
 package com.example.whashow.ui.home
 
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
+import com.example.whashow.MainActivity
 import com.example.whashow.R
+import com.example.whashow.base.BaseFragment
+import com.example.whashow.databinding.FragmentPerformanceDetailBinding
+import com.example.whashow.ui.home.Adapter.DetailAdapter
+import com.google.android.material.tabs.TabLayoutMediator
+import com.google.gson.Gson
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [PerformanceDetailFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class PerformanceDetailFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+class PerformanceDetailFragment : BaseFragment<FragmentPerformanceDetailBinding>(R.layout.fragment_performance_detail) {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+    private val information = arrayListOf("캐스팅", "상세 정보", "후기")
+
+
+    override fun initStartView() {
+        super.initStartView()
+        (activity as MainActivity).ShowBack()
+        arguments?.getString("banner")?.let {
+            val banner = Gson().fromJson(it, Banner::class.java)
+            binding.ivItem.setImageResource(banner.img)
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_performance_detail, container, false)
+    override fun initDataBinding() {
+        super.initDataBinding()
+        (activity as MainActivity).binding.navigationMain.visibility = View.GONE
+        val detailAdapter = DetailAdapter(this)
+        binding.vpDetail.adapter = detailAdapter // 수정된 부분
+        TabLayoutMediator(binding.tbDetail, binding.vpDetail) { tab, position ->
+            tab.text = information[position]
+        }.attach()
     }
-
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment PerformanceDetailFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            PerformanceDetailFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    override fun initAfterBinding() {
+        super.initAfterBinding()
+        (activity as MainActivity).binding.navigationMain.visibility = View.GONE
     }
 }

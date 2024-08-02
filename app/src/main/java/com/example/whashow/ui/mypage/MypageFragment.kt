@@ -7,6 +7,8 @@ import com.example.whashow.base.BaseFragment
 import com.example.whashow.databinding.FragmentMypageBinding
 
 class MypageFragment : BaseFragment<FragmentMypageBinding>(R.layout.fragment_mypage) {
+
+
     override fun initStartView() {
         super.initStartView()
         (activity as MainActivity).binding.mainTitle.text="마이"
@@ -16,6 +18,12 @@ class MypageFragment : BaseFragment<FragmentMypageBinding>(R.layout.fragment_myp
 
     override fun initDataBinding() {
         super.initDataBinding()
+        binding.btnEnterChats.setOnClickListener {
+            (activity as? MainActivity)?.addFragment(MychatsFragment())
+        }
+
+
+
     }
 
     override fun initAfterBinding() {

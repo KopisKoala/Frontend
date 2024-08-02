@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.pairing.PerformanceResultFragment">
+    <ScrollView
+        android:id="@+id/sv_1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:scrollbars="none"
+        android:background="@color/white"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.SearchView
+                    android:id="@+id/search"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:focusable="true"
+                    app:queryBackground="@null"
+                    app:searchIcon="@drawable/ic_search"
+                    app:iconifiedByDefault="false"
+                    app:layout_constraintVertical_weight="1"
+                    app:queryHint="손승연"
+                    android:layout_marginStart="5dp"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#80000000"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp" />
+
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/txt_pairing_title"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="60dp"
+                    android:layout_marginBottom="20dp"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/performance_rv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:listitem="@layout/list_grid_pairing"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp">
+                    <ImageView
+                        android:id="@+id/recommand_result"
+                        android:layout_width="match_parent"
+                        android:layout_height="66dp"
+                        android:src="@drawable/bottom_purple_rectangle"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/inter_bold"
+                        android:text="페어링 추천 받기"
+                        android:textSize="20sp"
+                        android:textColor="@color/white"
+                        app:layout_constraintStart_toStartOf="@id/recommand_result"
+                        app:layout_constraintTop_toTopOf="@id/recommand_result"
+                        app:layout_constraintEnd_toEndOf="@id/recommand_result"
+                        app:layout_constraintBottom_toBottomOf="@id/recommand_result"
+                        />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </LinearLayout>
+
+        </RelativeLayout>
+    </ScrollView>
+
+</layout>

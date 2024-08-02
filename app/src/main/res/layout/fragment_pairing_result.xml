@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.pairing.PairingResultFragment"
+>
+    <ScrollView
+        android:id="@+id/sv_1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:scrollbars="none"
+        android:background="@color/white"
+        >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="손승연 정선아"
+            android:textSize="26sp"
+            android:fontFamily="@font/inter_semi_bold"
+            android:layout_gravity="center"
+            android:layout_marginTop="50dp"
+            />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            >
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_pairing1"
+                android:layout_width="127dp"
+                android:layout_height="160dp"
+                app:cardElevation="0dp"
+                app:cardCornerRadius="57dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                >
+                <ImageView
+                    android:id="@+id/paring_img1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/img_actor1"
+                    />
+            </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_pairing2"
+                android:layout_width="127dp"
+                android:layout_height="160dp"
+                app:cardElevation="0dp"
+                app:cardCornerRadius="57dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginStart="5dp"
+                >
+                <ImageView
+                    android:id="@+id/paring_img2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/img_actor2"
+                    />
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+          >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="전체 평점"
+            android:textSize="12sp"
+            android:fontFamily="@font/inter_semi_bold"
+            android:layout_marginStart="77dp"
+            android:layout_marginTop="40dp"
+            />
+        <RatingBar
+            android:id="@+id/ratingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:isIndicator="false"
+            style="?android:attr/ratingBarStyleIndicator"
+            android:transformPivotX="0dp"
+            android:transformPivotY="0dp"
+            android:numStars="5"
+            android:rating="1"
+            android:stepSize="0.5"
+            android:progressTint="#FFE500"
+            android:progressBackgroundTint="@color/gray"
+            android:layout_marginTop="28dp"
+            android:layout_marginStart="10dp"
+            />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="#환상의 하모니"
+            android:textSize="13sp"
+            android:fontFamily="@font/inter_semi_bold"
+            android:textColor="@color/purple"
+            android:layout_marginStart="77dp"
+            android:layout_marginTop="22dp"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="#짜릿하다"
+            android:textSize="13sp"
+            android:fontFamily="@font/inter_semi_bold"
+            android:textColor="@color/purple"
+            android:layout_marginTop="22dp"
+            android:layout_marginStart="10dp"
+            />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:background="#F5F5F5"
+            android:layout_marginTop="35dp"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="전체 리뷰"
+                android:textSize="14sp"
+                android:fontFamily="@font/inter_semi_bold"
+                android:textColor="@color/black"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="15dp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="12"
+                android:textColor="@color/purple"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="15dp"
+                />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+                <Spinner
+                    android:id="@+id/spinner_review_sort"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginTop="3dp"
+                    android:background="@drawable/spinner_recommand_result"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/review_rv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            tools:listitem="@layout/list_review_item"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            />
+
+    </LinearLayout>
+    </RelativeLayout>
+    </ScrollView>
+
+
+
+
+
+
+</layout>
