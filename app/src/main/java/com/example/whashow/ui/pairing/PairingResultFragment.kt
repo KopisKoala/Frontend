@@ -30,6 +30,8 @@ import retrofit2.Response
 class PairingResultFragment : BaseFragment<FragmentPairingResultBinding>(R.layout.fragment_pairing_result) {
 
     private lateinit var reviewAdapter: ReviewAdapter
+    //리뷰
+    val reviewList = arrayListOf<Review>()
     override fun initStartView() {
         super.initStartView()
         (activity as MainActivity).binding.backTitle.text="페어링 추천받기"
@@ -62,7 +64,7 @@ class PairingResultFragment : BaseFragment<FragmentPairingResultBinding>(R.layou
                 val value = spinnerSortResult.getItemAtPosition(p2).toString()
                 val Call2: Call<PairReview> =
                     ApiManager.pairingService.getInfo(
-                        "Bearer " + LocalDataSource.getAccessToken()!!, 11,sortList[p2]
+                        "Bearer " + LocalDataSource.getAccessToken()!!, 1,sortList[p2]
                     )
                 // 비동기적으로 요청 수행
                 Call2.enqueue(object : Callback<PairReview> {
@@ -72,8 +74,11 @@ class PairingResultFragment : BaseFragment<FragmentPairingResultBinding>(R.layou
                     ) {
                         if (response.isSuccessful) {
                             val data = response.body()?.result
-                            reviewAdapter.reviewList=data?.reviewList as ArrayList<Review>
-                            reviewAdapter.notifyDataSetChanged()
+                            if (data!=null){
+                                reviewAdapter.reviewList=data.reviewList as ArrayList<Review>
+                                reviewAdapter.notifyDataSetChanged()
+                            }
+
                             Log.d("리뷰 목록 조회", data.toString())
                             Log.d("리뷰 목록 조회 서버", response.body()?.result.toString())
 
@@ -93,7 +98,38 @@ class PairingResultFragment : BaseFragment<FragmentPairingResultBinding>(R.layou
             }
             override fun onNothingSelected(p0: AdapterView<*>?) {
                 // 선택되지 않은 경우
+                val Call2: Call<PairReview> =
+                    ApiManager.pairingService.getInfo(
+                        "Bearer " + LocalDataSource.getAccessToken()!!, 1,sortList[0]
+                    )
+                // 비동기적으로 요청 수행
+                Call2.enqueue(object : Callback<PairReview> {
+                    override fun onResponse(
+                        call: Call<PairReview>,
+                        response: Response<PairReview>
+                    ) {
+                        if (response.isSuccessful) {
+                            val data = response.body()?.result
+                            if (data!=null){
+                                reviewAdapter.reviewList=data.reviewList as ArrayList<Review>
+                                reviewAdapter.notifyDataSetChanged()
+                            }
+                            Log.d("리뷰 목록 조회", data.toString())
+                            Log.d("리뷰 목록 조회 서버", response.body()?.result.toString())
 
+                        } else {
+                            // 서버에서 오류 응답을 받은 경우 처리
+                            Log.d("리뷰 목록 조회 서버", response.toString())
+                        }
+
+                    }
+
+                    override fun onFailure(call: Call<PairReview>, t: Throwable) {
+                        // 통신 실패 처리
+                        Log.d("리뷰 목록 조회 서버", t.message.toString())
+                    }
+
+                })
             }
         }
 
@@ -103,13 +139,13 @@ class PairingResultFragment : BaseFragment<FragmentPairingResultBinding>(R.layou
             Review(R.drawable.img_profile, "금연이", 5F,"소름돋는다","무대를 찢어버리셨다. 역시 손승연 정선아였다.",false,"13" )
         )*/
 
-        //리뷰
-        val reviewList = arrayListOf<Review>()
 
         reviewAdapter = ReviewAdapter(reviewList)
         binding.reviewRv.adapter = reviewAdapter
         binding.reviewRv.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+
+
 
     }
 
