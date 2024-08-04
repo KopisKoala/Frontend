@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.whashow.R
+import com.example.whashow.data.Review
 import com.example.whashow.databinding.ListPairingSelectBinding
 import com.example.whashow.databinding.ListReviewItemBinding
 
@@ -53,19 +55,19 @@ class ReviewAdapter (var list: ArrayList<Review>): RecyclerView.Adapter<ReviewAd
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ReviewAdapter.ReviewViewHolder, position: Int) {
-        holder.img.setImageResource(reviewList[position].img)
-        holder.name.text=reviewList[position].name
-        holder.rating.rating=reviewList[position].rating
-        holder.feature.text=reviewList[position].feature
-        holder.review.text=reviewList[position].review
-        holder.likeNum.text=reviewList[position].likeNum
+        holder.img.setImageResource(R.drawable.img_profile)
+        holder.name.text=reviewList[position].writer
+        holder.rating.rating=reviewList[position].rating.toFloat()
+        holder.feature.text=reviewList[position].hashTag
+        holder.review.text=reviewList[position].content
+        holder.likeNum.text=reviewList[position].likeCount.toString()
         holder.checked.setOnClickListener {
-            reviewList[position].check=false
+            //reviewList[position].check=false
             holder.checked.visibility=View.GONE
             holder.unchecked.visibility=View.VISIBLE
         }
         holder.unchecked.setOnClickListener {
-            reviewList[position].check=true
+            //reviewList[position].check=true
             holder.checked.visibility=View.VISIBLE
             holder.unchecked.visibility=View.GONE
         }

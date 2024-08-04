@@ -13,5 +13,5 @@ data class Info(
     @SerialName("message")
     val message: String,
     @SerialName("result")
-    val result: ResultXX
+    val result: InfoResult
 )

@@ -13,5 +13,5 @@ data class Reissue(
     @SerialName("message")
     val message: String,
     @SerialName("result")
-    val result: ResultX
+    val result: ReissueResult
 )

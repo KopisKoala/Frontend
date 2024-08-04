@@ -5,7 +5,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class ResultXX(
+data class InfoResult(
     @SerialName("address")
     val address: String,
     @SerialName("email")

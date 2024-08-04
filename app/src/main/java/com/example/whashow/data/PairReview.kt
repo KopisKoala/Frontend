@@ -13,5 +13,5 @@ data class PairReview(
     @SerialName("message")
     val message: String,
     @SerialName("result")
-    val result: ResultXXX
+    val result: PairReviewResult
 )
