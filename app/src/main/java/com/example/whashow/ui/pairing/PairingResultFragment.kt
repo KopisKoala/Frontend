@@ -75,6 +75,19 @@ class PairingResultFragment : BaseFragment<FragmentPairingResultBinding>(R.layou
                         if (response.isSuccessful) {
                             val data = response.body()?.result
                             if (data!=null){
+                                binding.ratingBar.rating=data.averageRating
+                                if (data.hashtags[0]=="null"){
+                                    binding.hashtag1.visibility=View.GONE
+                                    binding.hashtag2.visibility=View.GONE
+                                }
+                                else if (data.hashtags[1]=="null"){
+                                    binding.hashtag1.text="#"+data.hashtags[0]
+                                    binding.hashtag2.visibility=View.GONE
+                                }
+                                else {
+                                    binding.hashtag1.text="#"+data.hashtags[0]
+                                    binding.hashtag2.text="#"+data.hashtags[1]
+                                }
                                 reviewAdapter.reviewList=data.reviewList as ArrayList<Review>
                                 reviewAdapter.notifyDataSetChanged()
                             }
@@ -111,6 +124,19 @@ class PairingResultFragment : BaseFragment<FragmentPairingResultBinding>(R.layou
                         if (response.isSuccessful) {
                             val data = response.body()?.result
                             if (data!=null){
+                                binding.ratingBar.rating=data.averageRating
+                                if (data.hashtags[0]=="null"){
+                                    binding.hashtag1.visibility=View.GONE
+                                    binding.hashtag2.visibility=View.GONE
+                                }
+                                else if (data.hashtags[1]=="null"){
+                                    binding.hashtag1.text="#"+data.hashtags[0]
+                                    binding.hashtag2.visibility=View.GONE
+                                }
+                                else {
+                                    binding.hashtag1.text="#"+data.hashtags[0]
+                                    binding.hashtag2.text="#"+data.hashtags[1]
+                                }
                                 reviewAdapter.reviewList=data.reviewList as ArrayList<Review>
                                 reviewAdapter.notifyDataSetChanged()
                             }

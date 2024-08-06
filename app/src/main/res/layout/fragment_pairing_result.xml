@@ -112,6 +112,7 @@
             android:layout_height="wrap_content">
 
         <TextView
+            android:id="@+id/hashtag1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="#환상의 하모니"
@@ -120,8 +121,10 @@
             android:textColor="@color/purple"
             android:layout_marginStart="77dp"
             android:layout_marginTop="22dp"
+
             />
         <TextView
+            android:id="@+id/hashtag2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="#짜릿하다"
