@@ -1,5 +1,6 @@
 package com.example.whashow.ui.pairing
 
+import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -20,6 +21,11 @@ class PairingFragment : BaseFragment<FragmentPairingBinding>(R.layout.fragment_p
     private lateinit var recentListAdapter: RecentAdapter
     override fun initStartView() {
         super.initStartView()
+        //배경 흰색
+        (activity as MainActivity).binding.toolbar.setBackgroundColor(Color.WHITE)
+        (activity as MainActivity).binding.btnBack.setImageResource(R.drawable.btn_back)
+        (activity as MainActivity).binding.backTitle.setTextColor(Color.BLACK)
+
         (activity as MainActivity).binding.mainTitle.text="페어링"
         (activity as MainActivity).ShowTitle()
         (activity as MainActivity).binding.navigationMain.visibility=View.VISIBLE
