@@ -10,11 +10,13 @@ import android.widget.AdapterView
 import android.widget.Spinner
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.viewpager2.widget.ViewPager2
 import com.example.whashow.MainActivity
 import com.example.whashow.R
 import com.example.whashow.apiManager.ApiManager
 import com.example.whashow.base.BaseFragment
 import com.example.whashow.data.PairReview
+import com.example.whashow.data.PairReviewResult
 import com.example.whashow.data.Review
 import com.example.whashow.data.getNickname
 import com.example.whashow.data.getNicknameRequest
@@ -30,8 +32,104 @@ import retrofit2.Response
 class PairingResultFragment : BaseFragment<FragmentPairingResultBinding>(R.layout.fragment_pairing_result) {
 
     private lateinit var reviewAdapter: ReviewAdapter
+    private lateinit var pairViewPager: PairingViewPagerAdapter
     //리뷰
-    val reviewList = arrayListOf<Review>()
+    val reviewList = arrayListOf<Review>(
+
+    )
+    val pairingList = arrayListOf(
+        PairReviewResult(
+            averageRating = 4.5f,
+            hashtags = listOf("맛있다", "신선하다"),
+            reviewCount = 120,
+            reviewList = arrayListOf(
+                Review(
+                    content = "정말 신선하고 맛있어요! 재구매 의사 100%!",
+                    hashTag = "#맛있다 #신선하다",
+                    id = 1,
+                    isWriter = true,
+                    likeCount = 15,
+                    rating = 5,
+                    writer = "user1",
+                    writerProfileImage = "https://example.com/images/user1.png"
+                ),
+                Review(
+                    content = "가격 대비 괜찮은 선택이었습니다.",
+                    hashTag = "#가성비 #만족",
+                    id = 2,
+                    isWriter = false,
+                    likeCount = 10,
+                    rating = 4,
+                    writer = "user2",
+                    writerProfileImage = "https://example.com/images/user2.png"
+                )
+            )
+        ),
+        PairReviewResult(
+            averageRating = 3.8f,
+            hashtags = listOf("보통", "괜찮다"),
+            reviewCount = 85,
+            reviewList = arrayListOf(
+                Review(
+                    content = "평범하지만 나쁘지 않아요.",
+                    hashTag = "#보통 #무난",
+                    id = 3,
+                    isWriter = false,
+                    likeCount = 7,
+                    rating = 3,
+                    writer = "user3",
+                    writerProfileImage = "https://example.com/images/user3.png"
+                ),
+                Review(
+                    content = "기대보다 많이 부족했어요.",
+                    hashTag = "#실망 #별로",
+                    id = 4,
+                    isWriter = true,
+                    likeCount = 3,
+                    rating = 2,
+                    writer = "user4",
+                    writerProfileImage = "https://example.com/images/user4.png"
+                )
+            )
+        ),
+        PairReviewResult(
+            averageRating = 4.9f,
+            hashtags = listOf("강력추천", "최고"),
+            reviewCount = 200,
+            reviewList = arrayListOf(
+                Review(
+                    content = "품질이 좋고 기대 이상이었어요!",
+                    hashTag = "#추천 #만족",
+                    id = 6,
+                    isWriter = false,
+                    likeCount = 20,
+                    rating = 5,
+                    writer = "user6",
+                    writerProfileImage = "https://example.com/images/user6.png"
+                ),
+                Review(
+                    content = "그럭저럭 괜찮았어요.",
+                    hashTag = "#보통 #무난",
+                    id = 7,
+                    isWriter = false,
+                    likeCount = 5,
+                    rating = 3,
+                    writer = "user7",
+                    writerProfileImage = "https://example.com/images/user7.png"
+                ),
+                Review(
+                    content = "맛있긴 한데 조금 비싼 것 같아요.",
+                    hashTag = "#맛있다 #비싸다",
+                    id = 8,
+                    isWriter = true,
+                    likeCount = 8,
+                    rating = 4,
+                    writer = "user8",
+                    writerProfileImage = "https://example.com/images/user8.png"
+                )
+            )
+        )
+    )
     override fun initStartView() {
         super.initStartView()
         (activity as MainActivity).binding.backTitle.text="페어링 추천받기"
@@ -74,22 +172,12 @@ class PairingResultFragment : BaseFragment<FragmentPairingResultBinding>(R.layou
                     ) {
                         if (response.isSuccessful) {
                             val data = response.body()?.result
-                            if (data!=null){
-                                binding.ratingBar.rating=data.averageRating
-                                if (data.hashtags[0]=="null"){
-                                    binding.hashtag1.visibility=View.GONE
-                                    binding.hashtag2.visibility=View.GONE
-                                }
-                                else if (data.hashtags[1]=="null"){
-                                    binding.hashtag1.text="#"+data.hashtags[0]
-                                    binding.hashtag2.visibility=View.GONE
-                                }
-                                else {
-                                    binding.hashtag1.text="#"+data.hashtags[0]
-                                    binding.hashtag2.text="#"+data.hashtags[1]
-                                }
-                                reviewAdapter.reviewList=data.reviewList as ArrayList<Review>
+                            if (data != null) {
+
+                                reviewAdapter.reviewList = data.reviewList as ArrayList<Review>
                                 reviewAdapter.notifyDataSetChanged()
+                                pairViewPager.pairingList.clear()
+                                pairViewPager.notifyDataSetChanged()
                             }
 
                             Log.d("리뷰 목록 조회", data.toString())
@@ -109,7 +197,10 @@ class PairingResultFragment : BaseFragment<FragmentPairingResultBinding>(R.layou
 
                 })
             }
+
+
             override fun onNothingSelected(p0: AdapterView<*>?) {
+
                 // 선택되지 않은 경우
                 val Call2: Call<PairReview> =
                     ApiManager.pairingService.getInfo(
@@ -124,21 +215,10 @@ class PairingResultFragment : BaseFragment<FragmentPairingResultBinding>(R.layou
                         if (response.isSuccessful) {
                             val data = response.body()?.result
                             if (data!=null){
-                                binding.ratingBar.rating=data.averageRating
-                                if (data.hashtags[0]=="null"){
-                                    binding.hashtag1.visibility=View.GONE
-                                    binding.hashtag2.visibility=View.GONE
-                                }
-                                else if (data.hashtags[1]=="null"){
-                                    binding.hashtag1.text="#"+data.hashtags[0]
-                                    binding.hashtag2.visibility=View.GONE
-                                }
-                                else {
-                                    binding.hashtag1.text="#"+data.hashtags[0]
-                                    binding.hashtag2.text="#"+data.hashtags[1]
-                                }
                                 reviewAdapter.reviewList=data.reviewList as ArrayList<Review>
                                 reviewAdapter.notifyDataSetChanged()
+                                pairViewPager.pairingList.clear()
+                                pairViewPager.notifyDataSetChanged()
                             }
                             Log.d("리뷰 목록 조회", data.toString())
                             Log.d("리뷰 목록 조회 서버", response.body()?.result.toString())
@@ -159,19 +239,29 @@ class PairingResultFragment : BaseFragment<FragmentPairingResultBinding>(R.layou
             }
         }
 
-        //리뷰
-        /*val reviewList = arrayListOf(
-            Review(R.drawable.img_profile, "뮤덕 84", 3.5F,"짜릿하다","옥주현 배우와 정선아 배우의 연기가 너무 좋았어요. 다음에 위키드를 관람한다면 두 배우의 호흡을 보고 싶어요!",true,"5" ),
-            Review(R.drawable.img_profile, "금연이", 5F,"소름돋는다","무대를 찢어버리셨다. 역시 손승연 정선아였다.",false,"13" )
-        )*/
+        binding.vp.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
 
+                // position에 해당하는 데이터를 가져와서 리스트를 갱신
+                val selectedPairReview = pairingList[position].reviewList
+
+                // reviewList를 새 데이터로 갱신
+                reviewAdapter.reviewList = selectedPairReview as ArrayList<Review>
+                reviewAdapter.notifyDataSetChanged()
+
+                // 다른 필요한 갱신 작업이 있으면 여기에 추가
+            }
+        })
 
         reviewAdapter = ReviewAdapter(reviewList)
         binding.reviewRv.adapter = reviewAdapter
         binding.reviewRv.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
-
+        pairViewPager = PairingViewPagerAdapter(pairingList) // 어댑터 생성
+        binding.vp.adapter=pairViewPager
+        binding.vp.orientation = ViewPager2.ORIENTATION_HORIZONTAL
 
     }
 
