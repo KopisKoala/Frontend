@@ -34,9 +34,7 @@ class PairingResultFragment : BaseFragment<FragmentPairingResultBinding>(R.layou
     private lateinit var reviewAdapter: ReviewAdapter
     private lateinit var pairViewPager: PairingViewPagerAdapter
     //리뷰
-    val reviewList = arrayListOf<Review>(
-
-    )
+    val reviewList = arrayListOf<Review>()
     val pairingList = arrayListOf(
         PairReviewResult(
             averageRating = 4.5f,

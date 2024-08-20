@@ -11,8 +11,12 @@ import com.example.whashow.R
 import com.example.whashow.base.BaseFragment
 import com.example.whashow.databinding.FragmentMypageBinding
 import com.example.whashow.databinding.FragmentPairingBinding
+import com.example.whashow.databinding.FragmentPerformanceCalendarBinding
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 
 class MypageFragment : BaseFragment<FragmentMypageBinding>(R.layout.fragment_mypage) {
+
     override fun initStartView() {
         super.initStartView()
         //배경 흰색
@@ -30,6 +34,30 @@ class MypageFragment : BaseFragment<FragmentMypageBinding>(R.layout.fragment_myp
         binding.toMember.setOnClickListener {
             (activity as MainActivity).addFragment(MemberInfoFragment())
         }
+
+        binding.tabLayout.addOnTabSelectedListener(object :TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+            }
+
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+            }
+        })
+        // 뷰페이저에 어댑터 연결
+        binding.vp.adapter = MypageVPAdapter(this)
+
+        /* 탭과 뷰페이저를 연결, 여기서 새로운 탭을 다시 만드므로 레이아웃에서 꾸미지말고
+        여기서 꾸며야함
+         */
+        TabLayoutMediator(binding.tabLayout, binding.vp) {tab, position ->
+            when(position) {
+                0 -> tab.text = "공연 달력"
+                1 -> tab.text = "굿즈 상점"
+            }
+        }.attach()
+
     }
 
     override fun initAfterBinding() {
