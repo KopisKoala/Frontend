@@ -42,9 +42,9 @@ class PerformanceCalendarFragment : BaseFragment<FragmentPerformanceCalendarBind
     }
 
     val reviewList = arrayListOf(
-        ReviewX(id = 1, performanceDate = "21", poster = R.drawable.img_poster_small.toString()),
+        ReviewX(id = 1, performanceDate = "4", poster = R.drawable.img_poster_small.toString()),
         ReviewX(id = 2, performanceDate = "22", poster = R.drawable.img_poster_small2.toString()),
-        ReviewX(id = 3, performanceDate = "23", poster = R.drawable.img_poster_small3.toString())
+        ReviewX(id = 3, performanceDate = "26", poster = R.drawable.img_poster_small3.toString())
     )
 
 

@@ -8,7 +8,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/header"
-        android:layout_width="113dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -20,8 +20,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textSize="18sp"
+            android:textSize="17sp"
             android:textColor="@color/black"
+            android:layout_marginStart="10dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -49,70 +50,77 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="일"
-            android:textSize="15sp"
-            android:textColor="#FF0000"/>
+            android:text="SUN"
+            android:textSize="13sp"
+            android:fontFamily="@font/inter_semi_bold"
+            android:textColor="@color/week"/>
 
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="월"
-            android:textColor="@color/black"
-            android:textSize="15sp" />
+            android:text="MON"
+            android:fontFamily="@font/inter_semi_bold"
+            android:textColor="@color/week"
+            android:textSize="13sp" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="화"
-            android:textColor="@color/black"
-            android:textSize="15sp" />
+            android:text="TUE"
+            android:fontFamily="@font/inter_semi_bold"
+            android:textColor="@color/week"
+            android:textSize="13sp" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="수"
-            android:textColor="@color/black"
-            android:textSize="15sp" />
+            android:text="WED"
+            android:fontFamily="@font/inter_semi_bold"
+            android:textColor="@color/week"
+            android:textSize="13sp" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="목"
-            android:textColor="@color/black"
-            android:textSize="15sp" />
+            android:text="THU"
+            android:fontFamily="@font/inter_semi_bold"
+            android:textColor="@color/week"
+            android:textSize="13sp" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="금"
-            android:textColor="@color/black"
-            android:textSize="15sp" />
+            android:text="FRI"
+            android:fontFamily="@font/inter_semi_bold"
+            android:textColor="@color/week"
+            android:textSize="13sp" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="토"
-            android:textSize="15sp"
-            android:textColor="#0000FF"/>
+            android:text="SAT"
+            android:fontFamily="@font/inter_semi_bold"
+            android:textSize="13sp"
+            android:textColor="@color/week"/>
     </LinearLayout>
     <!--달력뷰-->
 
     <!-- 요일이 보여질 리사이클러뷰-->
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="440dp"
+        android:layout_height="400dp"
         android:id="@+id/month_recycler"
         tools:listitem="@layout/day_item"
         app:layout_constraintTop_toBottomOf="@id/month_layout">
