@@ -47,6 +47,7 @@ class MypageFragment : BaseFragment<FragmentMypageBinding>(R.layout.fragment_myp
         })
         // 뷰페이저에 어댑터 연결
         binding.vp.adapter = MypageVPAdapter(this)
+        binding.vp.isUserInputEnabled=false
 
         /* 탭과 뷰페이저를 연결, 여기서 새로운 탭을 다시 만드므로 레이아웃에서 꾸미지말고
         여기서 꾸며야함
