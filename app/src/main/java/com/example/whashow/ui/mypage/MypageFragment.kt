@@ -11,19 +11,21 @@ class MypageFragment : BaseFragment<FragmentMypageBinding>(R.layout.fragment_myp
 
     override fun initStartView() {
         super.initStartView()
-        (activity as MainActivity).binding.mainTitle.text="마이"
+        (activity as MainActivity).binding.mainTitle.text = "마이"
         (activity as MainActivity).ShowTitle()
-        (activity as MainActivity).binding.navigationMain.visibility=View.VISIBLE
+        (activity as MainActivity).binding.navigationMain.visibility = View.VISIBLE
     }
 
     override fun initDataBinding() {
         super.initDataBinding()
+
         binding.btnEnterChats.setOnClickListener {
             (activity as? MainActivity)?.addFragment(MychatsFragment())
         }
 
-
-
+        binding.toMember.setOnClickListener {
+            (activity as MainActivity).addFragment(MemberInfoFragment())
+        }
     }
 
     override fun initAfterBinding() {

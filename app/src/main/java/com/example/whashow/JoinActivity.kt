@@ -108,36 +108,17 @@ class JoinActivity: AppCompatActivity() {
                                 val data = response.body()?.result
                                 LocalDataSource.setAccessToken(data!!.accessToken)
                                 LocalDataSource.setRefreshToken(data!!.refreshToken)
+                                if (data.signIn=="wasUser"){
+                                    val intent = Intent(this@JoinActivity, MainActivity::class.java)
+                                    startActivity(intent)
+                                    finish()
+                                }
+                                else if (data.signIn=="newUser"){
+                                    val intent = Intent(this@JoinActivity, WriteNicknameActivity::class.java)
+                                    startActivity(intent)
+                                    finish()
+                                }
                                 Log.d("로그인 토큰 서버", LocalDataSource.getAccessToken().toString())
-
-                                val Call2: Call<getNickname> =
-                                    ApiManager.loginService.getNickname(
-                                        "Bearer "+LocalDataSource.getAccessToken()!!,getNicknameRequest("뮤덕"))
-
-                                // 비동기적으로 요청 수행
-                                Call2.enqueue(object : Callback<getNickname> {
-                                    override fun onResponse(
-                                        call: Call<getNickname>,
-                                        response: Response<getNickname>
-                                    ) {
-                                        if (response.isSuccessful) {
-                                            val data = response.body()?.result.toString()
-                                            Log.d("닉네임", data)
-                                            Log.d("닉네임 서버", response.body()?.result.toString())
-
-                                        } else {
-                                            // 서버에서 오류 응답을 받은 경우 처리
-                                            Log.d("닉네임 서버", response.toString())
-                                        }
-
-                                    }
-
-                                    override fun onFailure(call: Call<getNickname>, t: Throwable) {
-                                        // 통신 실패 처리
-                                        Log.d("닉네임 서버", t.message.toString())
-                                    }
-
-                                })
 
                             } else {
                                 // 서버에서 오류 응답을 받은 경우 처리
@@ -154,10 +135,6 @@ class JoinActivity: AppCompatActivity() {
                     })
 
 
-
-                    val intent = Intent(this@JoinActivity, MainActivity::class.java)
-                    startActivity(intent)
-                    finish()
                 }
 
 

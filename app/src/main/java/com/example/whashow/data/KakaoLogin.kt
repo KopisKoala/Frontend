@@ -13,5 +13,5 @@ data class KakaoLogin(
     @SerialName("message")
     val message: String,
     @SerialName("result")
-    val result: Result
+    val result: KakaoLoginResult
 )

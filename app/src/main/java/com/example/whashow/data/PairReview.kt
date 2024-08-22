@@ -5,7 +5,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class Reissue(
+data class PairReview(
     @SerialName("code")
     val code: String,
     @SerialName("isSuccess")
@@ -13,5 +13,5 @@ data class Reissue(
     @SerialName("message")
     val message: String,
     @SerialName("result")
-    val result: ReissueResult
+    val result: PairReviewResult
 )

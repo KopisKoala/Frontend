@@ -2,6 +2,8 @@ package com.example.whashow.apiManager
 
 import com.example.whashow.BuildConfig
 import com.example.whashow.api.LoginService
+import com.example.whashow.api.MypageService
+import com.example.whashow.api.PairingService
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
@@ -40,5 +42,6 @@ object ApiManager {
     }
 
     val loginService: LoginService = retrofit.create(LoginService::class.java)
-
+    val mypageService: MypageService = retrofit.create(MypageService::class.java)
+    val pairingService: PairingService = retrofit.create(PairingService::class.java)
 }

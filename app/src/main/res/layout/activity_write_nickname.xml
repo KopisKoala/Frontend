@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/sv_1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:scrollbars="none"
+    android:background="@color/white">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="800dp"
+            android:background="@color/white">
+
+            <ImageView
+                android:id="@+id/logo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/logo"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="309dp"
+                />
+            <TextView
+                android:id="@+id/write_nickname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16dp"
+                android:text="닉네임을 입력해주세요."
+                android:textColor="@color/black"
+                app:layout_constraintTop_toBottomOf="@id/logo"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="66dp"
+                android:fontFamily="@font/inter_medium"
+                />
+            <EditText
+                android:id="@+id/edit_text"
+                android:layout_width="244dp"
+                android:layout_height="48dp"
+                android:background="@drawable/background_no_corner_rectangle"
+                app:layout_constraintTop_toBottomOf="@id/write_nickname"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="18dp"
+                android:textSize="16sp"
+                android:hint="뮤덕 84, 금연이 .."
+                android:paddingStart="15dp"
+                />
+            <ImageView
+                android:id="@+id/btn_start"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/btn_start"
+                app:layout_constraintTop_toBottomOf="@id/edit_text"
+                android:layout_marginTop="90dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="60dp"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </RelativeLayout>
+</ScrollView>
