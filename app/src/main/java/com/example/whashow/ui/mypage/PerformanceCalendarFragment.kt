@@ -59,7 +59,41 @@ class PerformanceCalendarFragment : BaseFragment<FragmentPerformanceCalendarBind
         val snap=PagerSnapHelper()
         snap.attachToRecyclerView(binding.calRecycler)
 
+        //리뷰
+        binding.plus1.setOnClickListener {
+            binding.plus1.visibility=View.GONE
+            binding.togle1.visibility=View.VISIBLE
+            binding.reviewDetail.visibility=View.VISIBLE
+        }
+        binding.togle1.setOnClickListener {
+            binding.togle1.visibility=View.GONE
+            binding.plus1.visibility=View.VISIBLE
+            binding.reviewDetail.visibility=View.GONE
+        }
 
+        //함께 본사람
+        binding.plus2.setOnClickListener {
+            binding.plus2.visibility=View.GONE
+            binding.togle2.visibility=View.VISIBLE
+            binding.peopleDetail.visibility=View.VISIBLE
+        }
+        binding.togle2.setOnClickListener {
+            binding.togle2.visibility=View.GONE
+            binding.plus2.visibility=View.VISIBLE
+            binding.peopleDetail.visibility=View.GONE
+        }
+
+        //메모
+        binding.plus3.setOnClickListener {
+            binding.plus3.visibility=View.GONE
+            binding.togle3.visibility=View.VISIBLE
+            binding.memoDetail.visibility=View.VISIBLE
+        }
+        binding.togle3.setOnClickListener {
+            binding.togle3.visibility=View.GONE
+            binding.plus3.visibility=View.VISIBLE
+            binding.memoDetail.visibility=View.GONE
+        }
 
     }
 
