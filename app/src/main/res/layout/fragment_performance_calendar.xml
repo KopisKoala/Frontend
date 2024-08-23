@@ -22,7 +22,6 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/cal_recycler"
                     android:layout_width="match_parent"
@@ -406,7 +405,8 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:orientation="horizontal"
-                                    android:layout_marginBottom="10dp">
+                                    android:layout_marginBottom="10dp"
+                                    >
 
                                         <androidx.constraintlayout.widget.ConstraintLayout
                                             android:layout_width="wrap_content"
@@ -419,7 +419,7 @@
                                                     android:text="가족과 행복하게"
                                                     android:fontFamily="@font/inter_semi_bold"
                                                     android:textSize="11sp"
-                                                    android:textColor="#7A3E65"
+                                                    android:textColor="@color/select_cal"
                                                     android:paddingStart="15dp"
                                                     android:paddingEnd="38dp"
                                                     android:paddingTop="7dp"
@@ -440,13 +440,15 @@
                                                     android:layout_marginEnd="9dp"
                                                     />
                                                 <ImageView
+                                                    android:id="@+id/ic_family"
                                                     android:layout_width="wrap_content"
                                                     android:layout_height="wrap_content"
-                                                    android:src="@drawable/ic_family"
+                                                    android:src="@drawable/selector_cal_family"
                                                     app:layout_constraintEnd_toEndOf="@id/tag_text"
                                                     app:layout_constraintTop_toTopOf="@id/tag_text"
                                                     app:layout_constraintBottom_toBottomOf="@id/tag_text"
                                                     android:layout_marginEnd="15dp"
+                                                    android:visibility="visible"
                                                     />
 
                                         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -461,7 +463,7 @@
                                                     android:text="친구와 즐겁게"
                                                     android:fontFamily="@font/inter_semi_bold"
                                                     android:textSize="11sp"
-                                                    android:textColor="#7A3E65"
+                                                    android:textColor="@color/select_cal"
                                                     android:paddingStart="15dp"
                                                     android:paddingEnd="38dp"
                                                     android:paddingTop="7dp"
@@ -482,9 +484,10 @@
                                                     android:layout_marginEnd="9dp"
                                                     />
                                                 <ImageView
+                                                    android:id="@+id/ic_smile"
                                                     android:layout_width="wrap_content"
                                                     android:layout_height="wrap_content"
-                                                    android:src="@drawable/ic_smile"
+                                                    android:src="@drawable/selector_cal_smile"
                                                     app:layout_constraintEnd_toEndOf="@id/tag_text2"
                                                     app:layout_constraintTop_toTopOf="@id/tag_text2"
                                                     app:layout_constraintBottom_toBottomOf="@id/tag_text2"
@@ -503,7 +506,7 @@
                                                     android:text="연인과 오붓하게"
                                                     android:fontFamily="@font/inter_semi_bold"
                                                     android:textSize="11sp"
-                                                    android:textColor="#7A3E65"
+                                                    android:textColor="@color/select_cal"
                                                     android:paddingStart="15dp"
                                                     android:paddingEnd="38dp"
                                                     android:paddingTop="7dp"
@@ -524,9 +527,10 @@
                                                     android:layout_marginEnd="9dp"
                                                     />
                                                 <ImageView
+                                                    android:id="@+id/ic_heart"
                                                     android:layout_width="wrap_content"
                                                     android:layout_height="wrap_content"
-                                                    android:src="@drawable/ic_cal_heart"
+                                                    android:src="@drawable/selector_cal_heart"
                                                     app:layout_constraintEnd_toEndOf="@id/tag_text3"
                                                     app:layout_constraintTop_toTopOf="@id/tag_text3"
                                                     app:layout_constraintBottom_toBottomOf="@id/tag_text3"
@@ -546,7 +550,7 @@
                                                     android:text="혼자 낭만있게"
                                                     android:fontFamily="@font/inter_semi_bold"
                                                     android:textSize="11sp"
-                                                    android:textColor="#7A3E65"
+                                                    android:textColor="@color/select_cal"
                                                     android:paddingStart="15dp"
                                                     android:paddingEnd="38dp"
                                                     android:paddingTop="7dp"
@@ -568,6 +572,7 @@
                                                     android:layout_marginEnd="9dp"
                                                     />
                                                 <ImageView
+                                                    android:id="@+id/ic_city"
                                                     android:layout_width="wrap_content"
                                                     android:layout_height="wrap_content"
                                                     android:src="@drawable/ic_city"
@@ -657,21 +662,38 @@
                             android:background="@drawable/review_corner_rectangle"
                             android:visibility="gone"
                             >
-                                <EditText
-                                    android:id="@+id/memo_context"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintEnd_toEndOf="parent"
-                                    app:layout_constraintTop_toTopOf="parent"
-                                    app:layout_constraintBottom_toBottomOf="parent"
-                                    android:text="옥주현 배우와 정선아 배우의 연기가 너무 좋았어요. 다음에 위키드를 관람한다면 두 배우의 호흡을 보고 싶어요!"
-                                    android:padding="10dp"
-                                    android:textSize="12sp"
-                                    android:textColor="#B3000000"
-                                    android:focusableInTouchMode="false"
-                                    android:background="@null"
-                                    />
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:orientation="vertical">
+                                        <EditText
+                                            android:id="@+id/memo_context"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            app:layout_constraintStart_toStartOf="parent"
+                                            app:layout_constraintEnd_toEndOf="parent"
+                                            app:layout_constraintTop_toTopOf="parent"
+                                            app:layout_constraintBottom_toBottomOf="parent"
+                                            android:text="옥주현 배우와 정선아 배우의 연기가 너무 좋았어요. 다음에 위키드를 관람한다면 두 배우의 호흡을 보고 싶어요!"
+                                            android:padding="10dp"
+                                            android:textSize="12sp"
+                                            android:textColor="#B3000000"
+                                            android:focusableInTouchMode="false"
+                                            android:background="@null"
+                                            />
+                                        <TextView
+                                            android:id="@+id/edit"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="end"
+                                            android:text="수정"
+                                            android:layout_marginEnd="10dp"
+                                            android:layout_marginBottom="10dp"
+                                            android:fontFamily="@font/inter_semi_bold"
+                                            android:textSize="12sp"
+                                            android:textColor="@color/purple"/>
+                                </LinearLayout>
+
 
 
                         </androidx.constraintlayout.widget.ConstraintLayout>

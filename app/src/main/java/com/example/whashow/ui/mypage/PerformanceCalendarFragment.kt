@@ -95,6 +95,23 @@ class PerformanceCalendarFragment : BaseFragment<FragmentPerformanceCalendarBind
             binding.memoDetail.visibility=View.GONE
         }
 
+        binding.tagText.setOnClickListener {
+            binding.tagText.isSelected=!binding.tagText.isSelected
+            binding.icFamily.isSelected=!binding.icFamily.isSelected
+        }
+        binding.tagText2.setOnClickListener {
+            binding.tagText2.isSelected=!binding.tagText2.isSelected
+            binding.icSmile.isSelected=!binding.icSmile.isSelected
+        }
+        binding.tagText3.setOnClickListener {
+            binding.tagText3.isSelected=!binding.tagText3.isSelected
+            binding.icHeart.isSelected=!binding.icHeart.isSelected
+        }
+        binding.tagText4.setOnClickListener {
+            binding.tagText4.isSelected=!binding.tagText4.isSelected
+            binding.icFamily.isSelected=!binding.icFamily.isSelected
+        }
+
     }
 
 
