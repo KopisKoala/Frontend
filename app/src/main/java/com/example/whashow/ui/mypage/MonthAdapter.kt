@@ -21,6 +21,7 @@ class MonthAdapter(var list:ArrayList<ReviewX>) : RecyclerView.Adapter<MonthAdap
             notifyDataSetChanged()
         }
     var calendar: Calendar = Calendar.getInstance()
+    private lateinit var dayAdapter:DayAdapter
 
     interface MyItemClickListener{
         fun onBtnClick(isNext:Boolean, position: Int)
@@ -66,6 +67,7 @@ class MonthAdapter(var list:ArrayList<ReviewX>) : RecyclerView.Adapter<MonthAdap
         calendar.set(Calendar.DAY_OF_MONTH,1) //스크롤시 현재 월의 1일로 이동
         calendar.add(Calendar.MONTH , position) //스크롤시 포지션 만큼 달이동
 
+
         //현재 날짜 출력
         holder.title.setText("${calendar.get(Calendar.YEAR)}년 ${calendar.get(Calendar.MONTH) + 1}월")
 
@@ -87,7 +89,9 @@ class MonthAdapter(var list:ArrayList<ReviewX>) : RecyclerView.Adapter<MonthAdap
         }
 
         holder.monthRV.layoutManager = GridLayoutManager(holder.itemView.context,7)
-        holder.monthRV.adapter = DayAdapter(tempMonth,dayList,reviewlist)
+        dayAdapter= DayAdapter(tempMonth,dayList,calendar)
+        holder.monthRV.adapter =dayAdapter
+        dayAdapter.notifyDataSetChanged()
     }
 
 

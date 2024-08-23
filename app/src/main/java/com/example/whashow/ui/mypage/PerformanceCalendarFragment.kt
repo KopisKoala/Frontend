@@ -51,6 +51,7 @@ class PerformanceCalendarFragment : BaseFragment<FragmentPerformanceCalendarBind
     override fun initDataBinding() {
         super.initDataBinding()
 
+
         monthAdapter=MonthAdapter(reviewList)
         binding.calRecycler.layoutManager=LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false)
         binding.calRecycler.adapter=monthAdapter
