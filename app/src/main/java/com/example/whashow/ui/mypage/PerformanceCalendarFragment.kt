@@ -1,5 +1,6 @@
 package com.example.whashow.ui.mypage
 
+import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Context
 import android.graphics.Color
@@ -59,6 +60,7 @@ class PerformanceCalendarFragment : BaseFragment<FragmentPerformanceCalendarBind
         monthAdapter.setMyItemClickListener(object:MonthAdapter.MyItemClickListener{
             override fun onBtnClick(id: String) {
 
+                binding.calendarDetail.visibility=View.VISIBLE
                 //함꼐 본 사람 수정
                 binding.tagText.setOnClickListener {
                     /*binding.tagText.isSelected=!binding.tagText.isSelected
@@ -118,6 +120,7 @@ class PerformanceCalendarFragment : BaseFragment<FragmentPerformanceCalendarBind
                     )
                 // 비동기적으로 요청 수행
                 Call2.enqueue(object : Callback<CalendarDayReview> {
+                    @SuppressLint("SetTextI18n")
                     override fun onResponse(
                         call: Call<CalendarDayReview>,
                         response: Response<CalendarDayReview>
@@ -133,6 +136,7 @@ class PerformanceCalendarFragment : BaseFragment<FragmentPerformanceCalendarBind
                                     .error(R.drawable.img_poster_small) // 이미지 로딩 실패 시 표시될 이미지
                                     .into(binding.imgPoster)
 
+                                binding.paringFeature.text="#"+data.hashtag
                                 binding.performanceDate.text=data.performanceDate
                                 binding.posterTitle.text=data.performanceName
                                 if (data.performanceType=="MUSICAL"){

@@ -30,6 +30,8 @@
 
                 </androidx.recyclerview.widget.RecyclerView>
                 <LinearLayout
+                    android:id="@+id/calendar_detail"
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
@@ -676,7 +678,22 @@
                                             app:layout_constraintEnd_toEndOf="parent"
                                             app:layout_constraintTop_toTopOf="parent"
                                             app:layout_constraintBottom_toBottomOf="parent"
-                                            android:hint="메모를 추가해주세요."
+                                            android:hint="메모를 추가해보세요!"
+                                            android:padding="10dp"
+                                            android:textSize="12sp"
+                                            android:textColor="#B3000000"
+                                            android:focusableInTouchMode="false"
+                                            android:background="@null"
+                                            />
+                                        <TextView
+                                            android:id="@+id/memo_result"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:visibility="gone"
+                                            app:layout_constraintStart_toStartOf="parent"
+                                            app:layout_constraintEnd_toEndOf="parent"
+                                            app:layout_constraintTop_toTopOf="parent"
+                                            app:layout_constraintBottom_toBottomOf="parent"
                                             android:padding="10dp"
                                             android:textSize="12sp"
                                             android:textColor="#B3000000"
@@ -694,6 +711,7 @@
                                             android:fontFamily="@font/inter_semi_bold"
                                             android:textSize="12sp"
                                             android:textColor="@color/purple"/>
+
                                 </LinearLayout>
 
 

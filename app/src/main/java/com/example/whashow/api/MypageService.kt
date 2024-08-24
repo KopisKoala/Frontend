@@ -6,6 +6,7 @@ import com.example.whashow.data.CalendarMonth
 import com.example.whashow.data.Info
 import com.example.whashow.data.KakaoLogin
 import com.example.whashow.data.KakaoLoginRequest
+import com.example.whashow.data.MemoRequestBody
 import com.example.whashow.data.Partner
 import com.example.whashow.data.changeProfileRequestBody
 import okhttp3.MultipartBody
@@ -15,6 +16,7 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Multipart
+import retrofit2.http.PATCH
 import retrofit2.http.POST
 import retrofit2.http.Part
 import retrofit2.http.Path
@@ -30,8 +32,9 @@ interface MypageService {
     fun getMonthReview(@Header("Authorization") accessToken:String, @Query("month") month: String): Call<CalendarMonth>
     @GET("/review/myPage/review/{review-id}")
     fun getDayReview(@Header("Authorization") accessToken:String, @Path("review-id") reviewId: String): Call<CalendarDayReview>
-    @GET("/review/myPage/viewingPartner/update/{review-id}")
+    @PATCH("/review/myPage/viewingPartner/update/{review-id}")
     fun getPartner(@Header("Authorization") accessToken:String, @Path("review-id") reviewId: String, @Query("partnerNumber") partner: Int): Call<Partner>
-
+    @GET("/review/myPage/memo/update/{review-id}")
+    fun addReviewMemo(@Header("Authorization") accessToken:String, @Path("review-id") reviewId: String,@Body requestBody: MemoRequestBody): Call<CalendarDayReview>
 
 }
