@@ -1,5 +1,11 @@
 package com.example.whashow.ui.recommand
 
+import android.graphics.Color
+import android.graphics.ColorFilter
+import android.graphics.PorterDuff
+import android.os.Bundle
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
@@ -20,6 +26,9 @@ class RecommandResultFragment : BaseFragment<FragmentRecommandResultBinding>(R.l
     private lateinit var tagListAdapter: TagAdapter
     override fun initStartView() {
         super.initStartView()
+        (activity as MainActivity).binding.toolbar.setBackgroundColor(Color.WHITE)
+        (activity as MainActivity).binding.btnBack.setImageResource(R.drawable.btn_back)
+        (activity as MainActivity).binding.backTitle.setTextColor(Color.BLACK)
         (activity as MainActivity).binding.backTitle.text="공연 추천"
         (activity as MainActivity).ShowBackandTitle()
         (activity as MainActivity).binding.navigationMain.visibility=View.GONE
@@ -27,7 +36,7 @@ class RecommandResultFragment : BaseFragment<FragmentRecommandResultBinding>(R.l
 
     override fun initDataBinding() {
         super.initDataBinding()
-        // 위젯 사용 시
+
         binding.search.isSubmitButtonEnabled = true
         binding.search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {

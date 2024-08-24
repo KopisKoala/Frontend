@@ -7,7 +7,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class PairReviewResult(
     @SerialName("averageRating")
-    val averageRating: Int,
+    val averageRating: Float,
     @SerialName("hashtags")
     val hashtags: List<String>,
     @SerialName("reviewCount")

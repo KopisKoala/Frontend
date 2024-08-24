@@ -2,9 +2,15 @@ package com.example.whashow.ui.recommand
 
 import android.content.ContentValues.TAG
 import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.Drawable
+import android.os.Bundle
 import android.text.style.ForegroundColorSpan
 import android.util.Log
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.Spinner
 import androidx.core.content.ContextCompat
@@ -12,9 +18,19 @@ import com.example.whashow.MainActivity
 import com.example.whashow.R
 import com.example.whashow.base.BaseFragment
 import com.example.whashow.databinding.FragmentDayandPlaceBinding
+import com.example.whashow.databinding.FragmentGenreBinding
+import androidx.core.util.Pair
+import com.example.whashow.databinding.ItemSpinnerRecommandSpaceBinding
+import com.google.android.material.datepicker.MaterialDatePicker
+import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener
 import com.prolificinteractive.materialcalendarview.CalendarDay
+import com.prolificinteractive.materialcalendarview.DayViewDecorator
 import com.prolificinteractive.materialcalendarview.DayViewFacade
 import com.prolificinteractive.materialcalendarview.format.ArrayWeekDayFormatter
+import org.threeten.bp.DayOfWeek
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Calendar.getInstance
 
 class DayandPlaceFragment : BaseFragment<FragmentDayandPlaceBinding>(R.layout.fragment_dayand_place) {
     override fun initStartView() {
@@ -116,8 +132,7 @@ class DayandPlaceFragment : BaseFragment<FragmentDayandPlaceBinding>(R.layout.fr
 
     }
     /* 선택된 날짜의 background를 설정하는 클래스 */
-    private inner class DayDecorator(context: Context) :
-        com.prolificinteractive.materialcalendarview.DayViewDecorator {
+    private inner class DayDecorator(context: Context) : DayViewDecorator {
         private val drawable = ContextCompat.getDrawable(context,R.drawable.calender_selector)
         // true를 리턴 시 모든 요일에 내가 설정한 드로어블이 적용된다
         override fun shouldDecorate(day: CalendarDay): Boolean {
@@ -143,8 +158,7 @@ class DayandPlaceFragment : BaseFragment<FragmentDayandPlaceBinding>(R.layout.fr
     }*/
 
     /* 이번달에 속하지 않지만 캘린더에 보여지는 이전달/다음달의 일부 날짜를 설정하는 클래스 */
-    private inner class SelectedMonthDecorator(val selectedMonth : Int) :
-        com.prolificinteractive.materialcalendarview.DayViewDecorator {
+    private inner class SelectedMonthDecorator(val selectedMonth : Int) : DayViewDecorator {
         override fun shouldDecorate(day: CalendarDay): Boolean {
             return day.month != selectedMonth
         }

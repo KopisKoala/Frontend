@@ -15,8 +15,12 @@ import com.example.whashow.databinding.FragmentGenreBinding
 class GenreFragment : BaseFragment<FragmentGenreBinding>(R.layout.fragment_genre) {
     override fun initStartView() {
         super.initStartView()
-        (activity as MainActivity).binding.backTitle.text="추천"
+        //배경 검은색
+        (activity as MainActivity).binding.toolbar.setBackgroundColor(Color.BLACK)
+        (activity as MainActivity).binding.btnBack.setImageResource(R.drawable.btn_back_white)
         (activity as MainActivity).binding.backTitle.setTextColor(Color.WHITE)
+
+        (activity as MainActivity).binding.backTitle.text="추천"
         (activity as MainActivity).ShowBackandTitle()
         (activity as MainActivity).binding.navigationMain.visibility=View.GONE
     }
@@ -33,7 +37,7 @@ class GenreFragment : BaseFragment<FragmentGenreBinding>(R.layout.fragment_genre
 
     override fun initAfterBinding() {
         super.initAfterBinding()
-        (activity as MainActivity).binding.backTitle.setTextColor(Color.BLACK)
+
 
     }
 }

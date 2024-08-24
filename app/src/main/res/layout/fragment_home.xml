@@ -24,8 +24,7 @@
                     android:id="@+id/viewpager_banner"
                     android:layout_width="match_parent"
                     android:layout_height="500dp"
-                    android:orientation="horizontal"
-                    tools:ignore="MissingConstraints" />
+                    android:orientation="horizontal" />
 
                 <TextView
                     android:id="@+id/popular_title"

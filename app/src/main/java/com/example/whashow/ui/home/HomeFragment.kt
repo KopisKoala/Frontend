@@ -1,5 +1,6 @@
 package com.example.whashow.ui.home
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -54,6 +55,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
     override fun initStartView() {
         super.initStartView()
+        //배경 흰색
+        (activity as MainActivity).binding.toolbar.setBackgroundColor(Color.WHITE)
+        (activity as MainActivity).binding.btnBack.setImageResource(R.drawable.btn_back)
+        (activity as MainActivity).binding.backTitle.setTextColor(Color.BLACK)
+
         (activity as MainActivity).ShowLogoAndSearch()
     }
 
