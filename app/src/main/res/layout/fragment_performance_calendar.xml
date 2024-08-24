@@ -112,6 +112,7 @@
                                                     app:layout_constraintTop_toTopOf="parent"
                                                     />
                                                 <TextView
+                                                    android:id="@+id/performance_date"
                                                     android:layout_width="wrap_content"
                                                     android:layout_height="wrap_content"
                                                     app:layout_constraintEnd_toEndOf="parent"
@@ -129,7 +130,7 @@
                                             android:layout_marginTop="13dp"
                                             >
                                                 <TextView
-                                                    android:id="@+id/performance_rating"
+                                                    android:id="@+id/performance_rating_txt"
                                                     android:layout_width="wrap_content"
                                                     android:layout_height="wrap_content"
                                                     android:text="관람 만족도"
@@ -140,7 +141,7 @@
                                                     app:layout_constraintTop_toTopOf="parent"
                                                     />
                                                 <RatingBar
-                                                    android:id="@+id/ratingBar"
+                                                    android:id="@+id/performance_rating"
                                                     android:layout_width="wrap_content"
                                                     android:layout_height="wrap_content"
                                                     android:isIndicator="false"
@@ -161,7 +162,7 @@
                                             android:layout_marginTop="13dp"
                                             >
                                                 <TextView
-                                                    android:id="@+id/pair_rating"
+                                                    android:id="@+id/pair_rating_txt"
                                                     android:layout_width="wrap_content"
                                                     android:layout_height="wrap_content"
                                                     android:text="페어 만족도"
@@ -172,7 +173,7 @@
                                                     app:layout_constraintTop_toTopOf="parent"
                                                     />
                                                 <RatingBar
-                                                    android:id="@+id/ratingBar2"
+                                                    android:id="@+id/pair_rating"
                                                     android:layout_width="wrap_content"
                                                     android:layout_height="wrap_content"
                                                     android:isIndicator="false"
@@ -283,6 +284,7 @@
                                             android:paddingBottom="7dp"
                                             />
                                         <TextView
+                                            android:id="@+id/review_pair"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:text="손승연 나하나"
@@ -674,7 +676,7 @@
                                             app:layout_constraintEnd_toEndOf="parent"
                                             app:layout_constraintTop_toTopOf="parent"
                                             app:layout_constraintBottom_toBottomOf="parent"
-                                            android:text="옥주현 배우와 정선아 배우의 연기가 너무 좋았어요. 다음에 위키드를 관람한다면 두 배우의 호흡을 보고 싶어요!"
+                                            android:hint="메모를 추가해주세요."
                                             android:padding="10dp"
                                             android:textSize="12sp"
                                             android:textColor="#B3000000"

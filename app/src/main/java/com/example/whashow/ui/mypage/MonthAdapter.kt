@@ -24,7 +24,7 @@ class MonthAdapter(var list:ArrayList<ReviewX>) : RecyclerView.Adapter<MonthAdap
     private lateinit var dayAdapter:DayAdapter
 
     interface MyItemClickListener{
-        fun onBtnClick(isNext:Boolean, position: Int)
+        fun onBtnClick(id:String)
 
     }
 
@@ -90,12 +90,15 @@ class MonthAdapter(var list:ArrayList<ReviewX>) : RecyclerView.Adapter<MonthAdap
 
         holder.monthRV.layoutManager = GridLayoutManager(holder.itemView.context,7)
         dayAdapter= DayAdapter(tempMonth,dayList,calendar)
+        dayAdapter.setMyItemClickListener(object:DayAdapter.MyItemClickListener{
+            override fun onBtnClick(id: String) {
+                myItemClickListener.onBtnClick(id)
+            }
+
+        })
         holder.monthRV.adapter =dayAdapter
         dayAdapter.notifyDataSetChanged()
     }
-
-
-
 
     override fun getItemCount(): Int {
         return Int.MAX_VALUE / 2

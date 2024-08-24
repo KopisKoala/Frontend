@@ -14,6 +14,7 @@ import com.example.whashow.databinding.FragmentPairingBinding
 import com.example.whashow.databinding.FragmentPerformanceCalendarBinding
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import java.util.Calendar
 
 class MypageFragment : BaseFragment<FragmentMypageBinding>(R.layout.fragment_mypage) {
 
@@ -45,6 +46,7 @@ class MypageFragment : BaseFragment<FragmentMypageBinding>(R.layout.fragment_myp
             override fun onTabReselected(tab: TabLayout.Tab?) {
             }
         })
+
         // 뷰페이저에 어댑터 연결
         binding.vp.adapter = MypageVPAdapter(this)
         binding.vp.isUserInputEnabled=false
