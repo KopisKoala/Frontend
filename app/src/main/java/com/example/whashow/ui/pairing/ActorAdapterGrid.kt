@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.whashow.databinding.ListGridPairingBinding
 import com.example.whashow.databinding.ListGridRecommandItemBinding
-import com.example.whashow.ui.recommand.RecommandAdapterGrid
 import com.example.whashow.ui.recommand.RecommandResult
 
 class ActorAdapterGrid (var list: ArrayList<Actor>): RecyclerView.Adapter<ActorAdapterGrid.ActorViewHolder>() {

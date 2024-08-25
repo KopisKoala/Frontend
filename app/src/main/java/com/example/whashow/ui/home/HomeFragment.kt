@@ -59,7 +59,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         (activity as MainActivity).binding.toolbar.setBackgroundColor(Color.WHITE)
         (activity as MainActivity).binding.btnBack.setImageResource(R.drawable.btn_back)
         (activity as MainActivity).binding.backTitle.setTextColor(Color.BLACK)
-
         (activity as MainActivity).ShowLogoAndSearch()
     }
 

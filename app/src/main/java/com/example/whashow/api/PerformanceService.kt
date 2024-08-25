@@ -7,6 +7,8 @@ import retrofit2.http.Header
 import retrofit2.http.Path
 
 interface PerformanceService {
+
+
     @GET("/performance/detail/{performance-id}")
     fun getDetailInfo(@Header("Authorization") accessToken:String, @Path("performance-id") performanceId: Int
     ): Call<PerformanceDetailResponse>

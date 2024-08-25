@@ -1,6 +1,7 @@
 package com.example.whashow.api
 
 import com.example.whashow.data.AddProfile
+import com.example.whashow.data.CalendarMonth
 import com.example.whashow.data.Info
 import com.example.whashow.data.KakaoLogin
 import com.example.whashow.data.KakaoLoginRequest
@@ -22,5 +23,7 @@ interface MypageService {
     fun changeProfile(@Header("Authorization") accessToken:String,@Part image:MultipartBody.Part): Call<AddProfile>
     @GET("/users/info")
     fun getInfo(@Header("Authorization") accessToken:String): Call<Info>
+    @GET("/review/myPage/reviews")
+    fun getMonthReview(@Header("Authorization") accessToken:String, @Query("month") month: String): Call<CalendarMonth>
 
 }
