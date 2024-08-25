@@ -8,6 +8,7 @@ import com.example.whashow.data.Info
 import com.example.whashow.data.KakaoLogin
 import com.example.whashow.data.KakaoLoginRequest
 import com.example.whashow.data.MemoRequestBody
+import com.example.whashow.data.MyActor
 import com.example.whashow.data.Partner
 import com.example.whashow.data.changeProfileRequestBody
 import okhttp3.MultipartBody
@@ -39,5 +40,7 @@ interface MypageService {
     fun addReviewMemo(@Header("Authorization") accessToken:String, @Path("review-id") reviewId: String,@Body requestBody: MemoRequestBody): Call<CalendarDayReview>
     @GET("/goods/goods/list/all")
     fun getGoodsList(@Header("Authorization") accessToken:String): Call<Goods>
+    @GET("/favorite/actor/list")
+    fun getMyActorList(@Header("Authorization") accessToken:String,@Query("ScrollPosition") position: Int,@Query("FetchSize") size: Int): Call<MyActor>
 
 }
