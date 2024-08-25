@@ -9,7 +9,8 @@ class MypageVPAdapter (fragment : Fragment) : FragmentStateAdapter(fragment){
     override fun createFragment(position: Int): Fragment {
         return when (position) {
             0 -> PerformanceCalendarFragment()
-            else -> GoodsStoreFragment()
+            1 -> GoodsStoreFragment()
+            else -> MyActorFragment()
         }
     }
 }
