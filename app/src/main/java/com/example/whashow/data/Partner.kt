@@ -13,5 +13,5 @@ data class Partner(
     @SerialName("message")
     val message: String,
     @SerialName("result")
-    val result: Boolean
+    val result: String
 )

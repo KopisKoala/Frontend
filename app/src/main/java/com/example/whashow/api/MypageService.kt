@@ -6,14 +6,10 @@ import com.example.whashow.data.CalendarMonth
 import com.example.whashow.data.DeleteMyActor
 import com.example.whashow.data.Goods
 import com.example.whashow.data.Info
-import com.example.whashow.data.KakaoLogin
-import com.example.whashow.data.KakaoLoginRequest
 import com.example.whashow.data.MemoRequestBody
 import com.example.whashow.data.MyActor
 import com.example.whashow.data.Partner
-import com.example.whashow.data.changeProfileRequestBody
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.DELETE
