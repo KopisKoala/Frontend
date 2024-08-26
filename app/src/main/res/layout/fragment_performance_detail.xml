@@ -16,7 +16,7 @@
             <ImageView
                 android:id="@+id/iv_item"
                 android:layout_width="match_parent"
-                android:layout_height="500dp"
+                android:layout_height="440dp"
                 android:scaleType="fitXY"
                 android:src="@drawable/img_detail"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -27,26 +27,36 @@
                 android:id="@+id/tb_detail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/iv_item"
-                app:tabRippleColor="#00ff0000"
-                app:tabTextColor="@color/black"
                 app:tabGravity="fill"
                 app:tabMode="fixed"
-                tools:visibility="visible"
-                app:tabSelectedTextColor="@android:color/white"
+                app:tabSelectedTextColor="@color/purple"
+                app:tabTextColor="@color/black"
                 tools:tabCount="3"
                 tools:text="캐스팅"
-                />
+                tools:visibility="visible" />
 
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/vp_detail"
                 android:layout_width="match_parent"
-                android:layout_height="500dp"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tb_detail" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="#7A3E65"
+                android:text="지금 바로 예매 하기"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/vp_detail" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

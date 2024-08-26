@@ -1,290 +1,307 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
-    <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="16dp">
+        android:layout_height="wrap_content">
 
-        <!-- Barrier for alignment -->
-        <androidx.constraintlayout.widget.Barrier
-            android:id="@+id/barrier_start"
-            app:barrierDirection="end"
-            app:constraint_referenced_ids="tv_location_label, tv_address_label, tv_period_label, tv_time_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <!-- 장소 -->
-        <TextView
-            android:id="@+id/tv_location_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="장소"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <!-- 도로명 주소 -->
-
-        <TextView
-            android:id="@+id/tv_location"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="세종문화회관 대극장"
-            android:layout_marginStart="20dp"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="@id/barrier_start"
-            app:layout_constraintTop_toTopOf="@id/tv_location_label" />
-
-        <TextView
-            android:id="@+id/tv_address_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="도로명 주소"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_location_label"
-            android:layout_marginTop="8dp"/>
-
-        <TextView
-            android:id="@+id/tv_address"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="서울특별시 마포구 독막로 21"
-            android:textSize="16sp"
-            android:layout_marginStart="20dp"
-            app:layout_constraintStart_toStartOf="@id/barrier_start"
-            app:layout_constraintTop_toTopOf="@id/tv_address_label"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-        <!-- 공연기간 -->
-        <TextView
-            android:id="@+id/tv_period_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="공연기간"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_address_label"
-            android:layout_marginTop="8dp"/>
-
-        <TextView
-            android:id="@+id/tv_period"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="2024.05.29 ~ 2024.08.11"
-            android:textSize="16sp"
-            android:layout_marginStart="20dp"
-            app:layout_constraintStart_toStartOf="@id/barrier_start"
-            app:layout_constraintTop_toTopOf="@id/tv_period_label"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-        <!-- 공연시간 -->
-        <TextView
-            android:id="@+id/tv_time_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="공연시간"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_period_label"
-            android:layout_marginTop="8dp"/>
-
-        <TextView
-            android:id="@+id/tv_time"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="165분 (인터미션 20분 포함)"
-            android:textSize="16sp"
-            android:layout_marginStart="20dp"
-            app:layout_constraintStart_toStartOf="@id/barrier_start"
-            app:layout_constraintTop_toTopOf="@id/tv_time_label"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-
-        <!-- 공연장 편의시설 -->
-        <TextView
-            android:id="@+id/tv_facilities_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="공연장 편의시설"
-            android:textStyle="bold"
-            android:textSize="18sp"
-            android:textColor="@color/black"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_time_label"
-            android:layout_marginTop="30dp"/>
-
-        <GridLayout
-            android:id="@+id/gl_facilities"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:columnCount="2"
-            android:rowCount="3"
-            app:layout_constraintTop_toBottomOf="@id/tv_facilities_label"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            android:padding="16dp"
+            >
 
-            <!-- 식당 -->
-            <LinearLayout
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/barrier_start"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="8dp">
+                app:barrierDirection="end"
+                app:constraint_referenced_ids="tv_location_label, tv_address_label, tv_period_label, tv_time_label" />
 
-                <ImageView
-                    android:id="@+id/iv_restaurant"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/ic_restaurant"
-                    android:visibility="visible"/>
-
-                <TextView
-                    android:id="@+id/tv_restaurant"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:text="식당"
-                    android:textSize="16sp"
-                    android:visibility="visible"/>
-            </LinearLayout>
-
-            <!-- 편의점 -->
-            <LinearLayout
+            <!-- 장소 -->
+            <TextView
+                android:id="@+id/tv_location_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginStart="70dp"
-                android:padding="8dp">
+                android:text="장소"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                <ImageView
-                    android:id="@+id/iv_convenience_store"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/ic_convenience_store"
-                    android:visibility="visible"/>
+            <!-- 도로명 주소 -->
 
-                <TextView
-                    android:id="@+id/tv_convenience_store"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:text="편의점"
-                    android:textSize="16sp"
-                    android:visibility="visible"/>
-            </LinearLayout>
+            <TextView
+                android:id="@+id/tv_location"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:text="세종문화회관 대극장"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="@id/barrier_start"
+                app:layout_constraintTop_toTopOf="@id/tv_location_label" />
 
-            <!-- 카페 -->
-            <LinearLayout
+            <TextView
+                android:id="@+id/tv_address_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="8dp">
+                android:layout_marginTop="8dp"
+                android:text="도로명 주소"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_location_label" />
 
-                <ImageView
-                    android:id="@+id/iv_cafe"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/ic_cafe"
-                    android:visibility="visible"/>
+            <TextView
+                android:id="@+id/tv_address"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:text="서울특별시 마포구 독막로 21"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/barrier_start"
+                app:layout_constraintTop_toTopOf="@id/tv_address_label" />
 
-                <TextView
-                    android:id="@+id/tv_cafe"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:text="카페"
-                    android:textSize="16sp"
-                    android:visibility="visible"/>
-            </LinearLayout>
-
-            <!-- 놀이방 -->
-            <LinearLayout
+            <!-- 공연기간 -->
+            <TextView
+                android:id="@+id/tv_period_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginStart="70dp"
-                android:padding="8dp">
+                android:layout_marginTop="8dp"
+                android:text="공연기간"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_address_label" />
 
-                <ImageView
-                    android:id="@+id/iv_playroom"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/ic_playroom"
-                    android:visibility="visible"/>
+            <TextView
+                android:id="@+id/tv_period"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:text="2024.05.29 ~ 2024.08.11"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/barrier_start"
+                app:layout_constraintTop_toTopOf="@id/tv_period_label" />
 
-                <TextView
-                    android:id="@+id/tv_playroom"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:text="놀이방"
-                    android:textSize="16sp"
-                    android:visibility="visible"/>
-            </LinearLayout>
 
-            <!-- 수유실 -->
-            <LinearLayout
+            <!-- 공연시간 -->
+            <View
+                android:id="@+id/view2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="40dp"
+                android:background="@color/gray"
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_time_label" />
+
+            <TextView
+                android:id="@+id/tv_time_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="8dp">
+                android:layout_marginTop="8dp"
+                android:text="공연시간"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_period_label" />
 
-                <ImageView
-                    android:id="@+id/iv_nursing_room"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/ic_nursing_room"
-                    android:visibility="visible"/>
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:text="165분 (인터미션 20분 포함)"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/barrier_start"
+                app:layout_constraintTop_toTopOf="@id/tv_time_label" />
 
-                <TextView
-                    android:id="@+id/tv_nursing_room"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:text="수유실"
-                    android:textSize="16sp"
-                    android:visibility="visible"/>
-            </LinearLayout>
 
-            <!-- 주차시설 -->
-            <LinearLayout
+            <!-- 공연장 편의시설 -->
+            <TextView
+                android:id="@+id/tv_facilities_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginStart="70dp"
-                android:padding="8dp">
+                android:text="공연장 편의시설"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginTop="40dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view2" />
 
-                <ImageView
-                    android:id="@+id/iv_parking"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/ic_parking"
-                    android:visibility="visible"/>
+            <GridLayout
+                android:id="@+id/gl_facilities"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:columnCount="2"
+                android:rowCount="3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_facilities_label">
 
-                <TextView
-                    android:id="@+id/tv_parking"
+                <!-- 식당 -->
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:text="주차시설"
-                    android:textSize="16sp"
-                    android:visibility="visible"/>
-            </LinearLayout>
+                    android:orientation="horizontal"
+                    android:padding="8dp">
 
-        </GridLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                    <ImageView
+                        android:id="@+id/iv_restaurant"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_restaurant"
+                        android:visibility="visible" />
+
+                    <TextView
+                        android:id="@+id/tv_restaurant"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="식당"
+                        android:textSize="16sp"
+                        android:visibility="visible" />
+                </LinearLayout>
+
+                <!-- 편의점 -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="70dp"
+                    android:orientation="horizontal"
+                    android:padding="8dp">
+
+                    <ImageView
+                        android:id="@+id/iv_convenience_store"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_convenience_store"
+                        android:visibility="visible" />
+
+                    <TextView
+                        android:id="@+id/tv_convenience_store"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="편의점"
+                        android:textSize="16sp"
+                        android:visibility="visible" />
+                </LinearLayout>
+
+                <!-- 카페 -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="8dp">
+
+                    <ImageView
+                        android:id="@+id/iv_cafe"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_cafe"
+                        android:visibility="visible" />
+
+                    <TextView
+                        android:id="@+id/tv_cafe"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="카페"
+                        android:textSize="16sp"
+                        android:visibility="visible" />
+                </LinearLayout>
+
+                <!-- 놀이방 -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="70dp"
+                    android:orientation="horizontal"
+                    android:padding="8dp">
+
+                    <ImageView
+                        android:id="@+id/iv_playroom"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_playroom"
+                        android:visibility="visible" />
+
+                    <TextView
+                        android:id="@+id/tv_playroom"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="놀이방"
+                        android:textSize="16sp"
+                        android:visibility="visible" />
+                </LinearLayout>
+
+                <!-- 수유실 -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="8dp">
+
+                    <ImageView
+                        android:id="@+id/iv_nursing_room"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_nursing_room"
+                        android:visibility="visible" />
+
+                    <TextView
+                        android:id="@+id/tv_nursing_room"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="수유실"
+                        android:textSize="16sp"
+                        android:visibility="visible" />
+                </LinearLayout>
+
+                <!-- 주차시설 -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="70dp"
+                    android:orientation="horizontal"
+                    android:padding="8dp">
+
+                    <ImageView
+                        android:id="@+id/iv_parking"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_parking"
+                        android:visibility="visible" />
+
+                    <TextView
+                        android:id="@+id/tv_parking"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="주차시설"
+                        android:textSize="16sp"
+                        android:visibility="visible" />
+                </LinearLayout>
+            </GridLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 </layout>

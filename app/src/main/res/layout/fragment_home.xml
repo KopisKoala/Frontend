@@ -31,7 +31,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="40dp"
-                    android:text="지금 가장 인기 있는 공연"
+                    android:text="지금 가장 인기 있는 뮤지컬"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     android:layout_gravity="center_horizontal" />
@@ -39,11 +39,34 @@
                 <RelativeLayout
                     android:id="@+id/rt_popular"
                     android:layout_width="match_parent"
-                    android:layout_height="320dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="16dp">
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rc_popular"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        tools:listitem="@layout/list_grid_recommand_item" />
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/drama_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    android:text="지금 가장 인기 있는 연극"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:layout_gravity="center_horizontal" />
+
+                <RelativeLayout
+                    android:id="@+id/rt_drama"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp">
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rc_drama"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         tools:listitem="@layout/list_grid_recommand_item" />
@@ -53,7 +76,7 @@
                     android:id="@+id/recommand_home_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="40dp"
+                    android:layout_marginTop="30dp"
                     android:text="이런 공연은 어떠신가요"
                     android:textSize="20sp"
                     android:textStyle="bold"
@@ -61,13 +84,13 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="330dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="16dp">
 
                     <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rc_command"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:id="@+id/rc_commend"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         tools:listitem="@layout/list_grid_recommand_item" />
                 </RelativeLayout>
@@ -86,21 +109,6 @@
                     android:textColor="@android:color/white"
                     android:textSize="20sp"
                     android:textStyle="bold" />
-
-                <android.widget.Button
-                    android:id="@+id/btn_quest"
-                    android:layout_width="350dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:drawableLeft="@drawable/btn_logo2"
-                    android:layout_gravity="center"
-                    android:background="@drawable/rounded_button_background2"
-                    android:padding="16dp"
-                    android:text="이번 달 퀘스트 와쑈!"
-                    android:textColor="@android:color/white"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    />
 
             </LinearLayout>
         </ScrollView>

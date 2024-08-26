@@ -22,26 +22,40 @@
             tools:ignore="MissingConstraints" />
 
         <TextView
-            android:id="@+id/performance_title"
+            android:id="@+id/actor_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
+            android:layout_gravity="center_horizontal"
+            android:text="배우 7건"
             android:layout_marginTop="20dp"
-            android:text="최근 검색한 공연"
+            android:layout_marginStart="20dp"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/search" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rc_SearchedPerformance"
+        <RelativeLayout
+            android:id="@+id/rt_actor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="30dp"
-            android:orientation="horizontal"
-            app:layout_constraintStart_toStartOf="@+id/performance_title"
-            app:layout_constraintTop_toBottomOf="@+id/performance_title"
-            tools:listitem="@layout/list_grid_recommand_item" />
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/actor_title">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rc_actor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="73dp"
+                android:orientation="horizontal"
+                tools:listitem="@layout/list_grid_recommand_item" />
+
+        </RelativeLayout>
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

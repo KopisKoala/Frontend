@@ -9,28 +9,30 @@ import com.example.whashow.base.BaseFragment
 import com.example.whashow.databinding.FragmentDetailReviewBinding
 
 class DetailReviewFragment: BaseFragment<FragmentDetailReviewBinding>(R.layout.fragment_detail_review) {
-    private val viewModel: PerformanceDetailViewModel by viewModels()
 
+    private val viewModel: PerformanceDetailViewModel by viewModels()
+    private var perfId: Int? = null
 
     override fun initStartView() {
         super.initStartView()
         (activity as MainActivity).binding.navigationMain.visibility = View.GONE
 
+        perfId = arguments?.getInt("perfId")
+        perfId?.let {
+            viewModel.fetchPerformanceData(it)
+        }
     }
 
     override fun initDataBinding() {
         super.initDataBinding()
         (activity as MainActivity).binding.navigationMain.visibility = View.GONE
 
-
-        viewModel.fetchPerformanceData(performanceId = 1)
-
-        // 해시태그 바인딩
+        // 해시태그 바인딩 (#을 추가하여 표시)
         viewModel.hashtags.observe(viewLifecycleOwner, Observer { hashtags ->
             if (hashtags.isNotEmpty()) {
-                binding.hashtag1.text = hashtags.getOrNull(0) ?: ""
-                binding.hashtag2.text = hashtags.getOrNull(1) ?: ""
-                binding.hashtag3.text = hashtags.getOrNull(2) ?: ""
+                binding.hashtag1.text = hashtags.getOrNull(0)?.let { "#$it" } ?: ""
+                binding.hashtag2.text = hashtags.getOrNull(1)?.let { "#$it" } ?: ""
+                binding.hashtag3.text = hashtags.getOrNull(2)?.let { "#$it" } ?: ""
             }
         })
 
@@ -39,12 +41,10 @@ class DetailReviewFragment: BaseFragment<FragmentDetailReviewBinding>(R.layout.f
             binding.ratingBar.rating = rating
             binding.ratingNum.text = rating.toString()
         })
-
     }
 
     override fun initAfterBinding() {
         super.initAfterBinding()
         (activity as MainActivity).binding.navigationMain.visibility = View.GONE
-
     }
 }

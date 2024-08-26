@@ -5,9 +5,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.whashow.data.Performance
-import com.example.whashow.databinding.ListBannerItemBinding
+import com.example.whashow.databinding.ListGridRecommandItemBinding
 
-class BannerAdapter(private var list: ArrayList<Performance>) : RecyclerView.Adapter<BannerAdapter.BannerHolder>() {
+class RecommendHomeAdapter(private var list: ArrayList<Performance>) : RecyclerView.Adapter<RecommendHomeAdapter.RecommendHolder>() {
 
     interface MyItemClickListener {
         fun onItemClick(banner: Performance)
@@ -19,17 +19,21 @@ class BannerAdapter(private var list: ArrayList<Performance>) : RecyclerView.Ada
         myItemClickListener = itemClickListener
     }
 
-    inner class BannerHolder(val binding: ListBannerItemBinding) :
+    inner class RecommendHolder(val binding: ListGridRecommandItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        val img = binding.ivBanner
+        val img = binding.recommendPoster
+        val title = binding.title
+        val hall = binding.hall
+        val duration = binding.duration
+
     }
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): BannerHolder {
-        return BannerHolder(
-            ListBannerItemBinding.inflate(
+    ): RecommendHolder {
+        return RecommendHolder(
+            ListGridRecommandItemBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
@@ -37,11 +41,14 @@ class BannerAdapter(private var list: ArrayList<Performance>) : RecyclerView.Ada
         )
     }
 
-    override fun onBindViewHolder(holder: BannerHolder, position: Int) {
+    override fun onBindViewHolder(holder: RecommendHolder, position: Int) {
         val performance = list[position]
         Glide.with(holder.itemView.context)
             .load(performance.poster)
             .into(holder.img)
+        holder.title.text = performance.title
+        holder.hall.text = performance.hall
+        holder.duration.text = performance.duration
 
         holder.itemView.setOnClickListener {
             myItemClickListener?.onItemClick(performance)

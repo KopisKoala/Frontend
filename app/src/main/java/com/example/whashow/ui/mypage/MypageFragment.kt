@@ -2,15 +2,13 @@ package com.example.whashow.ui.mypage
 
 import android.graphics.Color
 import android.view.View
+import android.view.ViewGroup
 import com.example.whashow.MainActivity
 import com.example.whashow.R
 import com.example.whashow.base.BaseFragment
 import com.example.whashow.databinding.FragmentMypageBinding
-import com.example.whashow.databinding.FragmentPairingBinding
-import com.example.whashow.databinding.FragmentPerformanceCalendarBinding
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
-import java.util.Calendar
 
 class MypageFragment : BaseFragment<FragmentMypageBinding>(R.layout.fragment_mypage) {
 

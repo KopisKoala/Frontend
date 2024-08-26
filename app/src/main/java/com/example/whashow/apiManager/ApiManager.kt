@@ -43,4 +43,5 @@ object ApiManager {
     val mypageService: MypageService = retrofit.create(MypageService::class.java)
     val pairingService: PairingService = retrofit.create(PairingService::class.java)
     val performanceService: PerformanceService = retrofit.create(PerformanceService::class.java)
+
 }

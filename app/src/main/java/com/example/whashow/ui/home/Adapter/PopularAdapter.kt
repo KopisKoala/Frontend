@@ -3,33 +3,31 @@ package com.example.whashow.ui.home.Adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.example.whashow.data.Performance
 import com.example.whashow.databinding.ListGridRecommandItemBinding
-import com.example.whashow.ui.home.Popular
 
-class PopularAdapter (var list: ArrayList<Popular>) : RecyclerView.Adapter<PopularAdapter.PopularHolder>(){
+class PopularAdapter(private var list: ArrayList<Performance>) : RecyclerView.Adapter<PopularAdapter.PopularHolder>() {
 
-    var PopularList: ArrayList<Popular> =list
-        set(value){
-            field=value
-            notifyDataSetChanged()
-        }
-
-    interface MyItemClickListener{
-        fun onDeleteClick(position: Int)
+    interface MyItemClickListener {
+        fun onItemClick(banner: Performance)
     }
 
-    private lateinit var myItemClickListener: MyItemClickListener
-    fun setMyItemClickListener(itemClickListener: MyItemClickListener){
-        myItemClickListener=itemClickListener
+    private var myItemClickListener: MyItemClickListener? = null
+
+    fun setMyItemClickListener(itemClickListener: MyItemClickListener) {
+        myItemClickListener = itemClickListener
     }
+
     inner class PopularHolder(val binding: ListGridRecommandItemBinding) :
-        RecyclerView.ViewHolder(binding.root){
-        val img=binding.recommandPoster
-        val title=binding.performanceTitle
-        val space=binding.performanceDetail
-        val rating=binding.ratingBar
-        val review=binding.review
+        RecyclerView.ViewHolder(binding.root) {
+        val img = binding.recommendPoster
+        val title = binding.title
+        val hall = binding.hall
+        val duration = binding.duration
+
     }
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -42,17 +40,29 @@ class PopularAdapter (var list: ArrayList<Popular>) : RecyclerView.Adapter<Popul
             )
         )
     }
+
     override fun onBindViewHolder(holder: PopularHolder, position: Int) {
-        holder.img.setImageResource(list[position].img)
-        holder.title.text=list[position].title
-        holder.space.text=list[position].space
-        holder.rating.rating=list[position].rating
-        holder.review.text=list[position].review
+        val performance = list[position]
+        Glide.with(holder.itemView.context)
+            .load(performance.poster)
+            .into(holder.img)
+        holder.title.text = performance.title
+        holder.hall.text = performance.hall
+        holder.duration.text = performance.duration
+
+        holder.itemView.setOnClickListener {
+            myItemClickListener?.onItemClick(performance)
+        }
     }
 
     override fun getItemCount(): Int {
-        return minOf(list.size, 5)  // 최대 2개의 아이템만 표시
+        return list.size
     }
 
+    fun updatePerformances(newList: List<Performance>) {
+        list.clear()
+        list.addAll(newList)
+        notifyDataSetChanged()
+    }
 }
 

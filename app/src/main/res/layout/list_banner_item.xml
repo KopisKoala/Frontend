@@ -6,10 +6,10 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:src="@drawable/img_recommand_post"
+        android:src="@drawable/img_recommend_post"
         android:id="@+id/ivBanner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:scaleType="fitXY"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="0dp" />

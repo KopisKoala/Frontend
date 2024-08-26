@@ -1,37 +1,55 @@
 package com.example.whashow.ui.home
 
 import android.view.View
+import androidx.fragment.app.viewModels
+import com.bumptech.glide.Glide
 import com.example.whashow.MainActivity
 import com.example.whashow.R
 import com.example.whashow.base.BaseFragment
 import com.example.whashow.databinding.FragmentPerformanceDetailBinding
 import com.example.whashow.ui.home.Adapter.DetailAdapter
 import com.google.android.material.tabs.TabLayoutMediator
-import com.google.gson.Gson
 
 
 class PerformanceDetailFragment : BaseFragment<FragmentPerformanceDetailBinding>(R.layout.fragment_performance_detail) {
 
     private val information = arrayListOf("캐스팅", "상세 정보", "후기")
+    private var perfId: Int? = null
+    private var title: String? = null
+    private val viewModel by viewModels<PerformanceDetailViewModel>()
 
 
     override fun initStartView() {
         super.initStartView()
         (activity as MainActivity).ShowBack()
-        arguments?.getString("banner")?.let {
-            val banner = Gson().fromJson(it, Banner::class.java)
-            binding.ivItem.setImageResource(banner.img)
-        }
+        perfId = arguments?.getInt("perfId")
+        title = arguments?.getString("title")
+        (activity as MainActivity).binding.mainTitle.text=title
     }
 
     override fun initDataBinding() {
         super.initDataBinding()
         (activity as MainActivity).binding.navigationMain.visibility = View.GONE
-        val detailAdapter = DetailAdapter(this)
-        binding.vpDetail.adapter = detailAdapter // 수정된 부분
+        (activity as MainActivity).binding.mainTitle.text=title
+        val detailAdapter = DetailAdapter(this, perfId)
+        binding.vpDetail.adapter = detailAdapter
+
         TabLayoutMediator(binding.tbDetail, binding.vpDetail) { tab, position ->
             tab.text = information[position]
         }.attach()
+
+        viewModel.performanceDetail.observe(viewLifecycleOwner) { detail ->
+            // 포스터 이미지 로드
+            Glide.with(this)
+                .load(detail.poster)
+                .placeholder(R.drawable.img_detail)
+                .into(binding.ivItem)
+        }
+
+        perfId?.let {
+            viewModel.fetchPerformanceData(it)
+        }
+
     }
     override fun initAfterBinding() {
         super.initAfterBinding()

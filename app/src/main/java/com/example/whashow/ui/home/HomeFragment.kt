@@ -3,91 +3,143 @@ package com.example.whashow.ui.home
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import com.example.whashow.MainActivity
 import com.example.whashow.R
 import com.example.whashow.base.BaseFragment
+import com.example.whashow.data.Performance
 import com.example.whashow.databinding.FragmentHomeBinding
 import com.example.whashow.ui.home.Adapter.BannerAdapter
+import com.example.whashow.ui.home.Adapter.DramaAdapter
 import com.example.whashow.ui.home.Adapter.PopularAdapter
-import com.example.whashow.ui.home.Adapter.RecommandHomeAdapter
-import com.google.gson.Gson
+import com.example.whashow.ui.home.Adapter.RecommendHomeAdapter
+
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
+    private val homeViewModel: HomeViewModel by viewModels()
     private lateinit var popularListAdapter: PopularAdapter
-    private lateinit var recommandListAdapter: RecommandHomeAdapter
+    private lateinit var recommendListAdapter: RecommendHomeAdapter
     private lateinit var bannerListAdapter: BannerAdapter
-
-    val popularList = arrayListOf(
-        Popular(R.drawable.img_recommand_post, "2020 신년 콘서트 VOICE OF THE MAS..", "인천문화예술회관 대공연장 (1.2km)", 3.5F, "(434)"),
-        Popular(R.drawable.img_recommand_post2, "예술 회복 지원 사업 뮤지컬 한여름밤의 꿈", "경기아트센터 소극장 (2.3km)", 2F, "(12)"),
-        Popular(R.drawable.img_recommand_post3, "서초 문화재단 SSUM 타는 콘서트", "경기아트센터 소극장 (2.3km)", 5F, "(35)"),
-        Popular(R.drawable.img_recommand_post4, "대한민국 대표 창작 뮤지컬 빨래", "동양예술극장 1관", 4.5F, "(125)"),
-        Popular(R.drawable.img_recommand_post, "2020 신년 콘서트 VOICE OF THE MAS..", "인천문화예술회관 대공연장 (1.2km)", 3.5F, "(434)"),
-        Popular(R.drawable.img_recommand_post2, "예술 회복 지원 사업 뮤지컬 한여름밤의 꿈", "경기아트센터 소극장 (2.3km)", 2F, "(12)"),
-        Popular(R.drawable.img_recommand_post3, "서초 문화재단 SSUM 타는 콘서트", "경기아트센터 소극장 (2.3km)", 5F, "(35)"),
-        Popular(R.drawable.img_recommand_post4, "대한민국 대표 창작 뮤지컬 빨래", "동양예술극장 1관", 4.5F, "(125)")
-    )
-
-    val recommandList = arrayListOf(
-        Recommand(R.drawable.img_recommand_post4, "대한민국 대표 창작 뮤지컬 빨래", "동양예술극장 1관", 4.5F, "(125)"),
-        Recommand(R.drawable.img_recommand_post3, "서초 문화재단 SSUM 타는 콘서트", "경기아트센터 소극장 (2.3km)", 5F, "(35)"),
-        Recommand(R.drawable.img_recommand_post, "2020 신년 콘서트 VOICE OF THE MAS..", "인천문화예술회관 대공연장 (1.2km)", 3.5F, "(434)"),
-        Recommand(R.drawable.img_recommand_post2, "예술 회복 지원 사업 뮤지컬 한여름밤의 꿈", "경기아트센터 소극장 (2.3km)", 2F, "(12)"),
-        Recommand(R.drawable.img_recommand_post3, "서초 문화재단 SSUM 타는 콘서트", "경기아트센터 소극장 (2.3km)", 5F, "(35)"),
-        Recommand(R.drawable.img_recommand_post4, "대한민국 대표 창작 뮤지컬 빨래", "동양예술극장 1관", 4.5F, "(125)"),
-        Recommand(R.drawable.img_recommand_post4, "대한민국 대표 창작 뮤지컬 빨래", "동양예술극장 1관", 4.5F, "(125)"),
-        Recommand(R.drawable.img_recommand_post, "2020 신년 콘서트 VOICE OF THE MAS..", "인천문화예술회관 대공연장 (1.2km)", 3.5F, "(434)"),
-        Recommand(R.drawable.img_recommand_post2, "예술 회복 지원 사업 뮤지컬 한여름밤의 꿈", "경기아트센터 소극장 (2.3km)", 2F, "(12)"),
-        Recommand(R.drawable.img_recommand_post3, "서초 문화재단 SSUM 타는 콘서트", "경기아트센터 소극장 (2.3km)", 5F, "(35)"),
-        Recommand(R.drawable.img_recommand_post4, "대한민국 대표 창작 뮤지컬 빨래", "동양예술극장 1관", 4.5F, "(125)")
-    )
-
-    val bannerList = arrayListOf(
-        Banner(R.drawable.img_banner),
-        Banner(R.drawable.img_recommand_post),
-        Banner(R.drawable.img_detail),
-        Banner(R.drawable.img_banner),
-        Banner(R.drawable.img_banner)
-    )
+    private lateinit var dramaListAdapter: DramaAdapter
 
     override fun initStartView() {
         super.initStartView()
-        //배경 흰색
         (activity as MainActivity).binding.toolbar.setBackgroundColor(Color.WHITE)
         (activity as MainActivity).binding.btnBack.setImageResource(R.drawable.btn_back)
         (activity as MainActivity).binding.backTitle.setTextColor(Color.BLACK)
         (activity as MainActivity).ShowLogoAndSearch()
+
+        homeViewModel.fetchPerformanceData()
+        homeViewModel.fetchPopularMusicalsData()
+        homeViewModel.fetchRecommendData()
+        homeViewModel.fetchPopularDramaData()
     }
 
     override fun initDataBinding() {
         super.initDataBinding()
         (activity as MainActivity).binding.navigationMain.visibility = View.VISIBLE
 
-        // 배너 어댑터 초기화
-        bannerListAdapter = BannerAdapter(bannerList)
-        bannerListAdapter.setMyItemClickListener(object : BannerAdapter.MyItemClickListener {
-            override fun onItemClick(banner: Banner) {
+        popularListAdapter = PopularAdapter(arrayListOf())
+        popularListAdapter.setMyItemClickListener(object : PopularAdapter.MyItemClickListener {
+            override fun onItemClick(banner: Performance) {
                 val fragment = PerformanceDetailFragment().apply {
                     arguments = Bundle().apply {
-                        val gson = Gson()
-                        val bannerJson = gson.toJson(banner)
-                        putString("banner", bannerJson)
+                        putInt("perfId", banner.perfId)
+                        putString("title", banner.title)
                     }
                 }
                 (activity as MainActivity).addFragment(fragment)
             }
         })
+
+        dramaListAdapter = DramaAdapter(arrayListOf())
+        dramaListAdapter.setMyItemClickListener(object : DramaAdapter.MyItemClickListener {
+            override fun onItemClick(banner: Performance) {
+                val fragment = PerformanceDetailFragment().apply {
+                    arguments = Bundle().apply {
+                        putInt("perfId", banner.perfId)
+                        putString("title", banner.title)
+                    }
+                }
+                (activity as MainActivity).addFragment(fragment)
+            }
+        })
+
+
+        recommendListAdapter = RecommendHomeAdapter(arrayListOf())
+        recommendListAdapter.setMyItemClickListener(object : RecommendHomeAdapter.MyItemClickListener {
+            override fun onItemClick(banner: Performance) {
+                val fragment = PerformanceDetailFragment().apply {
+                    arguments = Bundle().apply {
+                        putInt("perfId", banner.perfId)
+                        putString("title", banner.title)
+                    }
+                }
+                (activity as MainActivity).addFragment(fragment)
+            }
+        })
+
+        bannerListAdapter = BannerAdapter(arrayListOf())
+        bannerListAdapter.setMyItemClickListener(object : BannerAdapter.MyItemClickListener {
+            override fun onItemClick(banner: Performance) {
+                val fragment = PerformanceDetailFragment().apply {
+                    arguments = Bundle().apply {
+                        putInt("perfId", banner.perfId)
+                        putString("title", banner.title)
+                    }
+                }
+                (activity as MainActivity).addFragment(fragment)
+            }
+        })
+
+        binding.viewpagerBanner.apply {
+            adapter = bannerListAdapter
+            orientation = ViewPager2.ORIENTATION_HORIZONTAL
+        }
+
+        binding.rcPopular.apply {
+            adapter = popularListAdapter
+        }
+
+        binding.rcDrama.apply {
+            adapter = dramaListAdapter
+        }
+
+        binding.rcCommend.apply {
+            adapter = recommendListAdapter
+        }
+
+        homeViewModel.performanceList.observe(viewLifecycleOwner, Observer { performances ->
+            bannerListAdapter.updatePerformances(performances)
+        })
+
+        homeViewModel.popularList.observe(viewLifecycleOwner, Observer { performances ->
+            popularListAdapter.updatePerformances(performances)
+        })
+
+        homeViewModel.dramaList.observe(viewLifecycleOwner, Observer { performances ->
+            dramaListAdapter.updatePerformances(performances)
+        })
+
+        homeViewModel.recommendList.observe(viewLifecycleOwner, Observer { performances ->
+            recommendListAdapter.updatePerformances(performances)
+        })
+
+        homeViewModel.error.observe(viewLifecycleOwner, Observer { errorMessage ->
+            println("Error: $errorMessage")
+        })
     }
+
+
 
     override fun initAfterBinding() {
         super.initAfterBinding()
         (activity as MainActivity).binding.navigationMain.visibility = View.VISIBLE
 
-        popularListAdapter = PopularAdapter(popularList)
-        recommandListAdapter = RecommandHomeAdapter(recommandList)
 
         binding.viewpagerBanner.apply {
             adapter = bannerListAdapter
@@ -102,10 +154,16 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
             adapter = popularListAdapter
         }
 
-        binding.rcCommand.apply {
+        binding.rcDrama.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-            adapter = recommandListAdapter
+            adapter = dramaListAdapter
+        }
+
+        binding.rcCommend.apply {
+            setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            adapter = recommendListAdapter
         }
 
         binding.btnEtiquette.setOnClickListener {

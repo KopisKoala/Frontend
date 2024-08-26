@@ -39,7 +39,9 @@ class PerformanceDetailViewModel : ViewModel() {
             ) {
                 if (response.isSuccessful) {
                     response.body()?.result?.let { result ->
-                        val result = response.body()?.result
+                        _performanceDetail.value = result
+
+
                         _actorList.value = result?.performanceDetailActorListResDto?.actorList
                         // 해시태그를 리스트로 업데이트
                         _hashtags.value = listOfNotNull(result?.hashtag1, result?.hashtag2, result?.hashtag3)

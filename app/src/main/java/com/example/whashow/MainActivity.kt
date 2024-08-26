@@ -25,6 +25,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+
         binding=ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -39,6 +40,7 @@ class MainActivity : AppCompatActivity() {
         binding.btnBack.setOnClickListener {
             onBackPressed()
         }
+
     }
 
     override fun onBackPressed() {
@@ -55,7 +57,7 @@ class MainActivity : AppCompatActivity() {
         binding.btnBack.visibility = View.VISIBLE
         binding.toolbarLogo.visibility = View.GONE
         binding.btnMainSearch.visibility = View.GONE
-        binding.mainTitle.visibility = View.GONE
+        binding.mainTitle.visibility = View.VISIBLE
         binding.backTitle.visibility = View.GONE
     }
     fun ShowBackandTitle() {
