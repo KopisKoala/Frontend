@@ -174,8 +174,6 @@ class PairingResultFragment : BaseFragment<FragmentPairingResultBinding>(R.layou
 
                                 reviewAdapter.reviewList = data.reviewList as ArrayList<Review>
                                 reviewAdapter.notifyDataSetChanged()
-                                pairViewPager.pairingList.clear()
-                                pairViewPager.notifyDataSetChanged()
                             }
 
                             Log.d("리뷰 목록 조회", data.toString())
@@ -215,8 +213,6 @@ class PairingResultFragment : BaseFragment<FragmentPairingResultBinding>(R.layou
                             if (data!=null){
                                 reviewAdapter.reviewList=data.reviewList as ArrayList<Review>
                                 reviewAdapter.notifyDataSetChanged()
-                                pairViewPager.pairingList.clear()
-                                pairViewPager.notifyDataSetChanged()
                             }
                             Log.d("리뷰 목록 조회", data.toString())
                             Log.d("리뷰 목록 조회 서버", response.body()?.result.toString())
@@ -243,7 +239,7 @@ class PairingResultFragment : BaseFragment<FragmentPairingResultBinding>(R.layou
 
                 // position에 해당하는 데이터를 가져와서 리스트를 갱신
                 val selectedPairReview = pairingList[position].reviewList
-
+                Log.d("리뷰 목록 조회 서버", position.toString())
                 // reviewList를 새 데이터로 갱신
                 reviewAdapter.reviewList = selectedPairReview as ArrayList<Review>
                 reviewAdapter.notifyDataSetChanged()
