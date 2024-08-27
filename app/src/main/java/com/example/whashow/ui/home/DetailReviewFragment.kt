@@ -13,6 +13,7 @@ class DetailReviewFragment: BaseFragment<FragmentDetailReviewBinding>(R.layout.f
     private val viewModel: PerformanceDetailViewModel by viewModels()
     private var perfId: Int? = null
 
+
     override fun initStartView() {
         super.initStartView()
         (activity as MainActivity).binding.navigationMain.visibility = View.GONE
@@ -22,12 +23,11 @@ class DetailReviewFragment: BaseFragment<FragmentDetailReviewBinding>(R.layout.f
             viewModel.fetchPerformanceData(it)
         }
     }
-
     override fun initDataBinding() {
         super.initDataBinding()
         (activity as MainActivity).binding.navigationMain.visibility = View.GONE
 
-        // 해시태그 바인딩 (#을 추가하여 표시)
+
         viewModel.hashtags.observe(viewLifecycleOwner, Observer { hashtags ->
             if (hashtags.isNotEmpty()) {
                 binding.hashtag1.text = hashtags.getOrNull(0)?.let { "#$it" } ?: ""
@@ -36,13 +36,11 @@ class DetailReviewFragment: BaseFragment<FragmentDetailReviewBinding>(R.layout.f
             }
         })
 
-        // 평점 바인딩
         viewModel.rating.observe(viewLifecycleOwner, Observer { rating ->
             binding.ratingBar.rating = rating
             binding.ratingNum.text = rating.toString()
         })
     }
-
     override fun initAfterBinding() {
         super.initAfterBinding()
         (activity as MainActivity).binding.navigationMain.visibility = View.GONE

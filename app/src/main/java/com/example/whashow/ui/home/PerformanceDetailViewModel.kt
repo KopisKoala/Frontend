@@ -89,4 +89,19 @@ class PerformanceDetailViewModel : ViewModel() {
             }
         })
     }
+
+    fun postDisLikeActor(actorId: Int) {
+        val call: Call<LikeResponse> = ApiManager.performanceService.postDisLike(
+            "Bearer " + LocalDataSource.getAccessToken()!!, actorId
+        )
+        call.enqueue(object : Callback<LikeResponse> {
+            override fun onResponse(call: Call<LikeResponse>, response: Response<LikeResponse>) {
+                _likeResponse.value = response.isSuccessful && response.body()?.isSuccess == true
+            }
+
+            override fun onFailure(call: Call<LikeResponse>, t: Throwable) {
+                _likeResponse.value = false
+            }
+        })
+    }
 }

@@ -55,9 +55,6 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
 
         })
 
-
-        // SearchView 설정
-//        binding.search.isSubmitButtonEnabled = false
         binding.search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 query?.let {
@@ -66,9 +63,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
                     searchViewModel.actorList.observe(viewLifecycleOwner, Observer { actor ->
                         actorListAdapter.updateActors(actor)
                         binding.actorTitle.text = "배우 ${actor.size}건"
-                        binding.actorTitle.visibility =
-                            if(actor.isEmpty()) View.GONE
-                            else View.VISIBLE
+                        binding.actorTitle.visibility = if (actor.isEmpty()) View.GONE else View.VISIBLE
                         binding.rcActor.visibility = if (actor.isEmpty()) View.GONE else View.VISIBLE
                     })
 
@@ -83,9 +78,16 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
+                if (newText.isNullOrEmpty()) {
+                    binding.actorTitle.visibility = View.GONE
+                    binding.performanceTitle.visibility = View.GONE
+                    binding.rcActor.visibility = View.GONE
+                    binding.rcPerformance.visibility = View.GONE
+                }
                 return true
             }
         })
+
     }
 
     override fun initAfterBinding() {

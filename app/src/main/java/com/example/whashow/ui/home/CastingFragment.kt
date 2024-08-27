@@ -61,8 +61,11 @@ class CastingFragment : BaseFragment<FragmentCastingBinding>(R.layout.fragment_c
                     val newIsFavorite = if (isLike == "Y") "N" else "Y"
                     actor.isFavoriteActor = newIsFavorite
 
-                    viewModel.postLikeActor(actor.id)
-
+                    if (newIsFavorite == "Y") {
+                        viewModel.postLikeActor(actor.id)
+                    } else {
+                        viewModel.postDisLikeActor(actor.id)
+                    }
                     castingAdapter.notifyDataSetChanged()
                 }
 
