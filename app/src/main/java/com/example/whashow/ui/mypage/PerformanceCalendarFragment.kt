@@ -12,7 +12,9 @@ import com.bumptech.glide.Glide
 import com.example.whashow.R
 import com.example.whashow.apiManager.ApiManager
 import com.example.whashow.base.BaseFragment
+import com.example.whashow.data.AddMemo
 import com.example.whashow.data.CalendarDayReview
+import com.example.whashow.data.MemoRequestBody
 import com.example.whashow.data.Partner
 import com.example.whashow.data.ReviewX
 import com.example.whashow.databinding.FragmentPerformanceCalendarBinding
@@ -26,8 +28,11 @@ class PerformanceCalendarFragment : BaseFragment<FragmentPerformanceCalendarBind
     private lateinit var monthAdapter:MonthAdapter
     var position:Int=Int.MAX_VALUE/2
     private val _partner = MutableLiveData<Int>()
+    private val _id = MutableLiveData<String>()
     val partner: LiveData<Int>
         get() = _partner
+    val id: LiveData<String>
+        get() = _id
     override fun initStartView() {
         super.initStartView()
     }
@@ -45,6 +50,7 @@ class PerformanceCalendarFragment : BaseFragment<FragmentPerformanceCalendarBind
         monthAdapter.setMyItemClickListener(object:MonthAdapter.MyItemClickListener{
             override fun onBtnClick(id: String) {
 
+                _id.value=id
                 binding.calendarDetail.visibility=View.VISIBLE
                 //함꼐 본 사람 수정
                 binding.tagText.setOnClickListener {
@@ -137,15 +143,35 @@ class PerformanceCalendarFragment : BaseFragment<FragmentPerformanceCalendarBind
                                     if (data.viewingPartner == "FAMILY") {
                                         binding.tagText.isSelected = true
                                         binding.icFamily.isSelected = true
+                                        binding.tagText2.isSelected = false
+                                        binding.icSmile.isSelected = false
+                                        binding.tagText3.isSelected = false
+                                        binding.icHeart.isSelected = false
                                     } else if (data.viewingPartner == "FRIEND") {
                                         binding.tagText2.isSelected = true
                                         binding.icSmile.isSelected = true
+                                        binding.tagText.isSelected = false
+                                        binding.icFamily.isSelected = false
+                                        binding.tagText3.isSelected = false
+                                        binding.icHeart.isSelected = false
+                                        binding.tagText4.isSelected =false
+                                        binding.icFamily.isSelected = false
                                     } else if (data.viewingPartner == "COUPLE") {
                                         binding.tagText3.isSelected = true
                                         binding.icHeart.isSelected = true
+                                        binding.tagText.isSelected = false
+                                        binding.icFamily.isSelected = false
+                                        binding.tagText2.isSelected = false
+                                        binding.icSmile.isSelected = false
                                     } else if (data.viewingPartner == "ALONE") {
                                         binding.tagText4.isSelected = true
                                         binding.icFamily.isSelected = true
+                                        binding.tagText.isSelected = false
+                                        binding.icFamily.isSelected = false
+                                        binding.tagText2.isSelected = false
+                                        binding.icSmile.isSelected = false
+                                        binding.tagText3.isSelected = false
+                                        binding.icHeart.isSelected = false
                                     }
                                 }
                                 Log.d("일 목록 조회", data.toString())
@@ -210,8 +236,46 @@ class PerformanceCalendarFragment : BaseFragment<FragmentPerformanceCalendarBind
             binding.memoDetail.visibility=View.GONE
         }
 
-        binding.edit.setOnClickListener {
-            binding.memoContext.isFocusableInTouchMode = !binding.memoContext.isFocusableInTouchMode
+        binding.memoDetail.setOnClickListener {
+            binding.edit.visibility=View.VISIBLE
+            binding.edit.setOnClickListener {
+                binding.memoContext.visibility=View.GONE
+                binding.edit.visibility=View.GONE
+                binding.memoResult.visibility=View.VISIBLE
+                // 선택되지 않은 경우
+                _id.observe(this@PerformanceCalendarFragment, Observer { newId ->
+                    val Call: Call<AddMemo> =
+                        ApiManager.mypageService.addReviewMemo(
+                            "Bearer " + LocalDataSource.getAccessToken(), newId, MemoRequestBody(binding.memoContext.text.toString())
+                        )
+                    // 비동기적으로 요청 수행
+                    Call.enqueue(object : Callback<AddMemo> {
+                        override fun onResponse(
+                            call: Call<AddMemo>,
+                            response: Response<AddMemo>
+                        ) {
+                            if (response.isSuccessful) {
+                                val data = response.body()?.result
+                                Log.d("함께 조회", data.toString())
+                                Log.d("함께 서버", response.body()?.result.toString())
+
+                            } else {
+                                // 서버에서 오류 응답을 받은 경우 처리
+                                Log.d("함께 서버", response.toString())
+                            }
+
+                        }
+
+                        override fun onFailure(call: Call<AddMemo>, t: Throwable) {
+                            // 통신 실패 처리
+                            Log.d("함께 서버", t.message.toString())
+                        }
+
+                    })
+
+                })
+            }
+
         }
     }
 
