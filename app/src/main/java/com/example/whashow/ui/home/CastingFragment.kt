@@ -20,11 +20,8 @@ class CastingFragment : BaseFragment<FragmentCastingBinding>(R.layout.fragment_c
     override fun initStartView() {
         super.initStartView()
         (activity as MainActivity).binding.navigationMain.visibility = View.GONE
-
-        // perfId 값을 arguments에서 받아옵니다.
         perfId = arguments?.getInt("perfId")
 
-        // RecyclerView 초기화
         setupRecyclerView(emptyList())
     }
 
@@ -41,6 +38,8 @@ class CastingFragment : BaseFragment<FragmentCastingBinding>(R.layout.fragment_c
             Log.d("CastingFragment", "Actor list updated: $actorList")
             castingAdapter.updateList(ArrayList(actorList))
         }
+
+
     }
 
     override fun initAfterBinding() {
@@ -55,6 +54,22 @@ class CastingFragment : BaseFragment<FragmentCastingBinding>(R.layout.fragment_c
             setHasFixedSize(true)
             layoutManager = castingListManager
             adapter = castingAdapter
+
+            castingAdapter.setMyItemClickListener(object : CastingAdapter.MyItemClickListener{
+                override fun onLikeClick(actor: DetailActor, isLike: String) {
+
+                    val newIsFavorite = if (isLike == "Y") "N" else "Y"
+                    actor.isFavoriteActor = newIsFavorite
+
+                    viewModel.postLikeActor(actor.id)
+
+                    castingAdapter.notifyDataSetChanged()
+                }
+
+                override fun onDeleteClick(position: Int) {
+                    //
+                }
+            })
         }
     }
 }

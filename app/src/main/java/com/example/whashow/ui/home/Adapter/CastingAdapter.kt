@@ -1,16 +1,17 @@
 package com.example.whashow.ui.home.Adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.whashow.R
 import com.example.whashow.data.DetailActor
 import com.example.whashow.databinding.ListPerformanceDetailReviewItemBinding
 
 class CastingAdapter(var list: ArrayList<DetailActor>) : RecyclerView.Adapter<CastingAdapter.CastingHolder>() {
 
     interface MyItemClickListener {
+        fun onLikeClick(actor : DetailActor, isLike : String)
         fun onDeleteClick(position: Int)
     }
 
@@ -32,12 +33,14 @@ class CastingAdapter(var list: ArrayList<DetailActor>) : RecyclerView.Adapter<Ca
                 .into(binding.profileImg)
 
 
-            if (detailActor.isFavoriteActor == "Y") {
-                binding.heartIcon.visibility = View.VISIBLE
-                binding.nonHeartIcon.visibility = View.GONE
+            if(detailActor.isFavoriteActor == "Y") {
+                binding.heartIcon.setImageResource(R.drawable.heart_purple)
             } else {
-                binding.heartIcon.visibility = View.GONE
-                binding.nonHeartIcon.visibility = View.VISIBLE
+                binding.heartIcon.setImageResource(R.drawable.heart_gray)
+            }
+
+            binding.heartIcon.setOnClickListener {
+                myItemClickListener.onLikeClick(detailActor, detailActor.isFavoriteActor)
             }
 
 

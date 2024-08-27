@@ -5,6 +5,7 @@ import com.example.whashow.api.LoginService
 import com.example.whashow.api.MypageService
 import com.example.whashow.api.PairingService
 import com.example.whashow.api.PerformanceService
+import com.example.whashow.api.SearchService
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
@@ -43,5 +44,6 @@ object ApiManager {
     val mypageService: MypageService = retrofit.create(MypageService::class.java)
     val pairingService: PairingService = retrofit.create(PairingService::class.java)
     val performanceService: PerformanceService = retrofit.create(PerformanceService::class.java)
+    val searchService : SearchService = retrofit.create(SearchService::class.java)
 
 }

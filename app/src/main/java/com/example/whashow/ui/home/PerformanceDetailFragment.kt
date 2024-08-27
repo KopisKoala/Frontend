@@ -39,7 +39,6 @@ class PerformanceDetailFragment : BaseFragment<FragmentPerformanceDetailBinding>
         }.attach()
 
         viewModel.performanceDetail.observe(viewLifecycleOwner) { detail ->
-            // 포스터 이미지 로드
             Glide.with(this)
                 .load(detail.poster)
                 .placeholder(R.drawable.img_detail)
