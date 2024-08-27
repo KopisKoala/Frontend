@@ -39,18 +39,13 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
                     />
-                <TextView
+                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="최근 본 페어링"
-                    android:textColor="@color/black"
-                    android:textSize="17sp"
-                    android:layout_marginTop="60dp"
-                    android:layout_marginBottom="20dp"
-                    android:layout_marginStart="20dp"
-                    android:fontFamily="@font/inter_semi_bold"
-                    />
-
+                    android:src="@drawable/img_pair_title"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="45dp"
+                    android:layout_marginBottom="41dp"/>
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recent_rv"
                     android:layout_width="match_parent"

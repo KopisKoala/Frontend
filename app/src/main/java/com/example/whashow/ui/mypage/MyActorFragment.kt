@@ -97,7 +97,7 @@ class MyActorFragment : BaseFragment<FragmentMyActorBinding>(R.layout.fragment_m
     }
 
 
-        override fun initAfterBinding() {
+    override fun initAfterBinding() {
         super.initAfterBinding()
 
     }

@@ -1,8 +1,11 @@
 package com.example.whashow.ui.mypage
 
 import android.annotation.SuppressLint
+import android.graphics.drawable.Drawable
 import android.util.Log
 import android.view.View
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
@@ -27,12 +30,8 @@ class PerformanceCalendarFragment : BaseFragment<FragmentPerformanceCalendarBind
 
     private lateinit var monthAdapter:MonthAdapter
     var position:Int=Int.MAX_VALUE/2
-    private val _partner = MutableLiveData<Int>()
-    private val _id = MutableLiveData<String>()
-    val partner: LiveData<Int>
-        get() = _partner
-    val id: LiveData<String>
-        get() = _id
+    private var partner :Int=0
+    private var reviewId:String=""
     override fun initStartView() {
         super.initStartView()
     }
@@ -50,150 +49,100 @@ class PerformanceCalendarFragment : BaseFragment<FragmentPerformanceCalendarBind
         monthAdapter.setMyItemClickListener(object:MonthAdapter.MyItemClickListener{
             override fun onBtnClick(id: String) {
 
-                _id.value=id
-                binding.calendarDetail.visibility=View.VISIBLE
-                //함꼐 본 사람 수정
-                binding.tagText.setOnClickListener {
-                    /*binding.tagText.isSelected=!binding.tagText.isSelected
-                    binding.icFamily.isSelected=!binding.icFamily.isSelected*/
-                    _partner.value = 1
-                }
-                binding.tagText2.setOnClickListener {
-                    /*binding.tagText2.isSelected=!binding.tagText2.isSelected
-                    binding.icSmile.isSelected=!binding.icSmile.isSelected*/
-                    _partner.value = 2
-                }
-                binding.tagText3.setOnClickListener {
-                    /*binding.tagText3.isSelected=!binding.tagText3.isSelected
-                    binding.icHeart.isSelected=!binding.icHeart.isSelected*/
-                    _partner.value = 3
-                }
-                binding.tagText4.setOnClickListener {
-                    /*binding.tagText4.isSelected=!binding.tagText4.isSelected
-                    binding.icFamily.isSelected=!binding.icFamily.isSelected*/
-                    _partner.value = 4
-                }
-                _partner.observe(this@PerformanceCalendarFragment, Observer { newPartner ->
-                    // 선택되지 않은 경우
-                    val Call: Call<Partner> =
-                        ApiManager.mypageService.getPartner(
-                            "Bearer " + LocalDataSource.getAccessToken(), id, newPartner
-                        )
-                    // 비동기적으로 요청 수행
-                    Call.enqueue(object : Callback<Partner> {
-                        override fun onResponse(
-                            call: Call<Partner>,
-                            response: Response<Partner>
-                        ) {
-                            if (response.isSuccessful) {
-                                val data = response.body()?.result
-                                Log.d("함께 조회", data.toString())
-                                Log.d("함께 서버", response.body()?.result.toString())
+                Log.d("일 목록 조회", id)
+                binding.calendarDetail.visibility = View.VISIBLE
+                val call: Call<CalendarDayReview> = ApiManager.mypageService.getDayReview(
+                    "Bearer " + LocalDataSource.getAccessToken(), id
+                )
 
-                            } else {
-                                // 서버에서 오류 응답을 받은 경우 처리
-                                Log.d("함께 서버", response.toString())
-                            }
+                call.enqueue(object : Callback<CalendarDayReview> {
+                    @SuppressLint("SetTextI18n")
+                    override fun onResponse(
+                        call: Call<CalendarDayReview>,
+                        response: Response<CalendarDayReview>
+                    ) {
+                        if (response.isSuccessful) {
+                            val data = response.body()?.result
+                            if (data != null) {
+                                Glide.with(binding.imgPoster.context)
+                                    .load(data.poster)
+                                    .override(1500, 1500)
+                                    .placeholder(R.drawable.img_poster_small)
+                                    .error(R.drawable.img_poster_small)
+                                    .into(binding.imgPoster)
 
-                        }
+                                binding.paringFeature.text = "#" + data.hashtag
+                                binding.performanceDate.text = data.performanceDate
+                                binding.posterTitle.text = data.performanceName
+                                binding.genre.text = if (data.performanceType == "MUSICAL") "뮤지컬" else "연극"
+                                binding.pairRating.rating = data.pairRatings.toFloat()
+                                binding.performanceRating.rating = data.performanceRatings.toFloat()
 
-                        override fun onFailure(call: Call<Partner>, t: Throwable) {
-                            // 통신 실패 처리
-                            Log.d("함께 서버", t.message.toString())
-                        }
-
-                    })
-
-                    // 선택되지 않은 경우
-                    val Call2: Call<CalendarDayReview> =
-                        ApiManager.mypageService.getDayReview(
-                            "Bearer " + LocalDataSource.getAccessToken(), id
-                        )
-                    // 비동기적으로 요청 수행
-                    Call2.enqueue(object : Callback<CalendarDayReview> {
-                        @SuppressLint("SetTextI18n")
-                        override fun onResponse(
-                            call: Call<CalendarDayReview>,
-                            response: Response<CalendarDayReview>
-                        ) {
-                            if (response.isSuccessful) {
-                                val data = response.body()?.result
-                                if (data != null) {
-
-                                    Glide.with(binding.imgPoster.context)
-                                        .load(data.poster)
-                                        .override(1500, 1500)
-                                        .placeholder(R.drawable.img_poster_small) // 이미지 로딩 중에 표시될 placeholder 이미지
-                                        .error(R.drawable.img_poster_small) // 이미지 로딩 실패 시 표시될 이미지
-                                        .into(binding.imgPoster)
-
-                                    binding.paringFeature.text = "#" + data.hashtag
-                                    binding.performanceDate.text = data.performanceDate
-                                    binding.posterTitle.text = data.performanceName
-                                    if (data.performanceType == "MUSICAL") {
-                                        binding.genre.text = "뮤지컬"
-                                    } else {
-                                        binding.genre.text = "연극"
-                                    }
-                                    binding.pairRating.rating = data.pairRatings.toFloat()
-                                    binding.performanceRating.rating =
-                                        data.performanceRatings.toFloat()
-
-                                    //함꼐 본사람
-                                    if (data.viewingPartner == "FAMILY") {
-                                        binding.tagText.isSelected = true
-                                        binding.icFamily.isSelected = true
-                                        binding.tagText2.isSelected = false
-                                        binding.icSmile.isSelected = false
-                                        binding.tagText3.isSelected = false
-                                        binding.icHeart.isSelected = false
-                                    } else if (data.viewingPartner == "FRIEND") {
-                                        binding.tagText2.isSelected = true
-                                        binding.icSmile.isSelected = true
-                                        binding.tagText.isSelected = false
-                                        binding.icFamily.isSelected = false
-                                        binding.tagText3.isSelected = false
-                                        binding.icHeart.isSelected = false
-                                        binding.tagText4.isSelected =false
-                                        binding.icFamily.isSelected = false
-                                    } else if (data.viewingPartner == "COUPLE") {
-                                        binding.tagText3.isSelected = true
-                                        binding.icHeart.isSelected = true
-                                        binding.tagText.isSelected = false
-                                        binding.icFamily.isSelected = false
-                                        binding.tagText2.isSelected = false
-                                        binding.icSmile.isSelected = false
-                                    } else if (data.viewingPartner == "ALONE") {
-                                        binding.tagText4.isSelected = true
-                                        binding.icFamily.isSelected = true
-                                        binding.tagText.isSelected = false
-                                        binding.icFamily.isSelected = false
-                                        binding.tagText2.isSelected = false
-                                        binding.icSmile.isSelected = false
-                                        binding.tagText3.isSelected = false
-                                        binding.icHeart.isSelected = false
-                                    }
+                                when (data.viewingPartner) {
+                                    "FAMILY" -> setPartnerSelection(binding.icFamily, binding.tagText)
+                                    "FRIEND" -> setPartnerSelection(binding.icSmile, binding.tagText2)
+                                    "COUPLE" -> setPartnerSelection(binding.icHeart, binding.tagText3)
+                                    "ALONE" -> setPartnerSelection(binding.icFamily, binding.tagText4)
                                 }
-                                Log.d("일 목록 조회", data.toString())
-                                Log.d("일 목록 조회 서버", response.body()?.result.toString())
-
-                            } else {
-                                // 서버에서 오류 응답을 받은 경우 처리
-                                Log.d("일 목록 조회 서버", response.toString())
                             }
-
+                            Log.d("일 목록 조회", data.toString())
+                            Log.d("일 목록 조회 서버", response.body()?.result.toString())
+                        } else {
+                            Log.d("일 목록 조회 서버", response.toString())
                         }
+                    }
 
-                        override fun onFailure(call: Call<CalendarDayReview>, t: Throwable) {
-                            // 통신 실패 처리
-                            Log.d("월 목록 조회 서버", t.message.toString())
-                        }
-
-                    })
+                    override fun onFailure(call: Call<CalendarDayReview>, t: Throwable) {
+                        Log.d("일 목록 조회 서버", t.message.toString())
+                    }
                 })
+
+                val call2: Call<Partner> = ApiManager.mypageService.getPartner(
+                    "Bearer " + LocalDataSource.getAccessToken(), id, partner
+                )
+
+                call2.enqueue(object : Callback<Partner> {
+                    override fun onResponse(call: Call<Partner>, response: Response<Partner>) {
+                        if (response.isSuccessful) {
+                            val data = response.body()?.result
+                            Log.d("함께 조회", data.toString())
+                            Log.d("함께 서버", response.body()?.result.toString())
+                        } else {
+                            Log.d("함께 서버", response.toString())
+                        }
+                    }
+
+                    override fun onFailure(call: Call<Partner>, t: Throwable) {
+                        Log.d("함께 서버", t.message.toString())
+                    }
+                })
+
             }
 
-        })
+            })
+
+        //함꼐 본 사람 수정
+        binding.tagText.setOnClickListener {
+            /*binding.tagText.isSelected=!binding.tagText.isSelected
+            binding.icFamily.isSelected=!binding.icFamily.isSelected*/
+            partner= 1
+        }
+        binding.tagText2.setOnClickListener {
+            /*binding.tagText2.isSelected=!binding.tagText2.isSelected
+            binding.icSmile.isSelected=!binding.icSmile.isSelected*/
+            partner = 2
+        }
+        binding.tagText3.setOnClickListener {
+            /*binding.tagText3.isSelected=!binding.tagText3.isSelected
+            binding.icHeart.isSelected=!binding.icHeart.isSelected*/
+            partner = 3
+        }
+        binding.tagText4.setOnClickListener {
+            /*binding.tagText4.isSelected=!binding.tagText4.isSelected
+            binding.icFamily.isSelected=!binding.icFamily.isSelected*/
+            partner = 4
+        }
+
         binding.calRecycler.layoutManager=LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false)
         binding.calRecycler.adapter=monthAdapter
         binding.calRecycler.scrollToPosition(position)
@@ -243,10 +192,9 @@ class PerformanceCalendarFragment : BaseFragment<FragmentPerformanceCalendarBind
                 binding.edit.visibility=View.GONE
                 binding.memoResult.visibility=View.VISIBLE
                 // 선택되지 않은 경우
-                _id.observe(this@PerformanceCalendarFragment, Observer { newId ->
                     val Call: Call<AddMemo> =
                         ApiManager.mypageService.addReviewMemo(
-                            "Bearer " + LocalDataSource.getAccessToken(), newId, MemoRequestBody(binding.memoContext.text.toString())
+                            "Bearer " + LocalDataSource.getAccessToken(), reviewId, binding.memoContext.text.toString()
                         )
                     // 비동기적으로 요청 수행
                     Call.enqueue(object : Callback<AddMemo> {
@@ -272,11 +220,23 @@ class PerformanceCalendarFragment : BaseFragment<FragmentPerformanceCalendarBind
                         }
 
                     })
-
-                })
             }
 
         }
+    }
+    private fun setPartnerSelection(icon: ImageView, tagText: TextView) {
+        // 모든 아이콘 및 텍스트 선택 해제
+        binding.icFamily.isSelected = false
+        binding.icSmile.isSelected = false
+        binding.icHeart.isSelected = false
+        binding.tagText.isSelected = false
+        binding.tagText2.isSelected = false
+        binding.tagText3.isSelected = false
+        binding.tagText4.isSelected = false
+
+        // 선택된 아이콘 및 텍스트만 활성화
+        icon.isSelected = true
+        tagText.isSelected = true
     }
 
 

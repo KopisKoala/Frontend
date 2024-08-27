@@ -682,7 +682,6 @@
                                             android:padding="10dp"
                                             android:textSize="12sp"
                                             android:textColor="#B3000000"
-                                            android:focusableInTouchMode="false"
                                             android:background="@null"
                                             />
                                         <TextView
