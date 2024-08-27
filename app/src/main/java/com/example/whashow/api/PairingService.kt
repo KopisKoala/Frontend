@@ -12,8 +12,8 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface PairingService {
-    @GET("/review/review/list/pair")
-    fun getInfo(@Header("Authorization") accessToken:String,@Query("pairId") id:Int,@Query("way") sortWay:String ): Call<PairReview>
+    @GET("/review/list/pair")
+    fun getInfo(@Header("Authorization") accessToken:String,@Query("pairId") id:Int,@Query("way") sortWay:String): Call<PairReview>
     @POST("/review/{review-id}/like/create")
     fun postLike(@Header("Authorization") accessToken:String,@Path("review-id")id:Int): Call<ReviewLike>
     @DELETE("/review/{review-id}/like/delete")
