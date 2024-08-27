@@ -1,60 +1,49 @@
 package com.example.whashow.ui.mypage
 
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import com.example.whashow.MainActivity
 import com.example.whashow.R
+import com.example.whashow.base.BaseFragment
+import com.example.whashow.databinding.FragmentMakeReviewBinding
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [MakeReviewFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class MakeReviewFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+class MakeReviewFragment : BaseFragment<FragmentMakeReviewBinding>(R.layout.fragment_make_review) {
+    override fun initStartView() {
+        super.initStartView()
+        (activity as MainActivity).binding.backTitle.text = "리뷰작성"
+        (activity as MainActivity).ShowBackandTitle()
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_make_review, container, false)
+    override fun initDataBinding() {
+        super.initDataBinding()
+        (activity as MainActivity).binding.navigationMain.visibility = View.GONE
+        val yearSpinner = binding.yearSpinner
+        val monthSpinner = binding.monthSpinner
+        val daySpinner = binding.daySpinner
+
+        // 연도 데이터 설정
+        val years = arrayOf("2021", "2022", "2023")
+        val yearAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, years)
+        yearAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        yearSpinner.adapter = yearAdapter
+
+        // 월 데이터 설정
+        val months = arrayOf("1", "2", "3")
+        val monthAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, months)
+        monthAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        monthSpinner.adapter = monthAdapter
+
+        // 일 데이터 설정
+        val days = arrayOf("1", "2", "3")
+        val dayAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, days)
+        dayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        daySpinner.adapter = dayAdapter
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment MakeReviewFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            MakeReviewFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    override fun initAfterBinding() {
+        super.initAfterBinding()
+        (activity as MainActivity).binding.navigationMain.visibility = View.GONE
     }
+
 }

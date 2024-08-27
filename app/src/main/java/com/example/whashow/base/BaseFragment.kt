@@ -8,10 +8,10 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
-import java.math.BigInteger
 
 abstract class BaseFragment<B: ViewDataBinding>(@LayoutRes private val layoutResourceId: Int):
     Fragment(){
+
     val PERMISSIONS_REQUEST: Int = 101
     //val userID: BigInteger = LocalDataSource.getUserId()!!.toBigInteger()
 

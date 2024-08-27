@@ -1,6 +1,5 @@
 package com.example.whashow.ui.recommand
 
-import android.app.DatePickerDialog
 import android.content.ContentValues.TAG
 import android.content.Context
 import android.graphics.Color
@@ -36,9 +35,6 @@ import java.util.Calendar.getInstance
 class DayandPlaceFragment : BaseFragment<FragmentDayandPlaceBinding>(R.layout.fragment_dayand_place) {
     override fun initStartView() {
         super.initStartView()
-        (activity as MainActivity).binding.toolbar.setBackgroundColor(Color.WHITE)
-        (activity as MainActivity).binding.btnBack.setImageResource(R.drawable.btn_back)
-        (activity as MainActivity).binding.backTitle.setTextColor(Color.BLACK)
         (activity as MainActivity).binding.backTitle.text = "뮤지컬"
         (activity as MainActivity).ShowBackandTitle()
         (activity as MainActivity).binding.navigationMain.visibility = View.GONE

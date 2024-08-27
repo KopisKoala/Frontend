@@ -34,11 +34,49 @@
         <item name="android:fontFamily">@font/inter_regular</item>
     </style>
 
+    <!-- 공연 캘린더의 요일에 적용되는 스타일 -->
+    <style name="PerformanceCalenderViewWeekText" parent="android:TextAppearance.DeviceDefault.Small">
+        <item name="android:textColor">#C5C5C7</item>
+    </style>
+
+    <!-- 공연 캘린더의 날짜(Day)의 스타일 설정 -->
+    <style name="PerformanceCalenderViewCustom" parent="Theme.AppCompat">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <!-- 공연 캘린더의 날짜(Day)의 스타일 설정 -->
+    <style name="PerformanceCalenderViewDateCustomText" parent="android:TextAppearance.DeviceDefault.Small">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <!-- 연, 월을 표시하는 헤더에 적용되는 스타일 -->
+    <style name="PerformanceCalendarWidgetHeader">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:fontFamily">@font/inter_regular</item>
+    </style>
+
     <style name="AppTheme.NumberPicker" parent="">
         <item name="android:textColorPrimary">#7A3E65</item>
         <item name="android:textSize">16sp</item>
         <item name="selectableItemBackground">@color/gray</item>
         <item name="colorControlNormal">#7A3E65</item>
     </style>
+
+
+
+    <style name="TabLayoutTextSize" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">17sp</item>
+        <item name="android:fontFamily">@font/inter_extrabold</item>
+    </style>
+    <style name="TabLayoutSelectTextSize" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">17sp</item>
+        <item name="android:fontFamily">@font/inter_extrabold</item>
+    </style>
+
     <style name="Theme.Whashow" parent="Base.Theme.Whashow" />
 </resources>

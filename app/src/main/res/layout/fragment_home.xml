@@ -1,13 +1,120 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.home.HomeFragment">
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="5dp">
+
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/viewpager_banner"
+                    android:layout_width="match_parent"
+                    android:layout_height="500dp"
+                    android:orientation="horizontal" />
+
+                <TextView
+                    android:id="@+id/popular_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    android:text="지금 가장 인기 있는 뮤지컬"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:layout_gravity="center_horizontal" />
+
+                <RelativeLayout
+                    android:id="@+id/rt_popular"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp">
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rc_popular"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        tools:listitem="@layout/list_grid_recommand_item"
+                        tools:itemCount="1"/>
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/drama_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    android:text="지금 가장 인기 있는 연극"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:layout_gravity="center_horizontal" />
+
+                <RelativeLayout
+                    android:id="@+id/rt_drama"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp">
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rc_drama"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        tools:listitem="@layout/list_grid_recommand_item"
+                        tools:itemCount="1"/>
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/recommand_home_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:text="이런 공연은 어떠신가요"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:layout_gravity="center_horizontal" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rc_commend"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        tools:listitem="@layout/list_grid_recommand_item"
+                        tools:itemCount="1"/>
+                </RelativeLayout>
 
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+                <android.widget.Button
+                    android:id="@+id/btn_etiquette"
+                    android:layout_width="350dp"
+                    android:layout_height="65dp"
+                    android:background="@drawable/rounded_button_background1"
+                    android:drawableLeft="@drawable/btn_logo1"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:padding="16dp"
+                    android:text="공연 에티켓 알아와쑈!"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+        </ScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
