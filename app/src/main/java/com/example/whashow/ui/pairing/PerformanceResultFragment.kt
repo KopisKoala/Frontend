@@ -17,8 +17,6 @@ class PerformanceResultFragment : BaseFragment<FragmentPerformanceResultBinding>
 
     private lateinit var performanceListManager: GridLayoutManager
     private lateinit var performanceListAdapter: PerformanceAdapterGrid
-    private lateinit var selectBottomSheet: SelectBottomSheet
-    private val modal = SelectBottomSheet()
     override fun initStartView() {
         super.initStartView()
         (activity as MainActivity).binding.backTitle.text="페어링 검색"
@@ -65,8 +63,8 @@ class PerformanceResultFragment : BaseFragment<FragmentPerformanceResultBinding>
         }
 
         binding.recommandResult.setOnClickListener {
+            (activity as MainActivity).addFragment(PairingResultFragment())
 
-            modal.show(parentFragmentManager, SelectBottomSheet.TAG)
         }
 
     }
