@@ -1,5 +1,6 @@
 package com.example.whashow.ui.home
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,6 +9,8 @@ import com.example.whashow.data.DetailActor
 import com.example.whashow.data.LikeResponse
 import com.example.whashow.data.PerformanceDetailResponse
 import com.example.whashow.data.PerformanceDetailResult
+import com.example.whashow.data.PerformanceResultDTOList
+import com.example.whashow.data.PerformanceReview
 import com.example.whashow.login.LocalDataSource
 import retrofit2.Call
 import retrofit2.Callback
@@ -32,6 +35,9 @@ class PerformanceDetailViewModel : ViewModel() {
 
     private val _rating = MutableLiveData<Float>()
     val rating: LiveData<Float> get() = _rating
+
+    private val _reviewList = MutableLiveData<List<PerformanceResultDTOList>>()
+    val reviewList: LiveData<List<PerformanceResultDTOList>> get() = _reviewList
 
 
     fun fetchPerformanceData(performanceId: Int) {
@@ -106,4 +112,48 @@ class PerformanceDetailViewModel : ViewModel() {
             }
         })
     }
+
+    fun fetchPerformanceReview(performanceId: Int,position:Int){
+        //정렬
+        val sortList = listOf(
+            "recent",
+            "like",
+            "asc",
+            "desc"
+        )
+        val Call2: Call<PerformanceReview> =
+            ApiManager.performanceService.getReview(
+                "Bearer " + LocalDataSource.getAccessToken()!!, performanceId,sortList[position]
+            )
+        // 비동기적으로 요청 수행
+        Call2.enqueue(object : Callback<PerformanceReview> {
+            override fun onResponse(
+                call: Call<PerformanceReview>,
+                response: Response<PerformanceReview>
+            ) {
+                if (response.isSuccessful) {
+                    val data = response.body()?.result
+                    if (data != null) {
+                        _reviewList.value=data.reviewList ?: emptyList()
+                    }
+
+                    Log.d("리뷰 목록 조회", data.toString())
+                    Log.d("리뷰 목록 조회 서버", response.body()?.result.toString())
+
+                } else {
+                    // 서버에서 오류 응답을 받은 경우 처리
+                    Log.d("리뷰 목록 조회 서버", response.toString())
+                }
+
+            }
+
+            override fun onFailure(call: Call<PerformanceReview>, t: Throwable) {
+                // 통신 실패 처리
+                Log.d("리뷰 목록 조회 서버", t.message.toString())
+            }
+
+        })
+
+    }
+
 }

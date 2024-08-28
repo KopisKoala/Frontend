@@ -3,12 +3,14 @@ package com.example.whashow.api
 import com.example.whashow.data.LikeResponse
 import com.example.whashow.data.PerformanceAdvertiseResponse
 import com.example.whashow.data.PerformanceDetailResponse
+import com.example.whashow.data.PerformanceReview
 import retrofit2.Call
 import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface PerformanceService {
     @GET("/performance/advertise")
@@ -44,8 +46,9 @@ interface PerformanceService {
     fun postDisLike(@Header("Authorization") accessToken:String, @Path("actorId") actorId:Int
     ) : Call<LikeResponse>
 
-
-
+    @GET("/review/list/performance")
+    fun getReview(@Header("Authorization") accessToken:String,@Query("performanceId") performanceId: Int,@Query("way") sortWay:String
+    ) :Call<PerformanceReview>
 
 
 }
