@@ -95,6 +95,7 @@ class PerformanceCalendarFragment : BaseFragment<FragmentPerformanceCalendarBind
                                 "FRIEND" -> setPartnerSelection(binding.icSmile, binding.tagText2)
                                 "COUPLE" -> setPartnerSelection(binding.icHeart, binding.tagText3)
                                 "ALONE" -> setPartnerSelection(binding.icFamily, binding.tagText4)
+                                else -> setPartnerSelection(null, null)
                             }
                         }
                         Log.d("일 목록 조회", data.toString())
@@ -133,26 +134,30 @@ class PerformanceCalendarFragment : BaseFragment<FragmentPerformanceCalendarBind
         })
 
 
-        //함꼐 본 사람 수정
+        //함께 본 사람 수정
         binding.tagText.setOnClickListener {
             /*binding.tagText.isSelected=!binding.tagText.isSelected
             binding.icFamily.isSelected=!binding.icFamily.isSelected*/
             _partner.value="FAMILY"
+            setPartnerSelection(binding.icFamily, binding.tagText)
         }
         binding.tagText2.setOnClickListener {
             /*binding.tagText2.isSelected=!binding.tagText2.isSelected
             binding.icSmile.isSelected=!binding.icSmile.isSelected*/
             _partner.value="FRIEND"
+            setPartnerSelection(binding.icSmile, binding.tagText2)
         }
         binding.tagText3.setOnClickListener {
             /*binding.tagText3.isSelected=!binding.tagText3.isSelected
             binding.icHeart.isSelected=!binding.icHeart.isSelected*/
             _partner.value="COUPLE"
+            setPartnerSelection(binding.icHeart, binding.tagText3)
         }
         binding.tagText4.setOnClickListener {
             /*binding.tagText4.isSelected=!binding.tagText4.isSelected
             binding.icFamily.isSelected=!binding.icFamily.isSelected*/
             _partner.value="ALONE"
+            setPartnerSelection(binding.icFamily, binding.tagText4)
         }
 
         binding.calRecycler.layoutManager=LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false)
@@ -241,7 +246,7 @@ class PerformanceCalendarFragment : BaseFragment<FragmentPerformanceCalendarBind
 
         }
     }
-    private fun setPartnerSelection(icon: ImageView, tagText: TextView) {
+    private fun setPartnerSelection(icon: ImageView?, tagText: TextView?) {
         // 모든 아이콘 및 텍스트 선택 해제
         binding.icFamily.isSelected = false
         binding.icSmile.isSelected = false
@@ -252,8 +257,10 @@ class PerformanceCalendarFragment : BaseFragment<FragmentPerformanceCalendarBind
         binding.tagText4.isSelected = false
 
         // 선택된 아이콘 및 텍스트만 활성화
-        icon.isSelected = true
-        tagText.isSelected = true
+        if (icon!=null && tagText!=null){
+            icon.isSelected = true
+            tagText.isSelected = true
+        }
     }
     private fun getPartner(partner:String?) : Int{
         return when (partner) {
