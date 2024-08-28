@@ -1,24 +1,17 @@
 package com.example.whashow.ui.pairing
 
 import android.graphics.Color
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.whashow.MainActivity
 import com.example.whashow.R
 import com.example.whashow.base.BaseFragment
-import com.example.whashow.databinding.FragmentGenreBinding
 import com.example.whashow.databinding.FragmentPairingBinding
-import com.example.whashow.ui.recommand.Tag
-import com.example.whashow.ui.recommand.TagAdapter
 
 class PairingFragment : BaseFragment<FragmentPairingBinding>(R.layout.fragment_pairing) {
 
-    private lateinit var recentListAdapter: RecentAdapter
+    private lateinit var popularpairListAdapter: PopularPairAdapter
     override fun initStartView() {
         super.initStartView()
         //배경 흰색
@@ -26,7 +19,7 @@ class PairingFragment : BaseFragment<FragmentPairingBinding>(R.layout.fragment_p
         (activity as MainActivity).binding.btnBack.setImageResource(R.drawable.btn_back)
         (activity as MainActivity).binding.backTitle.setTextColor(Color.BLACK)
 
-        (activity as MainActivity).binding.mainTitle.text = "페어링"
+        (activity as MainActivity).binding.mainTitle.text = "페어링 검색"
         (activity as MainActivity).ShowTitle()
         (activity as MainActivity).binding.navigationMain.visibility = View.VISIBLE
     }
@@ -37,13 +30,7 @@ class PairingFragment : BaseFragment<FragmentPairingBinding>(R.layout.fragment_p
         binding.search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
 
-                if (query == "손승연") {
-                    (activity as MainActivity).addFragment(ActorSearchFragment())
-                }
-                if (query == "위키드") {
-                    (activity as MainActivity).addFragment(PerformanceResultFragment())
-                }
-                return false
+                return true
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
@@ -62,30 +49,17 @@ class PairingFragment : BaseFragment<FragmentPairingBinding>(R.layout.fragment_p
             (activity as MainActivity).binding.navigationMain.visibility = View.GONE
         }
 
-        val recentList = arrayListOf(
-            RecentPairing(
-                R.drawable.img_actor1, R.drawable.img_actor2, "옥주현 정선아", "위키드", arrayListOf(
-                    Hashtag("웅장한"), Hashtag("멋있는")
-                )
-            ),
-            RecentPairing(
-                R.drawable.img_actor3,
-                R.drawable.img_actor2,
-                "손승연 정선아",
-                "위키드",
-                arrayListOf(Hashtag("환상의 하모니"))
-            )
-        )
 
-        recentListAdapter = RecentAdapter(recentList)
-        binding.recentRv.adapter = recentListAdapter
-        binding.recentRv.layoutManager =
+
+        popularpairListAdapter = PopularPairAdapter(arrayListOf())
+        binding.actorRv.adapter = popularpairListAdapter
+        binding.actorRv.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
-        recentListAdapter.setMyItemClickListener(object : RecentAdapter.MyItemClickListener {
+        popularpairListAdapter.setMyItemClickListener(object : PopularPairAdapter.MyItemClickListener {
             override fun onDeleteClick(position: Int) {
-                recentListAdapter.removeItem(position)
-                recentListAdapter.notifyDataSetChanged()
+                popularpairListAdapter.removeItem(position)
+                popularpairListAdapter.notifyDataSetChanged()
             }
         })
     }

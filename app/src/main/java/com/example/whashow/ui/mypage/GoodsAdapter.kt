@@ -2,7 +2,6 @@ package com.example.whashow.ui.mypage
 
 import android.annotation.SuppressLint
 import android.graphics.Paint
-import android.text.style.StrikethroughSpan
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -10,12 +9,6 @@ import com.bumptech.glide.Glide
 import com.example.whashow.R
 import com.example.whashow.data.GoodsX
 import com.example.whashow.databinding.GoodsGridItemBinding
-import com.example.whashow.databinding.ListGridPairingBinding
-import com.example.whashow.databinding.ListRecentPairingBinding
-import com.example.whashow.ui.pairing.Actor
-import com.example.whashow.ui.pairing.ActorAdapterGrid
-import com.example.whashow.ui.pairing.RecentAdapter
-import com.example.whashow.ui.pairing.RecentPairing
 
 class GoodsAdapter (var list: ArrayList<GoodsX>): RecyclerView.Adapter<GoodsAdapter.GoodsViewHolder>() {
 

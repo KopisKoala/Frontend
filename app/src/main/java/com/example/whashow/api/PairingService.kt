@@ -1,6 +1,5 @@
 package com.example.whashow.api
 
-import com.example.whashow.data.Info
 import com.example.whashow.data.PairReview
 import com.example.whashow.data.ReviewLike
 import retrofit2.Call
@@ -18,4 +17,6 @@ interface PairingService {
     fun postLike(@Header("Authorization") accessToken:String,@Path("review-id")id:Int): Call<ReviewLike>
     @DELETE("/review/{review-id}/like/delete")
     fun deleteLike(@Header("Authorization") accessToken:String,@Path("review-id")id:Int): Call<ReviewLike>
+
+
 }

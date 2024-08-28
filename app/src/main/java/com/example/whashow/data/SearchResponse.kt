@@ -1,6 +1,6 @@
 import com.google.gson.annotations.SerializedName
 
-data class SearchResponse(
+data class SearchHomeResponse(
     @SerializedName("isSuccess") val isSuccess: Boolean,
     @SerializedName("code") val code: String,
     @SerializedName("message") val message: String,
