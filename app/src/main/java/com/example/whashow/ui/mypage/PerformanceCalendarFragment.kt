@@ -81,6 +81,7 @@ class PerformanceCalendarFragment : BaseFragment<FragmentPerformanceCalendarBind
                                 .error(R.drawable.img_poster_small)
                                 .into(binding.imgPoster)
 
+                            binding.reviewContext.text=data.content
                             binding.paringFeature.text = "#" + data.hashtag
                             binding.performanceDate.text = data.performanceDate
                             binding.posterTitle.text = data.performanceName

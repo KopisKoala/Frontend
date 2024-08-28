@@ -29,7 +29,7 @@
                     app:searchIcon="@drawable/ic_search"
                     app:iconifiedByDefault="false"
                     app:layout_constraintVertical_weight="1"
-                    app:queryHint="배우 또는 공연을 검색해주세요."
+                    app:queryHint="공연을 검색해주세요."
                     android:layout_marginStart="5dp"/>
 
                 <View
@@ -49,14 +49,15 @@
                     android:layout_marginBottom="20dp"/>
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/actor_rv"
+                    android:id="@+id/pair_rv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    tools:listitem="@layout/list_grid_pairing"
+                    tools:listitem="@layout/list_grid_pairing_result"
                     android:layout_marginTop="20dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
-                    tools:itemCount="1"/>
+                    />
+
             </LinearLayout>
         </RelativeLayout>
     </ScrollView>
