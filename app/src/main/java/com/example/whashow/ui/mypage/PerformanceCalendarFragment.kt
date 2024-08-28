@@ -30,8 +30,13 @@ class PerformanceCalendarFragment : BaseFragment<FragmentPerformanceCalendarBind
 
     private lateinit var monthAdapter:MonthAdapter
     var position:Int=Int.MAX_VALUE/2
-    private var partner :Int=0
-    private var reviewId:String=""
+    private val _partner=MutableLiveData<String>()
+    private val _reviewId=MutableLiveData<String>()
+    val reviewId:LiveData<String>
+        get()=_reviewId
+    val partner:LiveData<String>
+        get()=_partner
+
     override fun initStartView() {
         super.initStartView()
     }
@@ -46,59 +51,67 @@ class PerformanceCalendarFragment : BaseFragment<FragmentPerformanceCalendarBind
         super.initDataBinding()
 
         monthAdapter=MonthAdapter(reviewList)
+        //달력 날짜를 클릭
         monthAdapter.setMyItemClickListener(object:MonthAdapter.MyItemClickListener{
             override fun onBtnClick(id: String) {
-
-                Log.d("일 목록 조회", id)
+                _reviewId.value=id
+                //상세 내용이 보임
                 binding.calendarDetail.visibility = View.VISIBLE
-                val call: Call<CalendarDayReview> = ApiManager.mypageService.getDayReview(
-                    "Bearer " + LocalDataSource.getAccessToken(), id
-                )
+            }
+        })
 
-                call.enqueue(object : Callback<CalendarDayReview> {
-                    @SuppressLint("SetTextI18n")
-                    override fun onResponse(
-                        call: Call<CalendarDayReview>,
-                        response: Response<CalendarDayReview>
-                    ) {
-                        if (response.isSuccessful) {
-                            val data = response.body()?.result
-                            if (data != null) {
-                                Glide.with(binding.imgPoster.context)
-                                    .load(data.poster)
-                                    .override(1500, 1500)
-                                    .placeholder(R.drawable.img_poster_small)
-                                    .error(R.drawable.img_poster_small)
-                                    .into(binding.imgPoster)
+        _reviewId.observe(requireActivity(), Observer { id ->
+            val call: Call<CalendarDayReview> = ApiManager.mypageService.getDayReview(
+                "Bearer " + LocalDataSource.getAccessToken(), id
+            )
 
-                                binding.paringFeature.text = "#" + data.hashtag
-                                binding.performanceDate.text = data.performanceDate
-                                binding.posterTitle.text = data.performanceName
-                                binding.genre.text = if (data.performanceType == "MUSICAL") "뮤지컬" else "연극"
-                                binding.pairRating.rating = data.pairRatings.toFloat()
-                                binding.performanceRating.rating = data.performanceRatings.toFloat()
+            call.enqueue(object : Callback<CalendarDayReview> {
+                @SuppressLint("SetTextI18n")
+                override fun onResponse(
+                    call: Call<CalendarDayReview>,
+                    response: Response<CalendarDayReview>
+                ) {
+                    if (response.isSuccessful) {
+                        val data = response.body()?.result
+                        if (data != null) {
+                            Glide.with(binding.imgPoster.context)
+                                .load(data.poster)
+                                .override(1500, 1500)
+                                .placeholder(R.drawable.img_poster_small)
+                                .error(R.drawable.img_poster_small)
+                                .into(binding.imgPoster)
 
-                                when (data.viewingPartner) {
-                                    "FAMILY" -> setPartnerSelection(binding.icFamily, binding.tagText)
-                                    "FRIEND" -> setPartnerSelection(binding.icSmile, binding.tagText2)
-                                    "COUPLE" -> setPartnerSelection(binding.icHeart, binding.tagText3)
-                                    "ALONE" -> setPartnerSelection(binding.icFamily, binding.tagText4)
-                                }
+                            binding.paringFeature.text = "#" + data.hashtag
+                            binding.performanceDate.text = data.performanceDate
+                            binding.posterTitle.text = data.performanceName
+                            binding.genre.text =
+                                if (data.performanceType == "MUSICAL") "뮤지컬" else "연극"
+                            binding.pairRating.rating = data.pairRatings.toFloat()
+                            binding.performanceRating.rating = data.performanceRatings.toFloat()
+
+                            _partner.value = data.viewingPartner
+                            when (data.viewingPartner) {
+                                "FAMILY" -> setPartnerSelection(binding.icFamily, binding.tagText)
+                                "FRIEND" -> setPartnerSelection(binding.icSmile, binding.tagText2)
+                                "COUPLE" -> setPartnerSelection(binding.icHeart, binding.tagText3)
+                                "ALONE" -> setPartnerSelection(binding.icFamily, binding.tagText4)
                             }
-                            Log.d("일 목록 조회", data.toString())
-                            Log.d("일 목록 조회 서버", response.body()?.result.toString())
-                        } else {
-                            Log.d("일 목록 조회 서버", response.toString())
                         }
+                        Log.d("일 목록 조회", data.toString())
+                        Log.d("일 목록 조회 서버", response.body()?.result.toString())
+                    } else {
+                        Log.d("일 목록 조회 서버", response.toString())
                     }
+                }
 
-                    override fun onFailure(call: Call<CalendarDayReview>, t: Throwable) {
-                        Log.d("일 목록 조회 서버", t.message.toString())
-                    }
-                })
+                override fun onFailure(call: Call<CalendarDayReview>, t: Throwable) {
+                    Log.d("일 목록 조회 서버", t.message.toString())
+                }
+            })
 
+            _partner.observe(requireActivity(), Observer { partner ->
                 val call2: Call<Partner> = ApiManager.mypageService.getPartner(
-                    "Bearer " + LocalDataSource.getAccessToken(), id, partner
+                    "Bearer " + LocalDataSource.getAccessToken(), id, getPartner(partner)
                 )
 
                 call2.enqueue(object : Callback<Partner> {
@@ -106,41 +119,40 @@ class PerformanceCalendarFragment : BaseFragment<FragmentPerformanceCalendarBind
                         if (response.isSuccessful) {
                             val data = response.body()?.result
                             Log.d("함께 조회", data.toString())
-                            Log.d("함께 서버", response.body()?.result.toString())
+                            Log.d("함께 반환 서버", response.body()?.result.toString())
                         } else {
-                            Log.d("함께 서버", response.toString())
+                            Log.d("함께 반환 서버", response.toString())
                         }
                     }
 
                     override fun onFailure(call: Call<Partner>, t: Throwable) {
-                        Log.d("함께 서버", t.message.toString())
+                        Log.d("함께 반환 서버", t.message.toString())
                     }
                 })
-
-            }
-
             })
+        })
+
 
         //함꼐 본 사람 수정
         binding.tagText.setOnClickListener {
             /*binding.tagText.isSelected=!binding.tagText.isSelected
             binding.icFamily.isSelected=!binding.icFamily.isSelected*/
-            partner= 1
+            _partner.value="FAMILY"
         }
         binding.tagText2.setOnClickListener {
             /*binding.tagText2.isSelected=!binding.tagText2.isSelected
             binding.icSmile.isSelected=!binding.icSmile.isSelected*/
-            partner = 2
+            _partner.value="FRIEND"
         }
         binding.tagText3.setOnClickListener {
             /*binding.tagText3.isSelected=!binding.tagText3.isSelected
             binding.icHeart.isSelected=!binding.icHeart.isSelected*/
-            partner = 3
+            _partner.value="COUPLE"
         }
         binding.tagText4.setOnClickListener {
             /*binding.tagText4.isSelected=!binding.tagText4.isSelected
             binding.icFamily.isSelected=!binding.icFamily.isSelected*/
-            partner = 4
+            _partner.value="ALONE"
         }
 
         binding.calRecycler.layoutManager=LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false)
@@ -184,17 +196,21 @@ class PerformanceCalendarFragment : BaseFragment<FragmentPerformanceCalendarBind
             binding.plus3.visibility=View.VISIBLE
             binding.memoDetail.visibility=View.GONE
         }
-
+        //날짜를 클릭했을때 반환된 아이디를 이후 메모 클릭을 감지하는 리스너가 계속 사용해야하는데 안됨
         binding.memoDetail.setOnClickListener {
             binding.edit.visibility=View.VISIBLE
             binding.edit.setOnClickListener {
                 binding.memoContext.visibility=View.GONE
                 binding.edit.visibility=View.GONE
                 binding.memoResult.visibility=View.VISIBLE
-                // 선택되지 않은 경우
+                _reviewId.observe(requireActivity(), Observer {
+                    id ->
+                    // 선택되지 않은 경우
                     val Call: Call<AddMemo> =
                         ApiManager.mypageService.addReviewMemo(
-                            "Bearer " + LocalDataSource.getAccessToken(), reviewId, binding.memoContext.text.toString()
+                            "Bearer " + LocalDataSource.getAccessToken(),
+                            id,
+                            binding.memoContext.text.toString()
                         )
                     // 비동기적으로 요청 수행
                     Call.enqueue(object : Callback<AddMemo> {
@@ -204,22 +220,23 @@ class PerformanceCalendarFragment : BaseFragment<FragmentPerformanceCalendarBind
                         ) {
                             if (response.isSuccessful) {
                                 val data = response.body()?.result
-                                Log.d("함께 조회", data.toString())
-                                Log.d("함께 서버", response.body()?.result.toString())
+                                Log.d("메모 추가 조회", data.toString())
+                                Log.d("메모 추가 서버", response.body()?.result.toString())
 
                             } else {
                                 // 서버에서 오류 응답을 받은 경우 처리
-                                Log.d("함께 서버", response.toString())
+                                Log.d("메모 추가 서버", response.toString())
                             }
 
                         }
 
                         override fun onFailure(call: Call<AddMemo>, t: Throwable) {
                             // 통신 실패 처리
-                            Log.d("함께 서버", t.message.toString())
+                            Log.d("메모 추가 서버", t.message.toString())
                         }
 
                     })
+                })
             }
 
         }
@@ -238,7 +255,15 @@ class PerformanceCalendarFragment : BaseFragment<FragmentPerformanceCalendarBind
         icon.isSelected = true
         tagText.isSelected = true
     }
-
+    private fun getPartner(partner:String?) : Int{
+        return when (partner) {
+            "FAMILY" -> 1
+            "FRIEND" -> 2
+            "COUPLE" -> 3
+            "ALONE" -> 4
+            else -> 5
+        }
+    }
 
     override fun initAfterBinding() {
         super.initAfterBinding()
