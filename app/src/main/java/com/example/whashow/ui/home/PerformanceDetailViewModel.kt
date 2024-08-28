@@ -18,6 +18,9 @@ class PerformanceDetailViewModel : ViewModel() {
     private val _likeResponse = MutableLiveData<Boolean>()
     val likeResponse: LiveData<Boolean> get() = _likeResponse
 
+    private val _ticketingLink = MutableLiveData<String>()
+    val ticketingLink: LiveData<String> get() = _ticketingLink
+
     private val _performanceDetail = MutableLiveData<PerformanceDetailResult>()
     val performanceDetail: LiveData<PerformanceDetailResult> get() = _performanceDetail
 
@@ -44,8 +47,7 @@ class PerformanceDetailViewModel : ViewModel() {
                 if (response.isSuccessful) {
                     response.body()?.result?.let { result ->
                         _performanceDetail.value = result
-
-
+                        _ticketingLink.value = result?.ticketingLink
                         _actorList.value = result?.performanceDetailActorListResDto?.actorList
                         _hashtags.value = listOfNotNull(result?.hashtag1, result?.hashtag2, result?.hashtag3)
                         _rating.value = result?.ratingAverage ?: 0f
