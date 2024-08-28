@@ -40,6 +40,8 @@ class DetailReviewFragment: BaseFragment<FragmentDetailReviewBinding>(R.layout.f
             binding.ratingBar.rating = rating
             binding.ratingNum.text = rating.toString()
         })
+
+
     }
     override fun initAfterBinding() {
         super.initAfterBinding()

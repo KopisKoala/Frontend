@@ -25,6 +25,7 @@ interface SearchService {
 
     @GET("/pair/popular/list")
     fun getPopularPair(
-        @Header("Authorization") accessToken: String
+        @Header("Authorization") accessToken: String,
+        @Query("size") size: Int
     ): Call<PopularPairRankResponse>
 }

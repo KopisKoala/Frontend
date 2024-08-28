@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModel
 import com.example.whashow.apiManager.ApiManager.searchService
 import com.example.whashow.data.PopularPairDetailResDto
 import com.example.whashow.data.PopularPairRankResponse
+import com.example.whashow.data.SearchPairResponse
 import com.example.whashow.login.LocalDataSource
 import retrofit2.Call
 import retrofit2.Callback
@@ -54,11 +55,38 @@ class SearchViewModel : ViewModel() {
             }
         })
     }
+    // 페어링 검색
+    fun fetchSearchPair(query: String) {
+        val call: Call<SearchPairResponse> = searchService.getSearchPair(
+            "Bearer " + LocalDataSource.getAccessToken()!!,
+            query = query,
+            page = 0
+        )
+
+        call.enqueue(object : Callback<SearchPairResponse> {
+            override fun onResponse(
+                call: Call<SearchPairResponse>,
+                response: Response<SearchPairResponse>
+            ) {
+                if (response.isSuccessful) {
+
+                } else {
+                    _error.value = "검색 결과를 불러오는데 실패했습니다."
+                }
+            }
+
+            override fun onFailure(call: Call<SearchPairResponse>, t: Throwable) {
+                _error.value = "검색 중 오류가 발생했습니다: ${t.message}"
+            }
+        })
+    }
+
 
     // 인기 페어 랭킹 반환 함수
     fun fetchPopularPair() {
         val call: Call<PopularPairRankResponse> = searchService.getPopularPair(
             "Bearer " + LocalDataSource.getAccessToken()!!,
+            size = 10
         )
 
         call.enqueue(object : Callback<PopularPairRankResponse> {

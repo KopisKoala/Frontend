@@ -1,5 +1,7 @@
 package com.example.whashow.ui.home
 
+import android.content.Intent
+import android.net.Uri
 import android.view.View
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
@@ -49,9 +51,23 @@ class PerformanceDetailFragment : BaseFragment<FragmentPerformanceDetailBinding>
             viewModel.fetchPerformanceData(it)
         }
 
+        binding.btnReservation.setOnClickListener {
+            viewModel.ticketingLink.value?.let { link ->
+                openWebPage(link)
+            }
+        }
+
     }
     override fun initAfterBinding() {
         super.initAfterBinding()
         (activity as MainActivity).binding.navigationMain.visibility = View.GONE
+    }
+
+    private fun openWebPage(url: String) {
+        val webpage: Uri = Uri.parse(url)
+        val intent = Intent(Intent.ACTION_VIEW, webpage)
+        if (intent.resolveActivity(requireActivity().packageManager) != null) {
+            startActivity(intent)
+        }
     }
 }
