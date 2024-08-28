@@ -39,24 +39,115 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
                     />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/txt_pairing_title"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="60dp"
-                    android:layout_marginBottom="20dp"/>
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/pair_rv"
+                <LinearLayout
+                    android:id="@+id/pairing_rank"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    tools:listitem="@layout/list_grid_pairing_result"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    />
+                    android:orientation="vertical"
+                    android:visibility="visible">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/txt_pairing_title"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="60dp"
+                        android:layout_marginBottom="20dp"/>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/pair_rv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        tools:listitem="@layout/list_grid_pairing_result"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/pairing_result"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="44dp"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginTop="45dp"
+                        android:fontFamily="@font/inter_extrabold"
+                        android:text="PAIR RESULT"
+                        android:textColor="@color/black"
+                        android:textSize="30dp" />
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="17dp"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="전체 페어"
+                            android:fontFamily="@font/inter_semi_bold"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            android:layout_marginStart="15dp"
+                            />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="12"
+                            android:textColor="@color/purple"
+                            android:textSize="14sp"
+                            android:fontFamily="@font/inter_semi_bold"
+                            android:layout_marginStart="5dp"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="건"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            android:fontFamily="@font/inter_semi_bold"
+                            android:layout_marginStart="2dp"/>
+                    </LinearLayout>
+
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/performance_rv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        tools:listitem="@layout/list_grid_pairing"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        />
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp">
+                        <ImageView
+                            android:id="@+id/recommand_result"
+                            android:layout_width="match_parent"
+                            android:layout_height="66dp"
+                            android:src="@drawable/bottom_purple_rectangle"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/inter_bold"
+                            android:text="페어링 추천 받기"
+                            android:textSize="20sp"
+                            android:textColor="@color/white"
+                            app:layout_constraintStart_toStartOf="@id/recommand_result"
+                            app:layout_constraintTop_toTopOf="@id/recommand_result"
+                            app:layout_constraintEnd_toEndOf="@id/recommand_result"
+                            app:layout_constraintBottom_toBottomOf="@id/recommand_result"
+                            />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </LinearLayout>
+
 
             </LinearLayout>
         </RelativeLayout>

@@ -3,10 +3,13 @@ package com.example.whashow.ui.home
 import Actor
 import Performance
 import SearchHomeResponse
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.whashow.apiManager.ApiManager.searchService
+import com.example.whashow.data.PairDetailListResDto
+import com.example.whashow.data.PairDetailResDto
 import com.example.whashow.data.PopularPairDetailResDto
 import com.example.whashow.data.PopularPairRankResponse
 import com.example.whashow.data.SearchPairResponse
@@ -26,6 +29,8 @@ class SearchViewModel : ViewModel() {
     private val _popularPairList = MutableLiveData<List<PopularPairDetailResDto>>()
     val popularPairList: LiveData<List<PopularPairDetailResDto>> get() = _popularPairList
 
+    private val _searchPairList = MutableLiveData<List<PairDetailResDto>>()
+    val searchPairList: LiveData<List<PairDetailResDto>> get() = _searchPairList
 
     private val _error = MutableLiveData<String>()
     val error: LiveData<String> get() = _error
@@ -96,12 +101,49 @@ class SearchViewModel : ViewModel() {
             ) {
                 if(response.isSuccessful) {
                     _popularPairList.value = response.body()?.result?.pairDetailResDtoList ?: emptyList()
+                    Log.d("인기 페어 조회 서버", _performanceList.toString())
                 } else {
                     _error.value = "인기 페어 랭킹을 불러오는데 실패했습니다."
                 }
             }
 
             override fun onFailure(call: Call<PopularPairRankResponse>, t: Throwable) {
+                _error.value = "오류가 발생했습니다: ${t.message}"
+            }
+        })
+    }
+
+    // 공연 검색에 따른 페어 반환
+    fun fetchPerformanceSearchPair(query: String) {
+        val call: Call<SearchPairResponse> = searchService.getSearchPair(
+            "Bearer " + LocalDataSource.getAccessToken()!!,
+            query,
+            0
+        )
+
+        call.enqueue(object : Callback<SearchPairResponse> {
+            override fun onResponse(
+                call: Call<SearchPairResponse>,
+                response: Response<SearchPairResponse>
+            ) {
+                if(response.isSuccessful) {
+                    response.body()?.result?.let { result ->
+                        val mergedList = mutableListOf<PairDetailResDto>()
+                        result.pairDetailListResDtos.forEach { pairDetailListResDto ->
+                            mergedList.addAll(pairDetailListResDto.pairDetailResDtoList)
+                        }
+                        Log.d("검색 페어 조회 서버", mergedList.toString())
+                        _searchPairList.value = mergedList
+                    } ?: run {
+                        _searchPairList.value = emptyList()
+                    }
+                    Log.d("검색 페어 조회 서버", _searchPairList.toString())
+                } else {
+                    _error.value = "검색 페어를 불러오는데 실패했습니다."
+                }
+            }
+
+            override fun onFailure(call: Call<SearchPairResponse>, t: Throwable) {
                 _error.value = "오류가 발생했습니다: ${t.message}"
             }
         })

@@ -26,7 +26,7 @@
             app:layout_constraintBottom_toBottomOf="parent">
             <androidx.cardview.widget.CardView
                 android:id="@+id/cv_pairing1"
-                android:layout_width="80dp"
+                android:layout_width="70dp"
                 android:layout_height="85dp"
                 app:cardElevation="0dp"
                 app:cardCornerRadius="57dp"
@@ -44,7 +44,7 @@
             </androidx.cardview.widget.CardView>
             <androidx.cardview.widget.CardView
                 android:id="@+id/cv_pairing2"
-                android:layout_width="80dp"
+                android:layout_width="70dp"
                 android:layout_height="85dp"
                 app:cardElevation="0dp"
                 app:cardCornerRadius="57dp"
@@ -134,22 +134,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             />
-
-            <TextView
-                android:id="@+id/paring_feature3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/pairing_purple_rectangle"
-                android:fontFamily="@font/inter_regular"
-                android:paddingStart="5dp"
-                android:paddingTop="3dp"
-                android:paddingEnd="5dp"
-                android:paddingBottom="3dp"
-                android:text="# 멋있는"
-                android:textColor="#7A3E65"
-                android:textSize="12sp"
-                app:layout_constraintStart_toEndOf="@+id/paring_feature2"
-                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 

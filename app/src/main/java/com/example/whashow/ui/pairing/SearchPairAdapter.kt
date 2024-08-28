@@ -7,15 +7,15 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.whashow.R
+import com.example.whashow.data.PairDetailListResDto
+import com.example.whashow.data.PairDetailResDto
 import com.example.whashow.data.PopularPairDetailResDto
+import com.example.whashow.databinding.ListGridPairingBinding
 import com.example.whashow.databinding.ListGridPairingResultBinding
-import com.example.whashow.databinding.ListTagItemBinding
-import com.example.whashow.ui.recommand.Tag
-import com.example.whashow.ui.recommand.TagAdapter
 
-class RecentAdapter (var list: ArrayList<PopularPairDetailResDto>): RecyclerView.Adapter<RecentAdapter.RecentViewHolder>() {
+class SearchPairAdapter (var list: ArrayList<PairDetailResDto>): RecyclerView.Adapter<SearchPairAdapter.SearchPairViewHolder>() {
 
-    var recentList: ArrayList<PopularPairDetailResDto> =list
+    var recentList: ArrayList<PairDetailResDto> =list
         set(value){
             field=value
             notifyDataSetChanged()
@@ -34,9 +34,9 @@ class RecentAdapter (var list: ArrayList<PopularPairDetailResDto>): RecyclerView
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): RecentAdapter.RecentViewHolder{
-        return RecentViewHolder(
-            ListGridPairingResultBinding.inflate(
+    ): SearchPairAdapter.SearchPairViewHolder{
+        return SearchPairViewHolder(
+            ListGridPairingBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
@@ -44,7 +44,7 @@ class RecentAdapter (var list: ArrayList<PopularPairDetailResDto>): RecyclerView
         )
     }
 
-    inner class RecentViewHolder(val binding: ListGridPairingResultBinding) :
+    inner class SearchPairViewHolder(val binding: ListGridPairingBinding) :
         RecyclerView.ViewHolder(binding.root){
         val img1=binding.paringImg1
         val img2=binding.paringImg2
@@ -52,13 +52,12 @@ class RecentAdapter (var list: ArrayList<PopularPairDetailResDto>): RecyclerView
         val performance=binding.namePerformance
         val hashtag1=binding.paringFeature
         val hashtag2=binding.paringFeature2
-        val order=binding.order
         val reviewNum=binding.reviewNum
 
     }
 
     @SuppressLint("SetTextI18n")
-    override fun onBindViewHolder(holder: RecentAdapter.RecentViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: SearchPairAdapter.SearchPairViewHolder, position: Int) {
         Log.d("인기 페어 조회 서버", list.toString())
         Log.d("인기 페어 조회 서버", recentList.toString())
         Glide.with(holder.itemView.context)
@@ -77,7 +76,6 @@ class RecentAdapter (var list: ArrayList<PopularPairDetailResDto>): RecyclerView
         holder.performance.text=recentList[position].title
         holder.hashtag1.text="# "+recentList[position].hashtag1
         holder.hashtag2.text="# "+recentList[position].hashtag2
-        holder.order.text=(position+1).toString()
         holder.reviewNum.text=recentList[position].reviewCount.toString()
     }
 
@@ -89,7 +87,7 @@ class RecentAdapter (var list: ArrayList<PopularPairDetailResDto>): RecyclerView
         recentList.removeAt(position)
         notifyItemRemoved(position)
     }
-    fun updatePairs(newList: List<PopularPairDetailResDto>) {
+    fun updatePairs(newList: List<PairDetailResDto>) {
         list.clear()
         list.addAll(newList)
         notifyDataSetChanged()
