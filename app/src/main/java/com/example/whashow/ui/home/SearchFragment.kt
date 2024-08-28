@@ -26,10 +26,10 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
         (activity as MainActivity).binding.mainTitle.text="홈"
         (activity as MainActivity).binding.navigationMain.visibility=View.GONE
         searchViewModel.fetchSearchHome("")
-        binding.actorTitle.visibility = View.GONE
-        binding.performanceTitle.visibility = View.GONE
-        binding.rcActor.visibility = View.GONE
-        binding.rcPerformance.visibility = View.GONE
+//        binding.actorTitle.visibility = View.GONE
+//        binding.performanceTitle.visibility = View.GONE
+//        binding.rcActor.visibility = View.GONE
+//        binding.rcPerformance.visibility = View.GONE
     }
 
     override fun initDataBinding() {

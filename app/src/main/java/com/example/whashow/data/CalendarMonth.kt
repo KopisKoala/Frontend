@@ -13,5 +13,5 @@ data class CalendarMonth(
     @SerialName("message")
     val message: String,
     @SerialName("result")
-    val result: result
+    val result: Result
 )

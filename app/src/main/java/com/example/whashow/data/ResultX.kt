@@ -6,6 +6,12 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class ResultX(
+    @SerialName("actor1Name")
+    val actor1Name: String,
+    @SerialName("actor2Name")
+    val actor2Name: String,
+    @SerialName("content")
+    val content: String,
     @SerialName("hashtag")
     val hashtag: String,
     @SerialName("id")

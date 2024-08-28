@@ -1,22 +1,17 @@
 package com.example.whashow.ui.mypage
 
-import android.graphics.BitmapFactory
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.whashow.R
 import com.example.whashow.apiManager.ApiManager
-import com.example.whashow.data.CalendarDayReview
 import com.example.whashow.data.CalendarMonth
 import com.example.whashow.data.ReviewX
 import com.example.whashow.databinding.DayItemBinding
 import com.example.whashow.login.LocalDataSource
-import com.example.whashow.viewModel.CalendarViewModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

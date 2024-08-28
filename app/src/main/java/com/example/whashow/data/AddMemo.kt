@@ -5,7 +5,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class Partner(
+data class AddMemo(
     @SerialName("code")
     val code: String,
     @SerialName("isSuccess")

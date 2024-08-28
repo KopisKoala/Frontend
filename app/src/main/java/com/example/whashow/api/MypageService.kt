@@ -1,5 +1,6 @@
 package com.example.whashow.api
 
+import com.example.whashow.data.AddMemo
 import com.example.whashow.data.AddProfile
 import com.example.whashow.data.CalendarDayReview
 import com.example.whashow.data.CalendarMonth
@@ -34,8 +35,8 @@ interface MypageService {
     fun getDayReview(@Header("Authorization") accessToken:String, @Path("review-id") reviewId: String): Call<CalendarDayReview>
     @PATCH("/review/myPage/viewingPartner/update/{review-id}")
     fun getPartner(@Header("Authorization") accessToken:String, @Path("review-id") reviewId: String, @Query("partnerNumber") partner: Int): Call<Partner>
-    @GET("/review/myPage/memo/update/{review-id}")
-    fun addReviewMemo(@Header("Authorization") accessToken:String, @Path("review-id") reviewId: String,@Body requestBody: MemoRequestBody): Call<CalendarDayReview>
+    @PATCH("/review/myPage/memo/update/{review-id}")
+    fun addReviewMemo(@Header("Authorization") accessToken:String, @Path("review-id") reviewId: String,@Query("memo") memo: String): Call<AddMemo>
     @GET("/goods/goods/list/all")
     fun getGoodsList(@Header("Authorization") accessToken:String): Call<Goods>
     @GET("/favorite/actor/list")

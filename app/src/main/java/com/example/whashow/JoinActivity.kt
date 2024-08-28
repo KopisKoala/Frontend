@@ -93,9 +93,8 @@ class JoinActivity: AppCompatActivity() {
                     val username= user?.kakaoAccount?.email.toString().substring(0, atIndex)
 
                     val Call: Call<KakaoLogin> =
-                        ApiManager.loginService.login(KakaoLoginRequest(
-                            user?.kakaoAccount?.email.toString(),
-                            "kakao", "{kakao}${username}"))
+                        ApiManager.loginService.login(KakaoLoginRequest(user?.kakaoAccount?.email.toString(),
+                            "kakao","{kakao}$username"))
 
                     // 비동기적으로 요청 수행
                     Call.enqueue(object : Callback<KakaoLogin> {

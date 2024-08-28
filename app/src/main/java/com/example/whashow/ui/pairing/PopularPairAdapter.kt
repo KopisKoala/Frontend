@@ -60,7 +60,6 @@ class PopularPairAdapter (var list: ArrayList<PopularPairDetailResDto>): Recycle
         Glide.with(holder.itemView.context)
             .load(pair.actor2Profile)
             .into(holder.img2)
-
         holder.name.text="${pair.actor1Name} & ${pair.actor2Name}"
         holder.title.text=pair.title
         holder.hashtag1.text="#${pair.hashtag1}"
