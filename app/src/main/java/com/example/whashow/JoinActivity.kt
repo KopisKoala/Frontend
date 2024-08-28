@@ -7,8 +7,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.whashow.apiManager.ApiManager
 import com.example.whashow.data.KakaoLogin
 import com.example.whashow.data.KakaoLoginRequest
-import com.example.whashow.data.getNickname
-import com.example.whashow.data.getNicknameRequest
 import com.example.whashow.databinding.ActivityJoinBinding
 import com.example.whashow.login.LocalDataSource
 import com.kakao.sdk.auth.model.OAuthToken

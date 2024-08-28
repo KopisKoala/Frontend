@@ -10,126 +10,126 @@
         android:fillViewport="true"
         android:scrollbars="none"
         android:background="@color/white">
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white"
-        android:orientation="vertical">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <ImageView
-                android:id="@+id/to_Member"
+            android:layout_height="match_parent">
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                android:src="@drawable/bg_detail"
-                android:scaleType="centerCrop"
-                app:layout_constraintTop_toTopOf="parent"/>
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/profile"
-                android:layout_width="51dp"
-                android:layout_height="51dp"
-                android:src="@drawable/img_profile"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/to_Member"
-                app:layout_constraintBottom_toBottomOf="@id/to_Member"
-                android:layout_marginStart="28dp"
-                />
-
-            <TextView
-                android:id="@+id/name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="뮤덕84"
-                android:textColor="@color/black"
-                android:fontFamily="@font/inter_semi_bold"
-                android:textSize="14sp"
-                app:layout_constraintStart_toEndOf="@id/profile"
-                android:layout_marginStart="25dp"
-                app:layout_constraintTop_toTopOf="@id/profile"
-                android:layout_marginTop="2dp"/>
-            <TextView
-                android:id="@+id/rank"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="LV.1 A grade"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                android:fontFamily="@font/inter_medium"
-                app:layout_constraintStart_toEndOf="@id/ic_rank"
-                app:layout_constraintBottom_toBottomOf="@id/profile"
-                android:layout_marginStart="12dp"
-                />
-            <ImageView
-                android:id="@+id/ic_rank"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_lv1"
-                app:layout_constraintStart_toEndOf="@id/profile"
-                android:layout_marginStart="25dp"
-                app:layout_constraintBottom_toBottomOf="@id/profile"
-                android:layout_marginBottom="2dp"
-                />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tab_layout"
-                android:layout_width="wrap_content"
-                android:layout_height="25dp"
-                app:tabGravity="start"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="27dp"
-                app:tabTextAppearance="@style/TabLayoutTextSize"
-                app:tabSelectedTextColor="@color/black"
-                app:tabTextColor="#80000000"
-                app:tabSelectedTextAppearance="@style/TabLayoutSelectTextSize"
+                android:layout_height="match_parent"
                 android:background="@color/white"
-                app:tabBackground="@color/white"
-                app:tabIconTint="@color/mypage_menu_text_select"
-                app:tabRippleColor="@null"
-                app:tabIndicatorHeight="0dp"
-                app:tabIndicatorColor="@color/white"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                android:orientation="vertical">
 
-                <com.google.android.material.tabs.TabItem
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:id="@+id/to_Member"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:src="@drawable/bg_detail"
+                        android:scaleType="centerCrop"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/profile"
+                        android:layout_width="51dp"
+                        android:layout_height="51dp"
+                        android:src="@drawable/img_profile"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/to_Member"
+                        app:layout_constraintBottom_toBottomOf="@id/to_Member"
+                        android:layout_marginStart="28dp"
+                        />
+
+                    <TextView
+                        android:id="@+id/name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="뮤덕84"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/inter_semi_bold"
+                        android:textSize="14sp"
+                        app:layout_constraintStart_toEndOf="@id/profile"
+                        android:layout_marginStart="25dp"
+                        app:layout_constraintTop_toTopOf="@id/profile"
+                        android:layout_marginTop="2dp"/>
+                    <TextView
+                        android:id="@+id/rank"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="LV.1 A grade"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        android:fontFamily="@font/inter_medium"
+                        app:layout_constraintStart_toEndOf="@id/ic_rank"
+                        app:layout_constraintBottom_toBottomOf="@id/profile"
+                        android:layout_marginStart="12dp"
+                        />
+                    <ImageView
+                        android:id="@+id/ic_rank"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_lv1"
+                        app:layout_constraintStart_toEndOf="@id/profile"
+                        android:layout_marginStart="25dp"
+                        app:layout_constraintBottom_toBottomOf="@id/profile"
+                        android:layout_marginBottom="2dp"
+                        />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tab_layout"
                     android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    app:tabGravity="start"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="27dp"
+                    app:tabTextAppearance="@style/TabLayoutTextSize"
+                    app:tabSelectedTextColor="@color/black"
+                    app:tabTextColor="#80000000"
+                    app:tabSelectedTextAppearance="@style/TabLayoutSelectTextSize"
+                    android:background="@color/white"
+                    app:tabBackground="@color/white"
+                    app:tabIconTint="@color/mypage_menu_text_select"
+                    app:tabRippleColor="@null"
+                    app:tabIndicatorHeight="0dp"
+                    app:tabIndicatorColor="@color/white"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="공연 달력"/>
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="굿즈 상점"/>
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="내 배우"/>
+
+                </com.google.android.material.tabs.TabLayout>
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/vp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="공연 달력"/>
-                <com.google.android.material.tabs.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="굿즈 상점"/>
-                <com.google.android.material.tabs.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="내 배우"/>
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tab_layout"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="27dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    />
 
-            </com.google.android.material.tabs.TabLayout>
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/vp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tab_layout"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="27dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                />
-
-    </LinearLayout>
+            </LinearLayout>
 
 
-    </RelativeLayout>
+        </RelativeLayout>
     </ScrollView>
 
 

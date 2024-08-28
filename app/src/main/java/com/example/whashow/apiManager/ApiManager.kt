@@ -4,11 +4,10 @@ import com.example.whashow.BuildConfig
 import com.example.whashow.api.LoginService
 import com.example.whashow.api.MypageService
 import com.example.whashow.api.PairingService
+import com.example.whashow.api.PerformanceService
+import com.example.whashow.api.SearchService
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
-import kotlinx.serialization.json.Json
-import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -44,4 +43,7 @@ object ApiManager {
     val loginService: LoginService = retrofit.create(LoginService::class.java)
     val mypageService: MypageService = retrofit.create(MypageService::class.java)
     val pairingService: PairingService = retrofit.create(PairingService::class.java)
+    val performanceService: PerformanceService = retrofit.create(PerformanceService::class.java)
+    val searchService : SearchService = retrofit.create(SearchService::class.java)
+
 }

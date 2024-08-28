@@ -67,6 +67,8 @@
         <item name="colorControlNormal">#7A3E65</item>
     </style>
 
+
+
     <style name="TabLayoutTextSize" parent="TextAppearance.Design.Tab">
         <item name="android:textSize">17sp</item>
         <item name="android:fontFamily">@font/inter_extrabold</item>
