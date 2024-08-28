@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.whashow.MainActivity
 import com.example.whashow.R
@@ -18,7 +19,9 @@ import com.example.whashow.ui.recommand.TagAdapter
 
 class PairingFragment : BaseFragment<FragmentPairingBinding>(R.layout.fragment_pairing) {
 
-    private lateinit var recentListAdapter: RecentAdapter
+    private lateinit var pairListManager: GridLayoutManager
+    private lateinit var pairListAdapter: RecentAdapter
+
     override fun initStartView() {
         super.initStartView()
         //배경 흰색
@@ -62,24 +65,24 @@ class PairingFragment : BaseFragment<FragmentPairingBinding>(R.layout.fragment_p
             (activity as MainActivity).binding.navigationMain.visibility = View.GONE
         }
 
-        val recentList = arrayListOf(
-            RecentPairing(
-                R.drawable.img_actor1, R.drawable.img_actor2, "옥주현 정선아", "위키드", arrayListOf(
-                    Hashtag("웅장한"), Hashtag("멋있는")
-                )
-            ),
-            RecentPairing(
-                R.drawable.img_actor3,
-                R.drawable.img_actor2,
-                "손승연 정선아",
-                "위키드",
-                arrayListOf(Hashtag("환상의 하모니"))
-            )
+        val pairList = arrayListOf(
+            Performance(R.drawable.img_actor1,R.drawable.img_actor2,"옥주현 정선아", "위키드", "13", arrayListOf(
+                Hashtag("웅장한"), Hashtag("멋있는")
+            ) ),
+            Performance(R.drawable.img_actor3,R.drawable.img_actor2,"손승연 정선아", "위키드", "25", arrayListOf(Hashtag("환상의 하모니")) )
         )
 
-        recentListAdapter = RecentAdapter(recentList)
-        binding.recentRv.adapter = recentListAdapter
-        binding.recentRv.layoutManager =
+        pairListManager = GridLayoutManager(requireContext(), 2)
+        pairListAdapter = RecentAdapter(pairList)
+
+        val actorRecyclerList = binding.pairRv.apply {
+            setHasFixedSize(true)
+            layoutManager = pairListManager
+            adapter = pairListAdapter
+        }
+        /*recentListAdapter = RecentAdapter(recentList)
+        binding.pairRv.adapter = recentListAdapter
+        binding.pairRv.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
         recentListAdapter.setMyItemClickListener(object : RecentAdapter.MyItemClickListener {
@@ -87,7 +90,7 @@ class PairingFragment : BaseFragment<FragmentPairingBinding>(R.layout.fragment_p
                 recentListAdapter.removeItem(position)
                 recentListAdapter.notifyDataSetChanged()
             }
-        })
+        })*/
     }
 
     override fun initAfterBinding() {

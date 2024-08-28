@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.whashow.databinding.ListGridPairingBinding
+import com.example.whashow.databinding.ListGridPairingResultBinding
 import com.example.whashow.databinding.ListGridRecommandItemBinding
 import com.example.whashow.ui.recommand.RecommandResult
 
@@ -14,7 +15,7 @@ class ActorAdapterGrid (var list: ArrayList<Actor>): RecyclerView.Adapter<ActorA
         viewType: Int
     ): ActorAdapterGrid.ActorViewHolder{
         return ActorViewHolder(
-            ListGridPairingBinding.inflate(
+            ListGridPairingResultBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
@@ -22,7 +23,7 @@ class ActorAdapterGrid (var list: ArrayList<Actor>): RecyclerView.Adapter<ActorA
         )
     }
 
-    inner class ActorViewHolder(val binding: ListGridPairingBinding) :
+    inner class ActorViewHolder(val binding: ListGridPairingResultBinding) :
         RecyclerView.ViewHolder(binding.root){
         val img1=binding.paringImg1
         val img2=binding.paringImg2
