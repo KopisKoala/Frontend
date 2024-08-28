@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="180dp"
+    android:layout_height="wrap_content"
+    android:id="@+id/performance_item"
+    android:orientation="vertical"
+    android:layout_marginHorizontal="10dp"
+    android:layout_marginBottom="10dp"
+    android:layout_marginTop="10dp">
+
+    <ImageView
+        android:id="@+id/poster"
+        android:layout_width="180dp"
+        android:layout_height="240dp"
+        android:layout_gravity=""
+        android:scaleType="fitXY"
+        android:src="@drawable/img_recommend_post" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:fontFamily="@font/inter_semi_bold"
+        android:text="2020 신년 콘서트 VOICE OF THE MAS.."
+        android:textColor="@color/black"
+        android:textSize="14sp" />
+
+</LinearLayout>

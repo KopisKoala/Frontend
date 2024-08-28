@@ -43,6 +43,4 @@ interface MypageService {
     fun getMyActorList(@Header("Authorization") accessToken:String,@Query("ScrollPosition") position: Int,@Query("FetchSize") size: Int): Call<MyActor>
     @DELETE("/favorite/actor/delete/{actorId}")
     fun deleteActor(@Header("Authorization") accessToken:String,@Path("actorId") id: Int): Call<DeleteMyActor>
-
-
 }

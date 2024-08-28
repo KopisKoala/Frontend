@@ -1,25 +1,20 @@
 package com.example.whashow
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import androidx.core.view.GravityCompat
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import com.example.whashow.apiManager.ApiManager
-import com.example.whashow.data.KakaoLogin
-import com.example.whashow.data.KakaoLoginRequest
 import com.example.whashow.data.Reissue
-import com.example.whashow.data.getNickname
-import com.example.whashow.data.getNicknameRequest
 import com.example.whashow.databinding.ActivityMainBinding
 import com.example.whashow.login.LocalDataSource
 import com.example.whashow.ui.home.HomeFragment
+import com.example.whashow.ui.home.SearchFragment
 import com.example.whashow.ui.mypage.MypageFragment
 import com.example.whashow.ui.pairing.PairingFragment
 import com.example.whashow.ui.recommand.GenreFragment
-import com.example.whashow.ui.recommand.RecommandResultFragment
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -29,6 +24,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
 
         binding=ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -44,6 +40,7 @@ class MainActivity : AppCompatActivity() {
         binding.btnBack.setOnClickListener {
             onBackPressed()
         }
+
     }
 
     override fun onBackPressed() {
@@ -54,25 +51,31 @@ class MainActivity : AppCompatActivity() {
         else {
             super.onBackPressed()
         }
-
     }
 
     fun ShowBack() {
         binding.btnBack.visibility = View.VISIBLE
-
         binding.toolbarLogo.visibility = View.GONE
         binding.btnMainSearch.visibility = View.GONE
-        binding.mainTitle.visibility = View.GONE
+        binding.mainTitle.visibility = View.VISIBLE
         binding.backTitle.visibility = View.GONE
     }
     fun ShowBackandTitle() {
         binding.btnBack.visibility = View.VISIBLE
         binding.backTitle.visibility = View.VISIBLE
-
         binding.toolbarLogo.visibility = View.GONE
         binding.btnMainSearch.visibility = View.GONE
         binding.mainTitle.visibility = View.GONE
     }
+
+    fun NoShow() {
+        binding.btnBack.visibility = View.VISIBLE
+        binding.backTitle.visibility = View.GONE
+        binding.toolbarLogo.visibility = View.GONE
+        binding.btnMainSearch.visibility = View.GONE
+        binding.mainTitle.visibility = View.VISIBLE
+    }
+
     fun ShowTitle() {
         binding.mainTitle.visibility = View.VISIBLE
 
@@ -85,10 +88,12 @@ class MainActivity : AppCompatActivity() {
     fun ShowLogoAndSearch(){
         binding.toolbarLogo.visibility = View.VISIBLE
         binding.btnMainSearch.visibility = View.VISIBLE
-
         binding.mainTitle.visibility = View.GONE
         binding.btnBack.visibility = View.GONE
         binding.backTitle.visibility = View.GONE
+        binding.btnMainSearch.setOnClickListener{
+            addFragment(SearchFragment())
+        }
     }
     private fun showInit() {
         val transaction = supportFragmentManager.beginTransaction()
@@ -134,9 +139,9 @@ class MainActivity : AppCompatActivity() {
                     R.anim.fade_out
                 )
                 replace(R.id.container_main, fragment)
+
                 addToBackStack(null)
             }
-
     }
     fun reissue(){
         val Call: Call<Reissue> =
