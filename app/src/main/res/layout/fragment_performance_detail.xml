@@ -48,6 +48,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/tb_detail" />
 
             <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_reservation"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:background="#7A3E65"

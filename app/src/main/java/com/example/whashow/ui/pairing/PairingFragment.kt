@@ -37,15 +37,19 @@ class PairingFragment : BaseFragment<FragmentPairingBinding>(R.layout.fragment_p
         binding.search.isSubmitButtonEnabled = true
         binding.search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
+                query?.let {
+                searchViewModel.fetchSearchPair(query)
 
-                if (query=="위키드"){
-                    (activity as MainActivity).addFragment(PerformanceResultFragment())
+
                 }
                 return true
             }
 
-            override fun onQueryTextChange(newText: String?): Boolean {
 
+            override fun onQueryTextChange(newText: String?): Boolean {
+                if (newText.isNullOrEmpty()) {
+                    searchViewModel.fetchPopularPair()
+                }
                 return true
             }
         })
