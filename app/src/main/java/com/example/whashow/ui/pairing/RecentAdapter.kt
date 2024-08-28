@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.whashow.databinding.ListGridPairingResultBinding
-import com.example.whashow.databinding.ListRecentPairingBinding
 import com.example.whashow.databinding.ListTagItemBinding
 import com.example.whashow.ui.recommand.Tag
 import com.example.whashow.ui.recommand.TagAdapter

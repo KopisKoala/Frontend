@@ -14,7 +14,6 @@ import com.example.whashow.ui.home.SearchViewModel
 
 class PairingFragment : BaseFragment<FragmentPairingBinding>(R.layout.fragment_pairing) {
     private val searchViewModel : SearchViewModel by viewModels()
-    private lateinit var popularpairListAdapter: PopularPairAdapter
 
     private lateinit var pairListManager: GridLayoutManager
     private lateinit var pairListAdapter: RecentAdapter
@@ -35,15 +34,13 @@ class PairingFragment : BaseFragment<FragmentPairingBinding>(R.layout.fragment_p
     override fun initDataBinding() {
         super.initDataBinding()
 
-        popularpairListAdapter = PopularPairAdapter(arrayListOf())
-        binding.actorRv.adapter = popularpairListAdapter
-        binding.actorRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-
-
         binding.search.isSubmitButtonEnabled = true
         binding.search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
 
+                if (query=="위키드"){
+                    (activity as MainActivity).addFragment(PerformanceResultFragment())
+                }
                 return true
             }
 
@@ -67,7 +64,8 @@ class PairingFragment : BaseFragment<FragmentPairingBinding>(R.layout.fragment_p
             Performance(R.drawable.img_actor1,R.drawable.img_actor2,"옥주현 정선아", "위키드", "13", arrayListOf(
                 Hashtag("웅장한"), Hashtag("멋있는")
             ) ),
-            Performance(R.drawable.img_actor3,R.drawable.img_actor2,"손승연 정선아", "위키드", "25", arrayListOf(Hashtag("환상의 하모니")) )
+            Performance(R.drawable.img_actor3,R.drawable.img_actor2,"손승연 정선아", "위키드", "25", arrayListOf(Hashtag("환상의 하모니")) ),
+            Performance(R.drawable.img_actor3,R.drawable.img_actor2,"손승연 정선아", "위키드", "25", arrayListOf(Hashtag("환상의 하모니")))
         )
 
         pairListManager = GridLayoutManager(requireContext(), 2)
