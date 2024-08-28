@@ -1,7 +1,8 @@
 package com.example.whashow.api
 
-
-import SearchResponse
+import SearchHomeResponse
+import com.example.whashow.data.PopularPairRankResponse
+import com.example.whashow.data.SearchPairResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Header
@@ -13,5 +14,17 @@ interface SearchService {
         @Header("Authorization") accessToken: String,
         @Query("query") query: String,
         @Query("page") page: Int
-    ): Call<SearchResponse>
+    ): Call<SearchHomeResponse>
+
+    @GET("/search/pairs/performance")
+    fun getSearchPair(
+        @Header("Authorization") accessToken: String,
+        @Query("query") query: String,
+        @Query("page") page: Int
+    ): Call<SearchPairResponse>
+
+    @GET("/pair/popular/list")
+    fun getPopularPair(
+        @Header("Authorization") accessToken: String
+    ): Call<PopularPairRankResponse>
 }

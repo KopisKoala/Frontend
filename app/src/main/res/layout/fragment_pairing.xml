@@ -39,21 +39,24 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
                     />
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/img_pair_title"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="45dp"
-                    android:layout_marginBottom="41dp"/>
+                    android:src="@drawable/txt_pairing_title"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="60dp"
+                    android:layout_marginBottom="20dp"/>
+
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recent_rv"
+                    android:id="@+id/actor_rv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    tools:listitem="@layout/list_recent_pairing"
+                    tools:listitem="@layout/list_grid_pairing"
+                    android:layout_marginTop="20dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
-                    />
+                    tools:itemCount="1"/>
             </LinearLayout>
         </RelativeLayout>
     </ScrollView>

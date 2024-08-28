@@ -5,8 +5,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.whashow.data.PairReviewResult
-import com.example.whashow.data.Review
-import com.example.whashow.databinding.ListRecentPairingBinding
+
+
 import com.example.whashow.databinding.PairResultVpItemBinding
 
 class PairingViewPagerAdapter (var list: ArrayList<PairReviewResult>) : RecyclerView.Adapter<PairingViewPagerAdapter.PagerViewHolder>() {
