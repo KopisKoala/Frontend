@@ -29,7 +29,6 @@ class PerformanceAdapterGrid (var list: ArrayList<Performance>): RecyclerView.Ad
         val hashtag1=binding.paringFeature
         val hashtag2=binding.paringFeature2
         val review=binding.reviewNum
-        val order=binding.order
     }
 
     override fun onBindViewHolder(holder: PerformanceAdapterGrid.PerformanceViewHolder, position: Int) {
@@ -39,7 +38,6 @@ class PerformanceAdapterGrid (var list: ArrayList<Performance>): RecyclerView.Ad
         holder.performance.text=list[position].performance
         holder.hashtag1.text="# "+list[position].hashtag[0].tag
         holder.review.text=list[position].review
-        holder.order.text=(position+1).toString()
     }
 
     override fun getItemCount(): Int {
