@@ -88,7 +88,7 @@ class PerformanceCalendarFragment : BaseFragment<FragmentPerformanceCalendarBind
                                 if (data.performanceType == "MUSICAL") "뮤지컬" else "연극"
                             binding.pairRating.rating = data.pairRatings.toFloat()
                             binding.performanceRating.rating = data.performanceRatings.toFloat()
-
+                            binding.memoResult.text=data.memo
                             _partner.value = data.viewingPartner
                             when (data.viewingPartner) {
                                 "FAMILY" -> setPartnerSelection(binding.icFamily, binding.tagText)
@@ -201,50 +201,50 @@ class PerformanceCalendarFragment : BaseFragment<FragmentPerformanceCalendarBind
             binding.plus3.visibility=View.VISIBLE
             binding.memoDetail.visibility=View.GONE
         }
-        //날짜를 클릭했을때 반환된 아이디를 이후 메모 클릭을 감지하는 리스너가 계속 사용해야하는데 안됨
         binding.memoDetail.setOnClickListener {
-            binding.edit.visibility=View.VISIBLE
-            binding.edit.setOnClickListener {
-                binding.memoContext.visibility=View.GONE
-                binding.edit.visibility=View.GONE
-                binding.memoResult.visibility=View.VISIBLE
-                _reviewId.observe(requireActivity(), Observer {
-                    id ->
-                    // 선택되지 않은 경우
-                    val Call: Call<AddMemo> =
-                        ApiManager.mypageService.addReviewMemo(
-                            "Bearer " + LocalDataSource.getAccessToken(),
-                            id,
-                            binding.memoContext.text.toString()
-                        )
-                    // 비동기적으로 요청 수행
-                    Call.enqueue(object : Callback<AddMemo> {
-                        override fun onResponse(
-                            call: Call<AddMemo>,
-                            response: Response<AddMemo>
-                        ) {
-                            if (response.isSuccessful) {
-                                val data = response.body()?.result
-                                Log.d("메모 추가 조회", data.toString())
-                                Log.d("메모 추가 서버", response.body()?.result.toString())
+                binding.edit.visibility = View.VISIBLE
+                binding.edit.setOnClickListener {
+                    binding.memoContext.visibility = View.GONE
+                    binding.memoResult.text = binding.memoContext.text
+                    binding.memoResult.visibility = View.VISIBLE
+                    _reviewId.observe(requireActivity(), Observer { id ->
+                        // 선택되지 않은 경우
+                        val Call: Call<AddMemo> =
+                            ApiManager.mypageService.addReviewMemo(
+                                "Bearer " + LocalDataSource.getAccessToken(),
+                                id,
+                                binding.memoContext.text.toString()
+                            )
+                        // 비동기적으로 요청 수행
+                        Call.enqueue(object : Callback<AddMemo> {
+                            override fun onResponse(
+                                call: Call<AddMemo>,
+                                response: Response<AddMemo>
+                            ) {
+                                if (response.isSuccessful) {
+                                    val data = response.body()?.result
+                                    Log.d("메모 추가 조회", data.toString())
+                                    Log.d("메모 추가 서버", response.body()?.result.toString())
+                                    binding.memoResult.visibility = View.GONE
+                                    binding.memoContext.visibility = View.VISIBLE
 
-                            } else {
-                                // 서버에서 오류 응답을 받은 경우 처리
-                                Log.d("메모 추가 서버", response.toString())
+                                } else {
+                                    // 서버에서 오류 응답을 받은 경우 처리
+                                    Log.d("메모 추가 서버", response.toString())
+                                }
+
                             }
 
-                        }
+                            override fun onFailure(call: Call<AddMemo>, t: Throwable) {
+                                // 통신 실패 처리
+                                Log.d("메모 추가 서버", t.message.toString())
+                            }
 
-                        override fun onFailure(call: Call<AddMemo>, t: Throwable) {
-                            // 통신 실패 처리
-                            Log.d("메모 추가 서버", t.message.toString())
-                        }
-
+                        })
                     })
-                })
-            }
-
+                }
         }
+
     }
     private fun setPartnerSelection(icon: ImageView?, tagText: TextView?) {
         // 모든 아이콘 및 텍스트 선택 해제
