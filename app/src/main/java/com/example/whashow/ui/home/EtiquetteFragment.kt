@@ -9,7 +9,7 @@ import com.example.whashow.databinding.FragmentEtiquetteBinding
 class EtiquetteFragment : BaseFragment<FragmentEtiquetteBinding>(R.layout.fragment_etiquette) {
     override fun initStartView() {
         super.initStartView()
-        (activity as MainActivity).ShowBack()
+        (activity as MainActivity).ShowBackEq()
     }
 
     override fun initDataBinding() {

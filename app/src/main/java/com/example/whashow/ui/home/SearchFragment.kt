@@ -1,5 +1,6 @@
 package com.example.whashow.ui.home
 
+import Actor
 import Performance
 import android.os.Bundle
 import android.view.View
@@ -17,6 +18,7 @@ import com.example.whashow.ui.home.Adapter.PerformanceAdapter
 
 class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_search) {
     private val searchViewModel : SearchViewModel by viewModels()
+    private val viewModel: PerformanceDetailViewModel by viewModels()
     private lateinit var actorListAdapter: ActorAdapter
     private lateinit var performanceListAdapter: PerformanceAdapter
 
@@ -25,11 +27,10 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
         (activity as MainActivity).NoShow()
         (activity as MainActivity).binding.mainTitle.text="홈"
         (activity as MainActivity).binding.navigationMain.visibility=View.GONE
+
+        // 첫 검색 화면은 빈화면으로..
         searchViewModel.fetchSearchHome("")
-//        binding.actorTitle.visibility = View.GONE
-//        binding.performanceTitle.visibility = View.GONE
-//        binding.rcActor.visibility = View.GONE
-//        binding.rcPerformance.visibility = View.GONE
+
     }
 
     override fun initDataBinding() {
@@ -51,8 +52,6 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
                 }
                 (activity as MainActivity).addFragment(fragment)
             }
-
-
         })
 
         binding.search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
@@ -65,7 +64,23 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
                         binding.actorTitle.text = "배우 ${actor.size}건"
                         binding.actorTitle.visibility = if (actor.isEmpty()) View.GONE else View.VISIBLE
                         binding.rcActor.visibility = if (actor.isEmpty()) View.GONE else View.VISIBLE
+                        actorListAdapter.setMyItemClickListener(object : ActorAdapter.MyItemClickListener{
+                            override fun onLikeClick(actor: Actor, isLike: String) {
+                                val newIsFavorite = if (isLike == "Y") "N" else "Y"
+                                actor.isFavoriteActor = newIsFavorite
+
+                                if (newIsFavorite == "Y") {
+                                    viewModel.postLikeActor(actor.id)
+                                } else {
+                                    viewModel.postDisLikeActor(actor.id)
+                                }
+                                actorListAdapter.notifyDataSetChanged()
+                            }
+
+                        })
                     })
+
+
 
                     searchViewModel.performanceList.observe(viewLifecycleOwner, Observer { performance ->
                         performanceListAdapter.updatePerformances(performance)

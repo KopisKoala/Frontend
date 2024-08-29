@@ -29,7 +29,8 @@ data class Actors(
 )
 
 data class Actor(
-    @SerializedName("id") val id: Int?,
-    @SerializedName("actorName") val actorName: String?,
-    @SerializedName("actorProfile") val actorProfile: String
+    @SerializedName("id") val id: Int,
+    @SerializedName("actorName") val actorName: String,
+    @SerializedName("actorProfile") val actorProfile: String,
+    @SerializedName("isFavoriteActor") var isFavoriteActor: String
 )
