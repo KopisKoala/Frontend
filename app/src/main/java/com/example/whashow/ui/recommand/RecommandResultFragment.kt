@@ -63,19 +63,28 @@ class RecommandResultFragment : BaseFragment<FragmentRecommandResultBinding>(R.l
             "desc"
         )
 
-        performanceViewPager = PerformanceViewPagerAdapter(arrayListOf()) // 어댑터 생성
-        binding.vp.adapter=performanceViewPager
-        binding.vp.orientation = ViewPager2.ORIENTATION_HORIZONTAL
-
-        performanceViewPager.performanceList=recommandViewModel.recommandResultList.value as ArrayList<PerformancesByStandard>
-        if (performanceViewPager.performanceList.isNotEmpty() && performanceViewPager.performanceList[0].performancesByStandard.isNotEmpty()){
-            recommandResultViewModel.setPairId(performanceViewPager.performanceList[0].performancesByStandard[0].id)
-            performanceViewPager.notifyDataSetChanged()
-        }
         reviewAdapter = ReviewAdapter(arrayListOf())
         binding.reviewRv.adapter = reviewAdapter
         binding.reviewRv.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+
+        performanceViewPager = PerformanceViewPagerAdapter(arrayListOf()) // 어댑터 생성
+        binding.vp.adapter=performanceViewPager
+        binding.vp.orientation = ViewPager2.ORIENTATION_HORIZONTAL
+        recommandViewModel.recommandResultList.observe(viewLifecycleOwner) { list ->
+            Log.d("공연 목록 조회", list.toString())
+            performanceViewPager.updatePerformance(list)
+            performanceViewPager.notifyDataSetChanged()
+        }
+
+        if (performanceViewPager.performanceList.isNotEmpty() && performanceViewPager.performanceList[0].performancesByStandard.isNotEmpty()){
+            recommandResultViewModel.setPairId(performanceViewPager.performanceList[0].performancesByStandard[0].id)
+        }
+        else{
+            reviewAdapter.updateReviews(arrayListOf())
+            binding.reviewNum.text = "0"
+        }
+
 
         // spinnerRecommandSpace를 레이아웃 파일에서 가져옴
         val spinnerSortResult: Spinner = binding.spinnerReviewSort
@@ -85,13 +94,55 @@ class RecommandResultFragment : BaseFragment<FragmentRecommandResultBinding>(R.l
                 recommandResultViewModel.pairId.observe(viewLifecycleOwner) { pairId ->
                     if (pairId != null) {
                         Log.d("리뷰 목록 조회", id.toString())
-                        recommandResultViewModel.fetchPerformanceReview(pairId!!, p2)
-                        recommandResultViewModel.reviewList.observe(
-                            viewLifecycleOwner,
-                            Observer { list ->
-                                reviewAdapter.updateReviews(list)
-                                binding.reviewNum.text = list.size.toString()
-                            })
+                        //정렬
+                        val sortList = listOf(
+                            "recent",
+                            "like",
+                            "asc",
+                            "desc"
+                        )
+                        val Call2: Call<PairReview> =
+                            ApiManager.pairingService.getInfo(
+                                "Bearer " + LocalDataSource.getAccessToken()!!, pairId,sortList[p2]
+                            )
+                        // 비동기적으로 요청 수행
+                        Call2.enqueue(object : Callback<PairReview> {
+                            override fun onResponse(
+                                call: Call<PairReview>,
+                                response: Response<PairReview>
+                            ) {
+                                if (response.isSuccessful) {
+                                    val data = response.body()?.result
+                                    if (data != null) {
+                                        recommandResultViewModel.setReviewList(data.reviewList)
+                                        recommandResultViewModel.reviewList.observe(
+                                            viewLifecycleOwner,
+                                            Observer { list ->
+
+                                                Log.d("리뷰 목록 조회", list.toString())
+                                                reviewAdapter.updateReviews(list)
+                                                binding.reviewNum.text = list.size.toString()
+
+                                            })
+                                    }
+
+                                    Log.d("페어 리뷰 목록 조회", data.toString())
+                                    Log.d("페어 리뷰 목록 조회 서버", response.body()?.result.toString())
+
+                                } else {
+                                    // 서버에서 오류 응답을 받은 경우 처리
+                                    Log.d("페어 리뷰 목록 조회 서버", response.toString())
+                                }
+
+                            }
+
+                            override fun onFailure(call: Call<PairReview>, t: Throwable) {
+                                // 통신 실패 처리
+                                Log.d("페어 리뷰 목록 조회 서버", t.message.toString())
+                            }
+
+                        })
+
                     }
                     else {
                         recommandResultViewModel.reviewList.observe(
@@ -108,13 +159,55 @@ class RecommandResultFragment : BaseFragment<FragmentRecommandResultBinding>(R.l
                 recommandResultViewModel.pairId.observe(viewLifecycleOwner) { pairId ->
                     if (pairId != null) {
                         Log.d("리뷰 목록 조회", id.toString())
-                        recommandResultViewModel.fetchPerformanceReview(pairId!!, 0)
-                        recommandResultViewModel.reviewList.observe(
-                            viewLifecycleOwner,
-                            Observer { list ->
-                                reviewAdapter.updateReviews(list)
-                                binding.reviewNum.text = list.size.toString()
-                            })
+                        //정렬
+                        val sortList = listOf(
+                            "recent",
+                            "like",
+                            "asc",
+                            "desc"
+                        )
+                        val Call2: Call<PairReview> =
+                            ApiManager.pairingService.getInfo(
+                                "Bearer " + LocalDataSource.getAccessToken()!!, pairId,sortList[0]
+                            )
+                        // 비동기적으로 요청 수행
+                        Call2.enqueue(object : Callback<PairReview> {
+                            override fun onResponse(
+                                call: Call<PairReview>,
+                                response: Response<PairReview>
+                            ) {
+                                if (response.isSuccessful) {
+                                    val data = response.body()?.result
+                                    if (data != null) {
+                                        recommandResultViewModel.setReviewList(data.reviewList)
+                                        recommandResultViewModel.reviewList.observe(
+                                            viewLifecycleOwner,
+                                            Observer { list ->
+
+                                                Log.d("리뷰 목록 조회", list.toString())
+                                                reviewAdapter.updateReviews(list)
+                                                binding.reviewNum.text = list.size.toString()
+
+                                            })
+                                    }
+
+                                    Log.d("페어 리뷰 목록 조회", data.toString())
+                                    Log.d("페어 리뷰 목록 조회 서버", response.body()?.result.toString())
+
+                                } else {
+                                    // 서버에서 오류 응답을 받은 경우 처리
+                                    Log.d("페어 리뷰 목록 조회 서버", response.toString())
+                                }
+
+                            }
+
+                            override fun onFailure(call: Call<PairReview>, t: Throwable) {
+                                // 통신 실패 처리
+                                Log.d("페어 리뷰 목록 조회 서버", t.message.toString())
+                            }
+
+                        })
+
                     }
                     else {
                     recommandResultViewModel.reviewList.observe(
@@ -132,9 +225,26 @@ class RecommandResultFragment : BaseFragment<FragmentRecommandResultBinding>(R.l
         binding.vp.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
-                performanceViewPager.performanceList=recommandViewModel.recommandResultList.value as ArrayList<PerformancesByStandard>
-                recommandResultViewModel.setPairId(performanceViewPager.performanceList[position].performancesByStandard[0].id)
-                performanceViewPager.notifyDataSetChanged()
+                recommandViewModel.recommandResultList.observe(viewLifecycleOwner) { list ->
+                    Log.d("공연 목록 조회", list.toString())
+                    performanceViewPager.updatePerformance(list)
+                    performanceViewPager.notifyDataSetChanged()
+                }
+                if (position >= 0 && position < performanceViewPager.performanceList.size) {
+                    val performancesByStandardList = performanceViewPager.performanceList[position].performancesByStandard
+
+                    if (performancesByStandardList.isNotEmpty()) {
+                        recommandResultViewModel.setPairId(performancesByStandardList[0].id)
+                    } else {
+                        Log.d("Error", "performancesByStandard list is empty at position $position.")
+                        // 예외 처리 코드 추가 (예: 기본 ID 설정 또는 경고 메시지 표시)
+                    }
+                } else {
+                    Log.d("Error", "Invalid position: $position. performanceList size: ${performanceViewPager.performanceList.size}.")
+                    // 예외 처리 코드 추가 (예: 기본 ID 설정 또는 경고 메시지 표시)
+                }
+                /*reviewAdapter.updateReviews(arrayListOf())
+                binding.reviewNum.text = "0"*/
             }
         })
 

@@ -41,7 +41,7 @@ data class PerformancesByStandardList(
     @SerialName("price")
     val price: String,
     @SerialName("ratingAverage")
-    val ratingAverage: Int,
+    val ratingAverage: Float,
     @SerialName("startDate")
     val startDate: String,
     @SerialName("title")

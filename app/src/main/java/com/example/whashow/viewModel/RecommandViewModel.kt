@@ -9,7 +9,10 @@ import com.example.whashow.apiManager.ApiManager
 import com.example.whashow.data.PerformanceResultDTOList
 import com.example.whashow.data.PerformancesByStandard
 import com.example.whashow.data.PerformancesByStandardList
+import com.example.whashow.data.PopularPairRankResponse
+import com.example.whashow.data.RecommandPairList
 import com.example.whashow.data.RecommandPerformanceList
+import com.example.whashow.data.RecommendPairResDto
 import com.example.whashow.login.LocalDataSource
 import kotlinx.coroutines.launch
 import retrofit2.Call
@@ -51,6 +54,9 @@ class RecommandViewModel:ViewModel() {
 
     private val _recommandResultList = MutableLiveData<List<PerformancesByStandard>>()
     val recommandResultList: LiveData<List<PerformancesByStandard>> get() = _recommandResultList
+
+    private val _performanceRecommandResultList = MutableLiveData<List<RecommendPairResDto>>()
+    val performanceRecommandResultList: LiveData<List<RecommendPairResDto>> get() = _performanceRecommandResultList
 
     // 장르 설정 함수: LiveData로 관리
     fun setGenre(genre: Int) {
@@ -113,6 +119,31 @@ class RecommandViewModel:ViewModel() {
             override fun onFailure(call: Call<RecommandPerformanceList>, t: Throwable) {
                 _error.value = "공연 추천 중 오류가 발생했습니다: ${t.message}"
                 Log.d("공연 추천 서버", t.message.toString())
+            }
+        })
+    }
+
+    fun fetchRecommandPair(perId:Int) {
+        val call: Call<RecommandPairList> = ApiManager.recommandService.getPairList(
+            "Bearer " + LocalDataSource.getAccessToken()!!,
+            perId
+        )
+
+        call.enqueue(object : Callback<RecommandPairList> {
+            override fun onResponse(
+                call: Call<RecommandPairList>,
+                response: Response<RecommandPairList>
+            ) {
+                if(response.isSuccessful) {
+                    _performanceRecommandResultList.value = response.body()?.result?.recommendPairResDtoList ?: emptyList()
+                    Log.d("페어 추천 조회 서버", _performanceRecommandResultList.toString())
+                } else {
+                    _error.value = "페어 추천을 불러오는데 실패했습니다."
+                }
+            }
+
+            override fun onFailure(call: Call<RecommandPairList>, t: Throwable) {
+                _error.value = "오류가 발생했습니다: ${t.message}"
             }
         })
     }

@@ -64,6 +64,9 @@ class RecommandResultViewModel:ViewModel() {
     fun setPairId(pairId: Int) {
         _pairId.value = pairId
     }
+    fun setReviewList(reviewList: List<Review>) {
+        _reviewList.value = reviewList
+    }
 
 
 }

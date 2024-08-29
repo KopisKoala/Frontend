@@ -26,5 +26,6 @@ interface RecommandService {
     @GET("/pair/recommend")
     fun getPairList(
         @Header("Authorization") accessToken: String,
+        @Query("performanceId") performanceId:Int
     ): Call<RecommandPairList>
 }

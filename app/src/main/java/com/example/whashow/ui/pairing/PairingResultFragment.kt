@@ -162,7 +162,6 @@ class PairingResultFragment : BaseFragment<FragmentPairingResultBinding>(R.layou
                         if (response.isSuccessful) {
                             val data = response.body()?.result
                             if (data != null) {
-
                                 reviewAdapter.reviewList = data.reviewList as ArrayList<Review>
                                 reviewAdapter.notifyDataSetChanged()
                             }
