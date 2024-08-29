@@ -45,7 +45,6 @@ class RecommandResultFragment : BaseFragment<FragmentRecommandResultBinding>(R.l
         (activity as MainActivity).binding.backTitle.text="공연 추천"
         (activity as MainActivity).ShowBackandTitle()
         (activity as MainActivity).binding.navigationMain.visibility=View.GONE
-
     }
 
     override fun initDataBinding() {
@@ -67,6 +66,7 @@ class RecommandResultFragment : BaseFragment<FragmentRecommandResultBinding>(R.l
         performanceViewPager = PerformanceViewPagerAdapter(arrayListOf()) // 어댑터 생성
         binding.vp.adapter=performanceViewPager
         binding.vp.orientation = ViewPager2.ORIENTATION_HORIZONTAL
+
         performanceViewPager.performanceList=recommandViewModel.recommandResultList.value as ArrayList<PerformancesByStandard>
         if (performanceViewPager.performanceList.isNotEmpty() && performanceViewPager.performanceList[0].performancesByStandard.isNotEmpty()){
             recommandResultViewModel.setPairId(performanceViewPager.performanceList[0].performancesByStandard[0].id)
@@ -103,7 +103,6 @@ class RecommandResultFragment : BaseFragment<FragmentRecommandResultBinding>(R.l
                     }
                 }
             }
-
 
             override fun onNothingSelected(p0: AdapterView<*>?) {
                 recommandResultViewModel.pairId.observe(viewLifecycleOwner) { pairId ->
