@@ -47,6 +47,7 @@ class DayandPlaceFragment : BaseFragment<FragmentDayandPlaceBinding>(R.layout.fr
         recommandViewModel.genre.observe(viewLifecycleOwner) { genre ->
             (activity as MainActivity).binding.backTitle.text = getGenreTitle(genre)
         }
+        (activity as MainActivity).binding.toolbar.setBackgroundColor(Color.WHITE)
         (activity as MainActivity).ShowBackandTitle()
         (activity as MainActivity).binding.navigationMain.visibility = View.GONE
     }

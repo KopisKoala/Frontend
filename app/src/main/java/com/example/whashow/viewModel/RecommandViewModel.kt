@@ -1,5 +1,6 @@
 package com.example.whashow.viewModel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -98,13 +99,15 @@ class RecommandViewModel:ViewModel() {
                 response: Response<RecommandPerformanceList>
             ) {
                 if (response.isSuccessful) {
-
+                    Log.d("공연 추천 서버", response.body()?.result.toString())
                 } else {
                     _error.value = "공연 추천 결과를 불러오는데 실패했습니다."
+                    Log.d("공연 추천 서버", response.body()?.result.toString())
                 }
             }
             override fun onFailure(call: Call<RecommandPerformanceList>, t: Throwable) {
                 _error.value = "공연 추천 중 오류가 발생했습니다: ${t.message}"
+                Log.d("공연 추천 서버", t.message.toString())
             }
         })
         return ApiResult.Success
