@@ -1,5 +1,6 @@
 package com.example.whashow.ui.home
 
+import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.AdapterView
@@ -14,6 +15,7 @@ import com.example.whashow.R
 import com.example.whashow.base.BaseFragment
 import com.example.whashow.databinding.FragmentDetailReviewBinding
 import com.example.whashow.ui.home.Adapter.PerformanceReviewAdapter
+import com.example.whashow.ui.mypage.MakeReviewFragment
 import com.example.whashow.ui.recommand.SortResultSpinnerAdapter
 
 class DetailReviewFragment: BaseFragment<FragmentDetailReviewBinding>(R.layout.fragment_detail_review) {
@@ -21,8 +23,9 @@ class DetailReviewFragment: BaseFragment<FragmentDetailReviewBinding>(R.layout.f
     private val viewModel: PerformanceDetailViewModel by viewModels()
     //private var perfId: Int? = null
     private val _perfId= MutableLiveData<Int>()
-    val perId: LiveData<Int>
-        get()=_perfId
+    val perId: LiveData<Int> get()=_perfId
+    private var perfId: Int? = null
+    private var title: String? = null
 
     private lateinit var reviewAdapter: PerformanceReviewAdapter
 
@@ -30,6 +33,10 @@ class DetailReviewFragment: BaseFragment<FragmentDetailReviewBinding>(R.layout.f
         super.initStartView()
         (activity as MainActivity).binding.navigationMain.visibility = View.GONE
         _perfId.value = arguments?.getInt("perfId")
+        perfId = arguments?.getInt("perfId")
+        title = arguments?.getString("title")
+
+
         _perfId.value?.let {
             Log.d("리뷰 목록 조회",it.toString())
             viewModel.fetchPerformanceData(it)
@@ -87,6 +94,18 @@ class DetailReviewFragment: BaseFragment<FragmentDetailReviewBinding>(R.layout.f
 
             override fun onNothingSelected(p0: AdapterView<*>?) {
 
+            }
+        }
+
+        binding.makereview.setOnClickListener {
+            _perfId.value?.let { perfId ->
+                val fragment = MakeReviewFragment().apply {
+                    arguments = Bundle().apply {
+                        putInt("perfId", perfId)
+                        putString("title", title)
+                    }
+                }
+                (activity as MainActivity).addFragment(fragment)
             }
         }
 

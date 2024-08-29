@@ -7,9 +7,11 @@ import com.example.whashow.data.CalendarMonth
 import com.example.whashow.data.DeleteMyActor
 import com.example.whashow.data.Goods
 import com.example.whashow.data.Info
-import com.example.whashow.data.MemoRequestBody
 import com.example.whashow.data.MyActor
+import com.example.whashow.data.PairDropdownResponse
 import com.example.whashow.data.Partner
+import com.example.whashow.data.ReviewRequest
+import com.example.whashow.data.ReviewResponse
 import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.http.Body
@@ -43,4 +45,8 @@ interface MypageService {
     fun getMyActorList(@Header("Authorization") accessToken:String,@Query("ScrollPosition") position: Int,@Query("FetchSize") size: Int): Call<MyActor>
     @DELETE("/favorite/actor/delete/{actorId}")
     fun deleteActor(@Header("Authorization") accessToken:String,@Path("actorId") id: Int): Call<DeleteMyActor>
+    @GET("/pair/{performance-id}/pairs")
+    fun getPairDropDown(@Header("Authorization") accessToken:String,@Path("performance-id") performanceId:Int): Call<PairDropdownResponse>
+    @POST("/review/create")
+    fun createReview(@Header("Authorization") accessToken:String,@Body reviewRequest : ReviewRequest): Call<ReviewResponse>
 }

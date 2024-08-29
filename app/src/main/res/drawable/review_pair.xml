@@ -1,9 +1,9 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
-    <string-review_pair android:name="review_pair">
+    <string-array android:name="review_pair">
         <item>배우1</item>
         <item>배우2</item>
         <item>배우3</item>
         <item>배우4</item>
         <item>배우5</item>
-    </string-review_pair>
+    </string-array>
 </resources>
