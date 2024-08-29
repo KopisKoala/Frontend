@@ -16,7 +16,9 @@ class RecommandViewModel:ViewModel() {
     private val _apiResult = MutableLiveData<ApiResult>()
     val apiResult: LiveData<ApiResult> get() = _apiResult
 
-    private var genre: Int? = null
+    private val _genre = MutableLiveData<Int?>()
+    val genre: LiveData<Int?> get() = _genre
+
     private var startYear: Int? = null
     private var startMonth: Int? = null
     private var startDate: Int? = null
@@ -30,8 +32,9 @@ class RecommandViewModel:ViewModel() {
     private val _error = MutableLiveData<String>()
     val error: LiveData<String> get() = _error
 
+    // 장르 설정 함수: LiveData로 관리
     fun setGenre(genre: Int) {
-        this.genre = genre
+        _genre.value = genre
     }
 
     fun setDayAndPlace(startYear: Int, startMonth: Int, startDate: Int, endYear: Int, endMonth: Int, endDate: Int, location: String) {
@@ -55,7 +58,7 @@ class RecommandViewModel:ViewModel() {
                 endYear != null && endMonth != null && endDate != null && location != null &&
                 minPrice != null && maxPrice != null) {
 
-                val result = apiCall(genre!!, startYear!!, startMonth!!, startDate!!, endYear!!, endMonth!!, endDate!!, location!!, minPrice!!, maxPrice!!)
+                val result = apiCall( _genre.value!!, startYear!!, startMonth!!, startDate!!, endYear!!, endMonth!!, endDate!!, location!!, minPrice!!, maxPrice!!)
                 _apiResult.value = result
             }
         }

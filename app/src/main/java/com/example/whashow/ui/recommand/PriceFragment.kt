@@ -1,5 +1,6 @@
 package com.example.whashow.ui.recommand
 
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
@@ -22,7 +23,10 @@ class PriceFragment : BaseFragment<FragmentPriceBinding>(R.layout.fragment_price
     )
     override fun initStartView() {
         super.initStartView()
-        (activity as MainActivity).binding.backTitle.text="뮤지컬"
+        // 장르 정보를 가져와서 UI 업데이트
+        recommandViewModel.genre.observe(viewLifecycleOwner) { genre ->
+            (activity as MainActivity).binding.backTitle.text = getGenreTitle(genre)
+        }
         (activity as MainActivity).ShowBackandTitle()
         (activity as MainActivity).binding.navigationMain.visibility=View.GONE
     }
@@ -39,7 +43,8 @@ class PriceFragment : BaseFragment<FragmentPriceBinding>(R.layout.fragment_price
             // 선택된 가격 범위를 ViewModel에 저장
             val selectedPriceIndex = binding.pricePicker.value
             val (minPrice, maxPrice) = getPriceRange(selectedPriceIndex)
-
+            Log.d("가격",  minPrice.toString())
+            Log.d("가격",  maxPrice.toString())
             recommandViewModel.setPrice(minPrice, maxPrice)
 
             // API 결과를 관찰하여 UI 업데이트
@@ -62,6 +67,12 @@ class PriceFragment : BaseFragment<FragmentPriceBinding>(R.layout.fragment_price
 
 
 
+    }
+    private fun getGenreTitle(genre: Int?): String {
+        return when (genre) {
+            0 -> "뮤지컬"
+            else -> "연극"
+        }
     }
 
     private fun setPricePicker() {

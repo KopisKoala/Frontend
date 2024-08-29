@@ -43,7 +43,10 @@ class DayandPlaceFragment : BaseFragment<FragmentDayandPlaceBinding>(R.layout.fr
     private var selectedLocation: String? = null
     override fun initStartView() {
         super.initStartView()
-        (activity as MainActivity).binding.backTitle.text = "뮤지컬"
+        // 장르 정보를 가져와서 UI 업데이트
+        recommandViewModel.genre.observe(viewLifecycleOwner) { genre ->
+            (activity as MainActivity).binding.backTitle.text = getGenreTitle(genre)
+        }
         (activity as MainActivity).ShowBackandTitle()
         (activity as MainActivity).binding.navigationMain.visibility = View.GONE
     }
@@ -144,6 +147,8 @@ class DayandPlaceFragment : BaseFragment<FragmentDayandPlaceBinding>(R.layout.fr
                     endDate = selectedEndDay!!.split("-")[2].toInt(),
                     location = selectedLocation!!
                 )
+                Log.d("날짜장소", selectedStartDay!!.split("-")[0].toInt().toString())
+                Log.d("날짜장소",  selectedStartDay.toString())
 
                 // PriceFragment로 이동
                 (activity as MainActivity).addFragment(PriceFragment())
@@ -154,6 +159,13 @@ class DayandPlaceFragment : BaseFragment<FragmentDayandPlaceBinding>(R.layout.fr
         }
 
     }
+    private fun getGenreTitle(genre: Int?): String {
+        return when (genre) {
+            0 -> "뮤지컬"
+            else -> "연극"
+        }
+    }
+
     /* 선택된 날짜의 background를 설정하는 클래스 */
     private inner class DayDecorator(context: Context) : DayViewDecorator {
         private val drawable = ContextCompat.getDrawable(context,R.drawable.calender_selector)
