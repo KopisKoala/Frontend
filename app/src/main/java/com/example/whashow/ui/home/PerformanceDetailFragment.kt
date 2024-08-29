@@ -33,7 +33,7 @@ class PerformanceDetailFragment : BaseFragment<FragmentPerformanceDetailBinding>
         super.initDataBinding()
         (activity as MainActivity).binding.navigationMain.visibility = View.GONE
         (activity as MainActivity).binding.mainTitle.text=title
-        val detailAdapter = DetailAdapter(this, perfId)
+        val detailAdapter = DetailAdapter(this, perfId, title)
         binding.vpDetail.adapter = detailAdapter
 
         TabLayoutMediator(binding.tbDetail, binding.vpDetail) { tab, position ->

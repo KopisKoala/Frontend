@@ -9,9 +9,6 @@ import com.bumptech.glide.Glide
 import com.example.whashow.R
 import com.example.whashow.data.PopularPairDetailResDto
 import com.example.whashow.databinding.ListGridPairingResultBinding
-import com.example.whashow.databinding.ListTagItemBinding
-import com.example.whashow.ui.recommand.Tag
-import com.example.whashow.ui.recommand.TagAdapter
 
 class RecentAdapter (var list: ArrayList<PopularPairDetailResDto>): RecyclerView.Adapter<RecentAdapter.RecentViewHolder>() {
 
@@ -73,7 +70,7 @@ class RecentAdapter (var list: ArrayList<PopularPairDetailResDto>): RecyclerView
             .placeholder(R.drawable.img_actor_like) // 이미지 로딩 중에 표시될 placeholder 이미지
             .error(R.drawable.img_actor_like) // 이미지 로딩 실패 시 표시될 이미지
             .into(holder.img2)
-        holder.name.text=recentList[position].actor1Name+" "+recentList[position].actor2Name
+        holder.name.text=recentList[position].actor1Name+"     "+recentList[position].actor2Name
         holder.performance.text=recentList[position].title
         holder.hashtag1.text="# "+recentList[position].hashtag1
         holder.hashtag2.text="# "+recentList[position].hashtag2

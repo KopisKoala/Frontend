@@ -105,7 +105,7 @@
 
             <!-- 리뷰 작성 섹션 -->
             <LinearLayout
-                android:id="@+id/linearLayout3"
+                android:id="@+id/makereview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
