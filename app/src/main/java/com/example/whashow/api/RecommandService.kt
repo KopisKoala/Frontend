@@ -11,13 +11,14 @@ interface RecommandService {
     @GET("/performance/recommend")
     fun getPerformanceList(
         @Header("Authorization") accessToken: String,
+        @Query("type") type:Int,
         @Query("startYear") year:Int,
         @Query("startMonth") startMonth:Int,
         @Query("startDate") startDate:Int,
         @Query("endYear") endYear:Int,
         @Query("endMonth") endMonth:Int,
         @Query("endDate") endDate:Int,
-        @Query("location") location:Int,
+        @Query("location") location:String,
         @Query("minPrice") minPrice:Int,
         @Query("maxPrice") maxPrice:Int,
     ) : Call<RecommandPerformanceList>

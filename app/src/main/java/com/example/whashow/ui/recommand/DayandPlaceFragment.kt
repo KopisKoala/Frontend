@@ -13,6 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.Spinner
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import com.example.whashow.MainActivity
 import com.example.whashow.R
@@ -20,7 +21,9 @@ import com.example.whashow.base.BaseFragment
 import com.example.whashow.databinding.FragmentDayandPlaceBinding
 import com.example.whashow.databinding.FragmentGenreBinding
 import androidx.core.util.Pair
+import androidx.fragment.app.activityViewModels
 import com.example.whashow.databinding.ItemSpinnerRecommandSpaceBinding
+import com.example.whashow.viewModel.RecommandViewModel
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener
 import com.prolificinteractive.materialcalendarview.CalendarDay
@@ -33,6 +36,11 @@ import java.util.Calendar
 import java.util.Calendar.getInstance
 
 class DayandPlaceFragment : BaseFragment<FragmentDayandPlaceBinding>(R.layout.fragment_dayand_place) {
+    private val recommandViewModel: RecommandViewModel by activityViewModels()
+
+    private var selectedStartDay: String? = null
+    private var selectedEndDay: String? = null
+    private var selectedLocation: String? = null
     override fun initStartView() {
         super.initStartView()
         (activity as MainActivity).binding.backTitle.text = "뮤지컬"
@@ -53,20 +61,18 @@ class DayandPlaceFragment : BaseFragment<FragmentDayandPlaceBinding>(R.layout.fr
 
         // 요일 선택 시 내가 정의한 드로어블이 적용되도록 함
         calendarView.setOnRangeSelectedListener { widget, dates ->
-            // 아래 로그를 통해 시작일, 종료일이 어떻게 찍히는지 확인하고 본인이 필요한 방식에 따라 바꿔 사용한다
-            // UTC 시간을 구하려는 경우 이 라이브러리에서 제공하지 않으니 별도의 로직을 짜서 만들어내 써야 한다
-            val startDay = dates[0].date.toString()
-            val endDay = dates[dates.size - 1].date.toString()
-            Log.e(TAG, "시작일 : $startDay, 종료일 : $endDay")
+            selectedStartDay = dates[0].date.toString()
+            selectedEndDay = dates[dates.size - 1].date.toString()
+            Log.e(TAG, "시작일 : $selectedStartDay, 종료일 : $selectedEndDay")
+
         }
 
         // 날짜가 단일 선택되었을 때 리스너
         binding.calendarView.setOnDateChangedListener { widget, date, selected ->
-            val selectedStartSchedule = date.date.toString()
-            val selectedEndSchedule = ""
-
+            selectedStartDay = date.date.toString()
+            selectedEndDay = ""
             if (!selected) {
-                val selectedStartSchedule = ""
+                selectedStartDay = ""
             }
         }
 
@@ -116,7 +122,7 @@ class DayandPlaceFragment : BaseFragment<FragmentDayandPlaceBinding>(R.layout.fr
         spinnerRecommandSpace.adapter= CategorySpinnerAdapter(requireContext(),R.layout.item_spinner_recommand_space,outCategoryList)
         spinnerRecommandSpace.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                val value = spinnerRecommandSpace.getItemAtPosition(p2).toString()
+                selectedLocation = spinnerRecommandSpace.getItemAtPosition(p2).toString()
             }
             override fun onNothingSelected(p0: AdapterView<*>?) {
                 // 선택되지 않은 경우
@@ -127,7 +133,24 @@ class DayandPlaceFragment : BaseFragment<FragmentDayandPlaceBinding>(R.layout.fr
             (activity as MainActivity).onBackPressed()
         }
         binding.btnNext.setOnClickListener {
-            (activity as MainActivity).addFragment(PriceFragment())
+            if (selectedStartDay != null && selectedEndDay != null && selectedLocation != null) {
+                // ViewModel에 데이터 저장
+                recommandViewModel.setDayAndPlace(
+                    startYear = selectedStartDay!!.split("-")[0].toInt(),
+                    startMonth = selectedStartDay!!.split("-")[1].toInt(),
+                    startDate = selectedStartDay!!.split("-")[2].toInt(),
+                    endYear = selectedEndDay!!.split("-")[0].toInt(),
+                    endMonth = selectedEndDay!!.split("-")[1].toInt(),
+                    endDate = selectedEndDay!!.split("-")[2].toInt(),
+                    location = selectedLocation!!
+                )
+
+                // PriceFragment로 이동
+                (activity as MainActivity).addFragment(PriceFragment())
+            } else {
+                // 에러 처리: 모든 필드가 선택되지 않았을 경우 메시지를 표시
+                Toast.makeText(requireContext(), "날짜와 장소를 선택하세요.", Toast.LENGTH_SHORT).show()
+            }
         }
 
     }

@@ -1,17 +1,17 @@
 package com.example.whashow.ui.recommand
 
-import android.graphics.Color
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
+import android.widget.Toast
+import androidx.fragment.app.activityViewModels
 import com.example.whashow.MainActivity
 import com.example.whashow.R
 import com.example.whashow.base.BaseFragment
 import com.example.whashow.databinding.FragmentPriceBinding
+import com.example.whashow.viewModel.ApiResult
+import com.example.whashow.viewModel.RecommandViewModel
 
 class PriceFragment : BaseFragment<FragmentPriceBinding>(R.layout.fragment_price) {
+    private val recommandViewModel: RecommandViewModel by activityViewModels()
 
     private val PriceArr = arrayListOf(
         "0원 ~ 5만원",
@@ -36,7 +36,28 @@ class PriceFragment : BaseFragment<FragmentPriceBinding>(R.layout.fragment_price
             (activity as MainActivity).onBackPressed()
         }
         binding.btnRecommandResult.setOnClickListener {
-            (activity as MainActivity).addFragment(RecommandResultFragment())
+            // 선택된 가격 범위를 ViewModel에 저장
+            val selectedPriceIndex = binding.pricePicker.value
+            val (minPrice, maxPrice) = getPriceRange(selectedPriceIndex)
+
+            recommandViewModel.setPrice(minPrice, maxPrice)
+
+            // API 결과를 관찰하여 UI 업데이트
+            recommandViewModel.apiResult.observe(viewLifecycleOwner) { result ->
+                when (result) {
+                    is ApiResult.Success -> {
+                        // 성공적으로 데이터를 받아왔을 때 처리
+                        (activity as MainActivity).addFragment(RecommandResultFragment())
+                    }
+                    is ApiResult.Failure -> {
+                        // 실패했을 때 처리 (예: 오류 메시지 표시)
+                        Toast.makeText(requireContext(), "API 호출 실패: ${result.error}", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+
+            // API 호출
+            recommandViewModel.callApi()
         }
 
 
@@ -44,12 +65,24 @@ class PriceFragment : BaseFragment<FragmentPriceBinding>(R.layout.fragment_price
     }
 
     private fun setPricePicker() {
-        // max 인 층 보여주고 size 만 조절
-        binding.pricePicker.let {
-            it.minValue = 0
-            it.displayedValues = PriceArr.toTypedArray()
-            it.maxValue = 4
-            it.wrapSelectorWheel = false
+        // NumberPicker 설정
+        binding.pricePicker.apply {
+            minValue = 0
+            displayedValues = PriceArr.toTypedArray()
+            maxValue = PriceArr.size - 1
+            wrapSelectorWheel = false
+        }
+    }
+
+    // PriceArr에서 선택된 인덱스에 해당하는 가격 범위를 파싱하여 반환
+    private fun getPriceRange(index: Int): Pair<Int, Int> {
+        return when (index) {
+            0 -> 0 to 50000
+            1 -> 50000 to 100000
+            2 -> 100000 to 150000
+            3 -> 150000 to 200000
+            4 -> 200000 to Int.MAX_VALUE // 'no limit'일 경우 최대 값을 설정
+            else -> 0 to 0
         }
     }
 
