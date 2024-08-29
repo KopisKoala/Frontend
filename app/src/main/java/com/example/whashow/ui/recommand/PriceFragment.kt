@@ -7,10 +7,15 @@ import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import com.example.whashow.MainActivity
 import com.example.whashow.R
+import com.example.whashow.apiManager.ApiManager
 import com.example.whashow.base.BaseFragment
+import com.example.whashow.data.RecommandPerformanceList
 import com.example.whashow.databinding.FragmentPriceBinding
-import com.example.whashow.viewModel.ApiResult
+import com.example.whashow.login.LocalDataSource
 import com.example.whashow.viewModel.RecommandViewModel
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class PriceFragment : BaseFragment<FragmentPriceBinding>(R.layout.fragment_price) {
     private val recommandViewModel: RecommandViewModel by activityViewModels()
@@ -45,26 +50,74 @@ class PriceFragment : BaseFragment<FragmentPriceBinding>(R.layout.fragment_price
             // 선택된 가격 범위를 ViewModel에 저장
             val selectedPriceIndex = binding.pricePicker.value
             val (minPrice, maxPrice) = getPriceRange(selectedPriceIndex)
-            Log.d("가격",  minPrice.toString())
-            Log.d("가격",  maxPrice.toString())
+            Log.d("가격", minPrice.toString())
+            Log.d("가격", maxPrice.toString())
             recommandViewModel.setPrice(minPrice, maxPrice)
+            // ViewModel에서 데이터를 가져와서 API 호출
+            recommandViewModel.genre.observe(viewLifecycleOwner) { genre ->
+                recommandViewModel.startYear.observe(viewLifecycleOwner) { startYear ->
+                    recommandViewModel.startMonth.observe(viewLifecycleOwner) { startMonth ->
+                        recommandViewModel.startDate.observe(viewLifecycleOwner) { startDate ->
+                            recommandViewModel.endYear.observe(viewLifecycleOwner) { endYear ->
+                                recommandViewModel.endMonth.observe(viewLifecycleOwner) { endMonth ->
+                                    recommandViewModel.endDate.observe(viewLifecycleOwner) { endDate ->
+                                        recommandViewModel.location.observe(viewLifecycleOwner) { location ->
+                                            recommandViewModel.minPrice.observe(viewLifecycleOwner) { minPrice ->
+                                                recommandViewModel.maxPrice.observe(viewLifecycleOwner) { maxPrice ->
+                                                    // 여기서 API 호출 로직을 구현합니다.
+                                                    // API 호출
+                                                    Log.d("공연 추천 서버", LocalDataSource.getAccessToken().toString())
+                                                    val call: Call<RecommandPerformanceList> = ApiManager.recommandService.getPerformanceList(
+                                                        "Bearer " + LocalDataSource.getAccessToken()!!,
+                                                        genre,
+                                                        startYear,
+                                                        startMonth,
+                                                        startDate,
+                                                        endYear,
+                                                        endMonth,
+                                                        endDate,
+                                                        location,
+                                                        minPrice,
+                                                        maxPrice
+                                                    )
 
-            // API 결과를 관찰하여 UI 업데이트
-            recommandViewModel.apiResult.observe(viewLifecycleOwner) { result ->
-                when (result) {
-                    is ApiResult.Success -> {
-                        // 성공적으로 데이터를 받아왔을 때 처리
-                        (activity as MainActivity).addFragment(RecommandResultFragment())
-                    }
-                    is ApiResult.Failure -> {
-                        // 실패했을 때 처리 (예: 오류 메시지 표시)
-                        Toast.makeText(requireContext(), "API 호출 실패: ${result.error}", Toast.LENGTH_SHORT).show()
+                                                    call.enqueue(object :
+                                                        Callback<RecommandPerformanceList> {
+                                                        override fun onResponse(
+                                                            call: Call<RecommandPerformanceList>,
+                                                            response: Response<RecommandPerformanceList>
+                                                        ) {
+                                                            if (response.isSuccessful) {
+                                                                val data = response.body()?.result
+                                                                if (data != null) {
+                                                                    recommandViewModel.setRecommandList(data.performancesByStandardList)
+                                                                    (activity as MainActivity).addFragment(RecommandResultFragment())
+                                                                }
+                                                                Log.d("공연 추천 서버", response.body()?.result.toString())
+                                                            } else {
+                                                                Log.d("공연 추천 서버", response.body()?.result.toString())
+                                                            }
+                                                        }
+
+                                                        override fun onFailure(call: Call<RecommandPerformanceList>, t: Throwable) {
+                                                            Log.d("공연 추천 서버", t.message.toString())
+                                                        }
+                                                    })
+
+
+
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
 
-            // API 호출
-            recommandViewModel.callApi()
+
         }
 
 

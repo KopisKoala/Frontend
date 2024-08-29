@@ -11,19 +11,10 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.whashow.MainActivity
 import com.example.whashow.R
-import com.example.whashow.apiManager.ApiManager
 import com.example.whashow.base.BaseFragment
-import com.example.whashow.data.PairReview
-import com.example.whashow.data.Review
 import com.example.whashow.databinding.FragmentDetailReviewBinding
-import com.example.whashow.login.LocalDataSource
 import com.example.whashow.ui.home.Adapter.PerformanceReviewAdapter
-import com.example.whashow.ui.pairing.PairingViewPagerAdapter
-import com.example.whashow.ui.pairing.ReviewAdapter
 import com.example.whashow.ui.recommand.SortResultSpinnerAdapter
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class DetailReviewFragment: BaseFragment<FragmentDetailReviewBinding>(R.layout.fragment_detail_review) {
 
