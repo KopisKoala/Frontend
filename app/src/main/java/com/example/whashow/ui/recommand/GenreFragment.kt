@@ -6,13 +6,18 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import com.example.whashow.MainActivity
 import com.example.whashow.R
 import com.example.whashow.base.BaseFragment
 import com.example.whashow.databinding.FragmentGenreBinding
+import com.example.whashow.viewModel.RecommandViewModel
 
 
 class GenreFragment : BaseFragment<FragmentGenreBinding>(R.layout.fragment_genre) {
+
+    private val recommandViewModel: RecommandViewModel by activityViewModels()
+
     override fun initStartView() {
         super.initStartView()
         //배경 검은색
@@ -28,9 +33,11 @@ class GenreFragment : BaseFragment<FragmentGenreBinding>(R.layout.fragment_genre
     override fun initDataBinding() {
         super.initDataBinding()
         binding.genreMusical.setOnClickListener {
+            recommandViewModel.setGenre(0)
             (activity as MainActivity).addFragment(DayandPlaceFragment())
         }
         binding.genrePlay.setOnClickListener {
+            recommandViewModel.setGenre(1)
             (activity as MainActivity).addFragment(DayandPlaceFragment())
         }
     }

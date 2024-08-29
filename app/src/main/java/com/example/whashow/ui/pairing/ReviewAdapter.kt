@@ -8,10 +8,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.whashow.R
 import com.example.whashow.apiManager.ApiManager
-import com.example.whashow.data.PairReview
 import com.example.whashow.data.Review
 import com.example.whashow.data.ReviewLike
-import com.example.whashow.databinding.ListPairingSelectBinding
 import com.example.whashow.databinding.ListReviewItemBinding
 import com.example.whashow.login.LocalDataSource
 import retrofit2.Call
@@ -149,6 +147,11 @@ class ReviewAdapter (var list: ArrayList<Review>): RecyclerView.Adapter<ReviewAd
     fun removeItem(position: Int) {
         reviewList.removeAt(position)
         notifyItemRemoved(position)
+    }
+    fun updateReviews(newList: List<Review>) {
+        list.clear()
+        list.addAll(newList)
+        notifyDataSetChanged()
     }
 
 }

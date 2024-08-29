@@ -5,6 +5,7 @@ import com.example.whashow.api.LoginService
 import com.example.whashow.api.MypageService
 import com.example.whashow.api.PairingService
 import com.example.whashow.api.PerformanceService
+import com.example.whashow.api.RecommandService
 import com.example.whashow.api.SearchService
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -45,5 +46,6 @@ object ApiManager {
     val pairingService: PairingService = retrofit.create(PairingService::class.java)
     val performanceService: PerformanceService = retrofit.create(PerformanceService::class.java)
     val searchService : SearchService = retrofit.create(SearchService::class.java)
+    val recommandService : RecommandService = retrofit.create(RecommandService::class.java)
 
 }

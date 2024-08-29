@@ -8,13 +8,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.whashow.R
 import com.example.whashow.apiManager.ApiManager
-import com.example.whashow.data.PairDetailResDto
 import com.example.whashow.data.PerformanceResultDTOList
-import com.example.whashow.data.Review
 import com.example.whashow.data.ReviewLike
 import com.example.whashow.databinding.ListReviewItemBinding
 import com.example.whashow.login.LocalDataSource
-import com.example.whashow.ui.pairing.ReviewAdapter
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
