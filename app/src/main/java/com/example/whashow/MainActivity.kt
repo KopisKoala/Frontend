@@ -60,6 +60,15 @@ class MainActivity : AppCompatActivity() {
         binding.mainTitle.visibility = View.VISIBLE
         binding.backTitle.visibility = View.GONE
     }
+
+    fun ShowBackEq() {
+        binding.btnBack.visibility = View.GONE
+        binding.toolbarLogo.visibility = View.GONE
+        binding.btnMainSearch.visibility = View.GONE
+        binding.mainTitle.visibility = View.GONE
+        binding.backTitle.visibility = View.GONE
+    }
+
     fun ShowBackandTitle() {
         binding.btnBack.visibility = View.VISIBLE
         binding.backTitle.visibility = View.VISIBLE
