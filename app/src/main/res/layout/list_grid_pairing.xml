@@ -81,23 +81,22 @@
         android:fontFamily="@font/inter_medium"
         android:layout_marginTop="18dp"
         />
+
     <TextView
         android:id="@+id/name_performance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="위키드"
-        android:textStyle="bold"
-        android:textSize="13sp"
-        android:textColor="@color/black"
-        android:layout_gravity="center"
-        android:fontFamily="@font/inter_regular"
         android:layout_marginTop="8dp"
-        android:visibility="visible"
-        />
+        android:fontFamily="@font/inter_regular"
+        android:text="위키드"
+        android:textColor="@color/black"
+        android:textSize="13sp"
+
+        android:visibility="visible" />
+
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center">
+        android:layout_height="wrap_content">
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
