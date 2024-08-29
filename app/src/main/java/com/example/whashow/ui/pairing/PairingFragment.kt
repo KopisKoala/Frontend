@@ -1,28 +1,16 @@
 package com.example.whashow.ui.pairing
 
 import android.graphics.Color
-import android.util.Log
 import android.view.View
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.bumptech.glide.Glide
 import com.example.whashow.MainActivity
 import com.example.whashow.R
-import com.example.whashow.apiManager.ApiManager
 import com.example.whashow.base.BaseFragment
-import com.example.whashow.data.Goods
-import com.example.whashow.data.GoodsX
-import com.example.whashow.data.PopularPairDetailResDto
-import com.example.whashow.data.PopularPairRankResponse
 import com.example.whashow.databinding.FragmentPairingBinding
-import com.example.whashow.login.LocalDataSource
 import com.example.whashow.ui.home.SearchViewModel
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class PairingFragment : BaseFragment<FragmentPairingBinding>(R.layout.fragment_pairing) {
     private val searchViewModel : SearchViewModel by viewModels()
@@ -52,20 +40,26 @@ class PairingFragment : BaseFragment<FragmentPairingBinding>(R.layout.fragment_p
         binding.search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 query?.let {
-                    searchViewModel.fetchPerformanceSearchPair(query)
-                    searchViewModel.searchPairList.observe(viewLifecycleOwner, Observer { list ->
-                        searchPairListAdapter.updatePairs(list)
-                        binding.pairingRank.visibility=View.GONE
-                        binding.pairingResult.visibility=View.VISIBLE
+                    searchViewModel.fetchSearchPair(query)
 
+                    searchViewModel.searchPairList.observe(viewLifecycleOwner, Observer { pairDetailListResDtoList ->
+
+                        val pairDetailResDtoList = pairDetailListResDtoList.flatMap { it.pairDetailResDtoList }
+                        searchPairListAdapter.updatePairs(pairDetailResDtoList)
+                        binding.pairingRank.visibility = View.GONE
+                        binding.pairingResult.visibility = View.VISIBLE
+                        binding.pairCnt.text = pairDetailResDtoList.size.toString()
                     })
+
                 }
                 return true
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
                 if (newText.isNullOrEmpty()) {
-                    binding.pairingResult.visibility=View.GONE
+                    searchViewModel.fetchPopularPair()
+                    binding.pairingResult.visibility = View.GONE
+                    binding.pairingRank.visibility = View.VISIBLE
                 }
                 return true
             }

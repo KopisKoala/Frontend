@@ -61,6 +61,7 @@
                         android:layout_marginTop="20dp"
                         android:layout_marginStart="10dp"
                         android:layout_marginEnd="10dp"
+                        tools:itemCount="1"
                         />
                 </LinearLayout>
                 <LinearLayout
@@ -93,6 +94,7 @@
                             android:layout_marginStart="15dp"
                             />
                         <TextView
+                            android:id="@+id/pair_cnt"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="12"
@@ -119,31 +121,34 @@
                         android:layout_marginTop="20dp"
                         android:layout_marginStart="10dp"
                         android:layout_marginEnd="10dp"
+                        tools:itemCount="1"
                         />
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="30dp">
+
                         <ImageView
                             android:id="@+id/recommand_result"
                             android:layout_width="match_parent"
                             android:layout_height="66dp"
                             android:src="@drawable/bottom_purple_rectangle"
-                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent"/>
+                            app:layout_constraintStart_toStartOf="parent" />
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/inter_bold"
                             android:text="페어링 추천 받기"
-                            android:textSize="20sp"
                             android:textColor="@color/white"
-                            app:layout_constraintStart_toStartOf="@id/recommand_result"
-                            app:layout_constraintTop_toTopOf="@id/recommand_result"
-                            app:layout_constraintEnd_toEndOf="@id/recommand_result"
-                            app:layout_constraintBottom_toBottomOf="@id/recommand_result"
-                            />
+                            android:textSize="20sp"
+                            android:visibility="visible"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="@+id/recommand_result"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/recommand_result" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                 </LinearLayout>
