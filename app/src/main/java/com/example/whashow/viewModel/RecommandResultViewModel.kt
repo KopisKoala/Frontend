@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.whashow.apiManager.ApiManager
 import com.example.whashow.data.PairReview
+import com.example.whashow.data.PerformanceResultDTOList
 import com.example.whashow.data.Review
 import com.example.whashow.login.LocalDataSource
 import retrofit2.Call
@@ -16,10 +17,10 @@ class RecommandResultViewModel:ViewModel() {
     private val _pairId = MutableLiveData<Int?>()
     val pairId: LiveData<Int?> get() = _pairId
 
-    private val _reviewList = MutableLiveData<List<Review>>()
-    val reviewList: LiveData<List<Review>> get() = _reviewList
+    private val _reviewList = MutableLiveData<List<PerformanceResultDTOList>>()
+    val reviewList: LiveData<List<PerformanceResultDTOList>> get() = _reviewList
 
-    fun fetchPerformanceReview(pairId: Int,position:Int){
+    /*fun fetchPerformanceReview(pairId: Int,position:Int){
         //정렬
         val sortList = listOf(
             "recent",
@@ -60,11 +61,11 @@ class RecommandResultViewModel:ViewModel() {
 
         })
 
-    }
+    }*/
     fun setPairId(pairId: Int) {
         _pairId.value = pairId
     }
-    fun setReviewList(reviewList: List<Review>) {
+    fun setReviewList(reviewList: List<PerformanceResultDTOList>) {
         _reviewList.value = reviewList
     }
 
