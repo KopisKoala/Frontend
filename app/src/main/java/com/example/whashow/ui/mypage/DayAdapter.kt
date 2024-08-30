@@ -90,8 +90,10 @@ class DayAdapter (val tempMonth:Int, val dayList: MutableList<Date>, val calende
                     if (data!=null){
                         val reviewDayList=data.reviewList as ArrayList<ReviewX>
                         for (i in 0 until reviewDayList.size){
+                            Log.d("겹치는 날짜",dayList[holder.adapterPosition].month.toString())
+                            Log.d("겹치는 날짜",calender.get(Calendar.MONTH).toString())
+                            if (reviewDayList[i].performanceDate.toInt()==dayList[holder.adapterPosition].date && dayList[holder.adapterPosition].month+1==calender.get(Calendar.MONTH)){
 
-                            if (reviewDayList[i].performanceDate.toInt()==dayList[holder.adapterPosition].date){
                                 // 날짜를 키로 리뷰 ID를 맵에 저장
                                 dateToReviewIdMap[dayList[holder.adapterPosition].date] = reviewDayList[i].id
                                 Glide.with(holder.itemView.context)

@@ -19,7 +19,7 @@ data class PerformanceReview(
 @Serializable
 data class PerformanceResultDTO(
     @SerialName("averageRating")
-    val averageRating: Int,
+    val averageRating: Float,
     @SerialName("hashtags")
     val hashtags: List<String>,
     @SerialName("reviewCount")

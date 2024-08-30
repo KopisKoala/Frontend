@@ -40,10 +40,10 @@ class MyActorFragment : BaseFragment<FragmentMyActorBinding>(R.layout.fragment_m
             FavoriteActorResDto(3,"김준형","http://www.kopis.or.kr/upload/pfmPoster/PF_PF241368_240520_135016.jpg",1),
             FavoriteActorResDto(4,"양준모","http://www.kopis.or.kr/upload/pfmPoster/PF_PF241368_240520_135016.jpg",1)
         )
-        /*// 선택되지 않은 경우
+        // 선택되지 않은 경우
         val Call: Call<MyActor> =
             ApiManager.mypageService.getMyActorList(
-                "Bearer " + LocalDataSource.getAccessToken(),0,3
+                "Bearer " + LocalDataSource.getAccessToken(),0,5
             )
         // 비동기적으로 요청 수행
         Call.enqueue(object : Callback<MyActor> {
@@ -53,7 +53,7 @@ class MyActorFragment : BaseFragment<FragmentMyActorBinding>(R.layout.fragment_m
             ) {
                 if (response.isSuccessful) {
                     val list = response.body()?.result?.favoriteActorResDtoList as ArrayList<FavoriteActorResDto>
-                    actorListAdapter.list=list
+                    actorListAdapter.updatActor(list)
                     actorListAdapter.notifyDataSetChanged()
                     Log.d("내 배우 서버", response.body()?.result.toString())
 
@@ -69,7 +69,7 @@ class MyActorFragment : BaseFragment<FragmentMyActorBinding>(R.layout.fragment_m
                 Log.d("내 배우 서버", t.message.toString())
             }
 
-        })*/
+        })
 
         actorListManager = GridLayoutManager(requireContext(), 3)
         actorListAdapter = MyActorAdapter(actorList)
