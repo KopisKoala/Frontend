@@ -3,6 +3,7 @@ package com.example.whashow.ui.pairing
 import android.annotation.SuppressLint
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -72,8 +73,22 @@ class RecentAdapter (var list: ArrayList<PopularPairDetailResDto>): RecyclerView
             .into(holder.img2)
         holder.name.text=recentList[position].actor1Name+"     "+recentList[position].actor2Name
         holder.performance.text=recentList[position].title
-        holder.hashtag1.text="# "+recentList[position].hashtag1
-        holder.hashtag2.text="# "+recentList[position].hashtag2
+
+        if (!recentList[position].hashtag1.isNullOrEmpty()) {
+            holder.hashtag1.visibility = View.VISIBLE
+            holder.hashtag1.text = "# ${recentList[position].hashtag1}"
+        } else {
+            holder.hashtag1.visibility = View.GONE
+        }
+
+        // Handle hashtag2 visibility
+        if (!recentList[position].hashtag2.isNullOrEmpty()) {
+            holder.hashtag2.visibility = View.VISIBLE
+            holder.hashtag2.text = "# ${recentList[position].hashtag2}"
+        } else {
+            holder.hashtag2.visibility = View.GONE
+        }
+
         holder.order.text=(position+1).toString()
         holder.reviewNum.text=recentList[position].reviewCount.toString()
     }
