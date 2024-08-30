@@ -48,6 +48,7 @@ class PairingFragment : BaseFragment<FragmentPairingBinding>(R.layout.fragment_p
                         searchPairListAdapter.updatePairs(pairDetailResDtoList)
                         binding.pairingRank.visibility = View.GONE
                         binding.pairingResult.visibility = View.VISIBLE
+                        binding.btnRecommandPair.visibility = View.VISIBLE
                         binding.pairCnt.text = pairDetailResDtoList.size.toString()
                     })
 
