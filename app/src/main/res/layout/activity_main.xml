@@ -65,6 +65,15 @@
             android:text="페어링"
             android:textSize="20sp"
             android:visibility="visible" />
+        <ImageView
+            android:id="@+id/ett_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ett_close"
+            android:visibility="gone"
+            android:layout_marginEnd="20dp"
+            android:layout_gravity="end"/>
+
     </androidx.appcompat.widget.Toolbar>
 
     <FrameLayout

@@ -59,6 +59,7 @@ class MainActivity : AppCompatActivity() {
         binding.btnMainSearch.visibility = View.GONE
         binding.mainTitle.visibility = View.VISIBLE
         binding.backTitle.visibility = View.GONE
+        binding.ettClose.visibility=View.GONE
     }
 
     fun ShowBackEq() {
@@ -67,6 +68,7 @@ class MainActivity : AppCompatActivity() {
         binding.btnMainSearch.visibility = View.GONE
         binding.mainTitle.visibility = View.GONE
         binding.backTitle.visibility = View.GONE
+        binding.ettClose.visibility=View.VISIBLE
     }
 
     fun ShowBackandTitle() {
@@ -75,6 +77,7 @@ class MainActivity : AppCompatActivity() {
         binding.toolbarLogo.visibility = View.GONE
         binding.btnMainSearch.visibility = View.GONE
         binding.mainTitle.visibility = View.GONE
+        binding.ettClose.visibility=View.GONE
     }
 
     fun NoShow() {
@@ -83,6 +86,7 @@ class MainActivity : AppCompatActivity() {
         binding.toolbarLogo.visibility = View.GONE
         binding.btnMainSearch.visibility = View.GONE
         binding.mainTitle.visibility = View.VISIBLE
+        binding.ettClose.visibility=View.GONE
     }
 
     fun ShowTitle() {
@@ -92,6 +96,7 @@ class MainActivity : AppCompatActivity() {
         binding.backTitle.visibility = View.GONE
         binding.toolbarLogo.visibility = View.GONE
         binding.btnMainSearch.visibility = View.GONE
+        binding.ettClose.visibility=View.GONE
 
     }
     fun ShowLogoAndSearch(){
@@ -100,6 +105,7 @@ class MainActivity : AppCompatActivity() {
         binding.mainTitle.visibility = View.GONE
         binding.btnBack.visibility = View.GONE
         binding.backTitle.visibility = View.GONE
+        binding.ettClose.visibility=View.GONE
         binding.btnMainSearch.setOnClickListener{
             addFragment(SearchFragment())
         }
