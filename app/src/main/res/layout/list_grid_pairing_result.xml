@@ -126,12 +126,12 @@
                 android:paddingTop="3dp"
                 android:paddingBottom="3dp"
                 android:text="# 웅장한"
-
                 android:textSize="12sp"
                 android:textColor="#7A3E65"
                 android:fontFamily="@font/inter_regular"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                android:visibility="visible"
                 />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -154,6 +154,7 @@
                 android:fontFamily="@font/inter_regular"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                android:visibility="visible"
                 />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
