@@ -1,27 +1,30 @@
-package com.example.whashow.ui.pairing
+package com.example.whashow.ui.recommand
 
 import android.annotation.SuppressLint
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.example.whashow.R
 import com.example.whashow.apiManager.ApiManager
 import com.example.whashow.data.PerformanceResultDTOList
-import com.example.whashow.data.Review
 import com.example.whashow.data.ReviewLike
 import com.example.whashow.databinding.ListReviewItemBinding
 import com.example.whashow.login.LocalDataSource
-import com.example.whashow.viewModel.RecommandResultViewModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class ReviewAdapter (var list: ArrayList<Review>): RecyclerView.Adapter<ReviewAdapter.ReviewViewHolder>() {
+class RecommandAdapter (var list: ArrayList<PerformanceResultDTOList>): RecyclerView.Adapter<RecommandAdapter.ReviewViewHolder>() {
 
-    var reviewList: ArrayList<Review> =list
+    var reviewList: ArrayList<PerformanceResultDTOList> =list
+        set(value){
+            field=value
+            notifyDataSetChanged()
+        }
+    var _pairId:Int=0
+    var pairId:Int=_pairId
         set(value){
             field=value
             notifyDataSetChanged()
@@ -40,7 +43,7 @@ class ReviewAdapter (var list: ArrayList<Review>): RecyclerView.Adapter<ReviewAd
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): ReviewAdapter.ReviewViewHolder{
+    ): RecommandAdapter.ReviewViewHolder{
         return ReviewViewHolder(
             ListReviewItemBinding.inflate(
                 LayoutInflater.from(parent.context),
@@ -63,7 +66,7 @@ class ReviewAdapter (var list: ArrayList<Review>): RecyclerView.Adapter<ReviewAd
     }
 
     @SuppressLint("SetTextI18n")
-    override fun onBindViewHolder(holder: ReviewAdapter.ReviewViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: RecommandAdapter.ReviewViewHolder, position: Int) {
         holder.img.setImageResource(R.drawable.img_profile)
         holder.name.text=reviewList[position].writer
         holder.rating.rating=reviewList[position].rating.toFloat()
@@ -73,8 +76,8 @@ class ReviewAdapter (var list: ArrayList<Review>): RecyclerView.Adapter<ReviewAd
 
         holder.checked.setOnClickListener {
             //reviewList[position].check=false
-            holder.checked.visibility=View.GONE
-            holder.unchecked.visibility=View.VISIBLE
+            holder.checked.visibility= View.GONE
+            holder.unchecked.visibility= View.VISIBLE
 
             val Call2: Call<ReviewLike> =
                 ApiManager.pairingService.deleteLike(
@@ -108,8 +111,8 @@ class ReviewAdapter (var list: ArrayList<Review>): RecyclerView.Adapter<ReviewAd
         }
         holder.unchecked.setOnClickListener {
             //reviewList[position].check=true
-            holder.checked.visibility=View.VISIBLE
-            holder.unchecked.visibility=View.GONE
+            holder.checked.visibility= View.VISIBLE
+            holder.unchecked.visibility= View.GONE
 
             val Call2: Call<ReviewLike> =
                 ApiManager.pairingService.postLike(
@@ -151,9 +154,13 @@ class ReviewAdapter (var list: ArrayList<Review>): RecyclerView.Adapter<ReviewAd
         reviewList.removeAt(position)
         notifyItemRemoved(position)
     }
-    fun updateReviews(newList: List<Review>) {
+    fun updateReviews(newList: List<PerformanceResultDTOList>) {
         list.clear()
         list.addAll(newList)
+        notifyDataSetChanged()
+    }
+    fun updatePairId(pairId:Int) {
+        _pairId=pairId
         notifyDataSetChanged()
     }
 

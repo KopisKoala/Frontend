@@ -50,6 +50,9 @@ class PairingFragment : BaseFragment<FragmentPairingBinding>(R.layout.fragment_p
                         binding.pairingResult.visibility = View.VISIBLE
                         binding.btnRecommandPair.visibility = View.VISIBLE
                         binding.pairCnt.text = pairDetailResDtoList.size.toString()
+                        binding.btnRecommandPair.setOnClickListener {
+                            (activity as MainActivity).addFragment(PairingResultFragment())
+                        }
                     })
 
                 }
