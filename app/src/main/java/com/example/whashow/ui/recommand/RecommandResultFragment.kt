@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.Spinner
-
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,15 +13,10 @@ import com.example.whashow.MainActivity
 import com.example.whashow.R
 import com.example.whashow.apiManager.ApiManager
 import com.example.whashow.base.BaseFragment
-import com.example.whashow.data.PairReview
 import com.example.whashow.data.PerformanceResultDTOList
 import com.example.whashow.data.PerformanceReview
-import com.example.whashow.data.PerformancesByStandard
-import com.example.whashow.data.PerformancesByStandardList
-import com.example.whashow.data.Review
 import com.example.whashow.databinding.FragmentRecommandResultBinding
 import com.example.whashow.login.LocalDataSource
-import com.example.whashow.ui.pairing.ReviewAdapter
 import com.example.whashow.viewModel.RecommandResultViewModel
 import com.example.whashow.viewModel.RecommandViewModel
 import retrofit2.Call
@@ -115,36 +109,31 @@ class RecommandResultFragment : BaseFragment<FragmentRecommandResultBinding>(R.l
                                 response: Response<PerformanceReview>
                             ) {
                                 if (response.isSuccessful) {
-                                    val data = response.body()?.result
-                                    if (data != null) {
-                                        recommandResultViewModel.setReviewList(data.reviewList)
-                                        recommandResultViewModel.reviewList.observe(
-                                            viewLifecycleOwner,
-                                            Observer { list ->
-
-                                                Log.d("리뷰 목록 조회", list.toString())
-                                                reviewAdapter.updatePairId(pairId)
-                                                reviewAdapter.updateReviews(list)
-                                                binding.reviewNum.text = list.size.toString()
-
-                                            })
+                                    if (isAdded && view != null) { // Fragment가 추가되었고, View가 유효한지 확인
+                                        val data = response.body()?.result
+                                        if (data != null) {
+                                            recommandResultViewModel.setReviewList(data.reviewList)
+                                            recommandResultViewModel.reviewList.observe(
+                                                viewLifecycleOwner, // 안전하게 접근
+                                                Observer { list ->
+                                                    Log.d("리뷰 목록 조회", list.toString())
+                                                    reviewAdapter.updatePairId(pairId)
+                                                    reviewAdapter.updateReviews(list)
+                                                    binding.reviewNum.text = list.size.toString()
+                                                }
+                                            )
+                                        }
+                                    } else {
+                                        Log.d("Error", "Fragment view is not available")
                                     }
-
-                                    Log.d("공연 리뷰 목록 조회", data.toString())
-                                    Log.d("공연 리뷰 목록 조회 서버", response.body()?.result.toString())
-
                                 } else {
-                                    // 서버에서 오류 응답을 받은 경우 처리
                                     Log.d("공연 리뷰 목록 조회 서버", response.toString())
                                 }
-
                             }
 
                             override fun onFailure(call: Call<PerformanceReview>, t: Throwable) {
-                                // 통신 실패 처리
                                 Log.d("공연 리뷰 목록 조회 서버", t.message.toString())
                             }
-
                         })
 
                     }

@@ -15,7 +15,6 @@ import com.example.whashow.login.LocalDataSource
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-
 class RecommandAdapter (var list: ArrayList<PerformanceResultDTOList>): RecyclerView.Adapter<RecommandAdapter.ReviewViewHolder>() {
 
     var reviewList: ArrayList<PerformanceResultDTOList> =list

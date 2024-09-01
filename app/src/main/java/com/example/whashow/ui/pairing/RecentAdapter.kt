@@ -20,8 +20,7 @@ class RecentAdapter (var list: ArrayList<PopularPairDetailResDto>): RecyclerView
         }
 
     interface MyItemClickListener{
-        fun onDeleteClick(position: Int)
-
+        fun onReviewClick(position: Int)
     }
 
     private lateinit var myItemClickListener: MyItemClickListener
@@ -52,6 +51,14 @@ class RecentAdapter (var list: ArrayList<PopularPairDetailResDto>): RecyclerView
         val hashtag2=binding.paringFeature2
         val order=binding.order
         val reviewNum=binding.reviewNum
+        init {
+            reviewNum.setOnClickListener {
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    myItemClickListener.onReviewClick(position)
+                }
+            }
+        }
 
     }
 
@@ -74,6 +81,7 @@ class RecentAdapter (var list: ArrayList<PopularPairDetailResDto>): RecyclerView
         holder.name.text=recentList[position].actor1Name+"     "+recentList[position].actor2Name
         holder.performance.text=recentList[position].title
 
+
         if (!recentList[position].hashtag1.isNullOrEmpty()) {
             holder.hashtag1.visibility = View.VISIBLE
             holder.hashtag1.text = "# ${recentList[position].hashtag1}"
@@ -90,7 +98,7 @@ class RecentAdapter (var list: ArrayList<PopularPairDetailResDto>): RecyclerView
         }
 
         holder.order.text=(position+1).toString()
-        holder.reviewNum.text=recentList[position].reviewCount.toString()
+        holder.reviewNum.text="${recentList[position].reviewCount} 개 리뷰 >"
     }
 
     override fun getItemCount(): Int {
