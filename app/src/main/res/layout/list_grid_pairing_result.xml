@@ -172,15 +172,6 @@
             android:layout_marginTop="10dp"
             android:fontFamily="@font/inter_regular"
             />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="12sp"
-            android:text="개 리뷰>"
-            android:textColor="@color/purple"
-            android:layout_marginTop="10dp"
-            android:fontFamily="@font/inter_regular"
-            />
     </LinearLayout>
 
 

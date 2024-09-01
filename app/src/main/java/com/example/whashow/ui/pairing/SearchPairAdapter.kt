@@ -20,7 +20,7 @@ class SearchPairAdapter(var list: ArrayList<PairDetailResDto>): RecyclerView.Ada
         }
 
     interface MyItemClickListener{
-        fun onDeleteClick(position: Int)
+        fun onReviewClick(position: Int)
     }
 
     private lateinit var myItemClickListener: MyItemClickListener
@@ -50,6 +50,15 @@ class SearchPairAdapter(var list: ArrayList<PairDetailResDto>): RecyclerView.Ada
         val hashtag1 = binding.paringFeature
         val hashtag2 = binding.paringFeature2
         val reviewNum = binding.reviewNum
+
+        init {
+            reviewNum.setOnClickListener {
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    myItemClickListener.onReviewClick(position)
+                }
+            }
+        }
     }
 
     @SuppressLint("SetTextI18n")
@@ -86,7 +95,7 @@ class SearchPairAdapter(var list: ArrayList<PairDetailResDto>): RecyclerView.Ada
         } else {
             holder.hashtag2.visibility = View.GONE
         }
-        holder.reviewNum.text = list[position].reviewCount.toString()
+        holder.reviewNum.text="${recentList[position].reviewCount} 개 리뷰 >"
     }
 
     override fun getItemCount(): Int {

@@ -81,6 +81,11 @@ class PairingFragment : BaseFragment<FragmentPairingBinding>(R.layout.fragment_p
 
         pairListManager = GridLayoutManager(requireContext(), 2)
         pairListAdapter = RecentAdapter(arrayListOf())
+        pairListAdapter.setMyItemClickListener(object : RecentAdapter.MyItemClickListener {
+            override fun onReviewClick(position: Int) {
+                (activity as MainActivity).addFragment(PairingResultFragment())
+            }
+        })
 
         searchPairListManager = GridLayoutManager(requireContext(), 2)
         searchPairListAdapter = SearchPairAdapter(arrayListOf())

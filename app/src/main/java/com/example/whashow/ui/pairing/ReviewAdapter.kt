@@ -5,16 +5,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.example.whashow.R
 import com.example.whashow.apiManager.ApiManager
-import com.example.whashow.data.PerformanceResultDTOList
 import com.example.whashow.data.Review
 import com.example.whashow.data.ReviewLike
 import com.example.whashow.databinding.ListReviewItemBinding
 import com.example.whashow.login.LocalDataSource
-import com.example.whashow.viewModel.RecommandResultViewModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -60,6 +57,7 @@ class ReviewAdapter (var list: ArrayList<Review>): RecyclerView.Adapter<ReviewAd
         val checked=binding.checked
         val unchecked=binding.unchecked
         val likeNum=binding.likeNum
+
     }
 
     @SuppressLint("SetTextI18n")
@@ -70,6 +68,8 @@ class ReviewAdapter (var list: ArrayList<Review>): RecyclerView.Adapter<ReviewAd
         holder.feature.text=reviewList[position].hashTag
         holder.review.text=reviewList[position].content
         holder.likeNum.text=reviewList[position].likeCount.toString()
+
+
 
         holder.checked.setOnClickListener {
             //reviewList[position].check=false
