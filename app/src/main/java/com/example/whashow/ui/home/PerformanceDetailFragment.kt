@@ -9,7 +9,7 @@ import com.example.whashow.MainActivity
 import com.example.whashow.R
 import com.example.whashow.base.BaseFragment
 import com.example.whashow.databinding.FragmentPerformanceDetailBinding
-import com.example.whashow.ui.home.Adapter.DetailAdapter
+import com.example.whashow.ui.home.homeAdapter.DetailAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 
 

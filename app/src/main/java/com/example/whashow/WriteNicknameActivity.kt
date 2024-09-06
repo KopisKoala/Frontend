@@ -4,12 +4,10 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.EditText
 import android.widget.Toast
 import com.example.whashow.apiManager.ApiManager
 import com.example.whashow.data.getNickname
-import com.example.whashow.data.getNicknameRequest
-import com.example.whashow.databinding.ActivityJoinBinding
+import com.example.whashow.data.requestBody.getNicknameRequest
 import com.example.whashow.databinding.ActivityWriteNicknameBinding
 import com.example.whashow.login.LocalDataSource
 import retrofit2.Call

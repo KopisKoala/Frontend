@@ -1,6 +1,8 @@
 package com.example.whashow.api
 
 import com.example.whashow.data.PairReview
+import com.example.whashow.data.PopularPairRankResponse
+import com.example.whashow.data.RecommandPairList
 import com.example.whashow.data.ReviewLike
 import retrofit2.Call
 import retrofit2.http.DELETE
@@ -11,12 +13,17 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface PairingService {
-    @GET("/review/list/pair")
-    fun getInfo(@Header("Authorization") accessToken:String,@Query("pairId") id:Int,@Query("way") sortWay:String): Call<PairReview>
-    @POST("/review/{review-id}/like/create")
-    fun postLike(@Header("Authorization") accessToken:String,@Path("review-id")id:Int): Call<ReviewLike>
-    @DELETE("/review/{review-id}/like/delete")
-    fun deleteLike(@Header("Authorization") accessToken:String,@Path("review-id")id:Int): Call<ReviewLike>
 
+    @GET("/pair/popular/list")
+    fun getPopularPair(
+        @Header("Authorization") accessToken: String,
+        @Query("size") size: Int
+    ): Call<PopularPairRankResponse>
+
+    @GET("/pair/recommend")
+    fun getPairList(
+        @Header("Authorization") accessToken: String,
+        @Query("performanceId") performanceId:Int
+    ): Call<RecommandPairList>
 
 }

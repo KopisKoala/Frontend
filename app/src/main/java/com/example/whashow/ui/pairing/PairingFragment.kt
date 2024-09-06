@@ -11,6 +11,8 @@ import com.example.whashow.R
 import com.example.whashow.base.BaseFragment
 import com.example.whashow.databinding.FragmentPairingBinding
 import com.example.whashow.ui.home.SearchViewModel
+import com.example.whashow.ui.pairing.pairingAdapter.RecentAdapter
+import com.example.whashow.ui.pairing.pairingAdapter.SearchPairAdapter
 
 class PairingFragment : BaseFragment<FragmentPairingBinding>(R.layout.fragment_pairing) {
     private val searchViewModel : SearchViewModel by viewModels()

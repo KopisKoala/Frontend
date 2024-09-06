@@ -5,7 +5,7 @@ import com.example.whashow.api.LoginService
 import com.example.whashow.api.MypageService
 import com.example.whashow.api.PairingService
 import com.example.whashow.api.PerformanceService
-import com.example.whashow.api.RecommandService
+import com.example.whashow.api.ReviewService
 import com.example.whashow.api.SearchService
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -19,11 +19,11 @@ object ApiManager {
 
     private var BASE_URL = BuildConfig.AUTH_BASE_URL
 
-    val loggingInterceptor= HttpLoggingInterceptor().apply {
-        level= HttpLoggingInterceptor.Level.BODY
+    val loggingInterceptor = HttpLoggingInterceptor().apply {
+        level = HttpLoggingInterceptor.Level.BODY
     }
 
-    val gson : Gson = GsonBuilder().setLenient().create()
+    val gson: Gson = GsonBuilder().setLenient().create()
 
     private val okHttpClient = OkHttpClient.Builder()
         .addInterceptor(loggingInterceptor)
@@ -45,7 +45,7 @@ object ApiManager {
     val mypageService: MypageService = retrofit.create(MypageService::class.java)
     val pairingService: PairingService = retrofit.create(PairingService::class.java)
     val performanceService: PerformanceService = retrofit.create(PerformanceService::class.java)
-    val searchService : SearchService = retrofit.create(SearchService::class.java)
-    val recommandService : RecommandService = retrofit.create(RecommandService::class.java)
+    val searchService: SearchService = retrofit.create(SearchService::class.java)
+    val reviewService: ReviewService = retrofit.create(ReviewService::class.java)
 
 }

@@ -12,10 +12,10 @@ import com.example.whashow.R
 import com.example.whashow.base.BaseFragment
 import com.example.whashow.data.Performance
 import com.example.whashow.databinding.FragmentHomeBinding
-import com.example.whashow.ui.home.Adapter.BannerAdapter
-import com.example.whashow.ui.home.Adapter.DramaAdapter
-import com.example.whashow.ui.home.Adapter.PopularAdapter
-import com.example.whashow.ui.home.Adapter.RecommendHomeAdapter
+import com.example.whashow.ui.home.homeAdapter.BannerAdapter
+import com.example.whashow.ui.home.homeAdapter.DramaAdapter
+import com.example.whashow.ui.home.homeAdapter.PopularAdapter
+import com.example.whashow.ui.home.homeAdapter.RecommendHomeAdapter
 
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {

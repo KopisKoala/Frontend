@@ -12,8 +12,8 @@ import com.example.whashow.MainActivity
 import com.example.whashow.R
 import com.example.whashow.base.BaseFragment
 import com.example.whashow.databinding.FragmentSearchBinding
-import com.example.whashow.ui.home.Adapter.ActorAdapter
-import com.example.whashow.ui.home.Adapter.PerformanceAdapter
+import com.example.whashow.ui.home.homeAdapter.ActorAdapter
+import com.example.whashow.ui.home.homeAdapter.PerformanceAdapter
 
 
 class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_search) {

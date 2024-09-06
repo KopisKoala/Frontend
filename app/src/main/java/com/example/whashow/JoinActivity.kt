@@ -6,7 +6,7 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.example.whashow.apiManager.ApiManager
 import com.example.whashow.data.KakaoLogin
-import com.example.whashow.data.KakaoLoginRequest
+import com.example.whashow.data.requestBody.KakaoLoginRequest
 import com.example.whashow.databinding.ActivityJoinBinding
 import com.example.whashow.login.LocalDataSource
 import com.kakao.sdk.auth.model.OAuthToken
@@ -93,8 +93,10 @@ class JoinActivity: AppCompatActivity() {
                     val username= user?.kakaoAccount?.email.toString().substring(0, atIndex)
 
                     val Call: Call<KakaoLogin> =
-                        ApiManager.loginService.login(KakaoLoginRequest(user?.kakaoAccount?.email.toString(),
-                            "kakao","{kakao}$username"))
+                        ApiManager.loginService.login(
+                            KakaoLoginRequest(user?.kakaoAccount?.email.toString(),
+                            "kakao","{kakao}$username")
+                        )
 
                     // 비동기적으로 요청 수행
                     Call.enqueue(object : Callback<KakaoLogin> {

@@ -1,12 +1,7 @@
 package com.example.whashow.ui.mypage
 
-import android.content.Intent
-import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import com.example.whashow.MainActivity
 import com.example.whashow.R
@@ -14,7 +9,7 @@ import com.example.whashow.apiManager.ApiManager
 import com.example.whashow.base.BaseFragment
 import com.example.whashow.data.Info
 import com.example.whashow.data.getNickname
-import com.example.whashow.data.getNicknameRequest
+import com.example.whashow.data.requestBody.getNicknameRequest
 import com.example.whashow.databinding.FragmentChangeNicknameBinding
 import com.example.whashow.login.LocalDataSource
 import retrofit2.Call

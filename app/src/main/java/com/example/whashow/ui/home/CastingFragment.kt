@@ -9,7 +9,7 @@ import com.example.whashow.R
 import com.example.whashow.base.BaseFragment
 import com.example.whashow.data.DetailActor
 import com.example.whashow.databinding.FragmentCastingBinding
-import com.example.whashow.ui.home.Adapter.CastingAdapter
+import com.example.whashow.ui.home.homeAdapter.CastingAdapter
 class CastingFragment : BaseFragment<FragmentCastingBinding>(R.layout.fragment_casting) {
 
     private lateinit var castingAdapter: CastingAdapter

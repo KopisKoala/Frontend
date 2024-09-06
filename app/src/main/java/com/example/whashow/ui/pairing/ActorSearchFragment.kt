@@ -7,6 +7,7 @@ import com.example.whashow.MainActivity
 import com.example.whashow.R
 import com.example.whashow.base.BaseFragment
 import com.example.whashow.databinding.FragmentActorSearchBinding
+import com.example.whashow.ui.pairing.pairingAdapter.ActorAdapterGrid
 
 class ActorSearchFragment : BaseFragment<FragmentActorSearchBinding>(R.layout.fragment_actor_search) {
 

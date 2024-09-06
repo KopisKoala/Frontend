@@ -1,15 +1,11 @@
 package com.example.whashow.ui.mypage
 
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.whashow.data.ReviewX
-import com.example.whashow.databinding.ListTagItemBinding
 import com.example.whashow.databinding.MonthItemBinding
-import com.example.whashow.ui.recommand.Tag
 import java.util.Calendar
 import java.util.Date
 

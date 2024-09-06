@@ -14,7 +14,7 @@ import com.example.whashow.ui.home.HomeFragment
 import com.example.whashow.ui.home.SearchFragment
 import com.example.whashow.ui.mypage.MypageFragment
 import com.example.whashow.ui.pairing.PairingFragment
-import com.example.whashow.ui.recommand.GenreFragment
+import com.example.whashow.ui.performance.SelectGenreFragment
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -126,7 +126,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 R.id.navigation_recommand -> {
-                    addFragment(GenreFragment())
+                    addFragment(SelectGenreFragment())
                 }
 
                 R.id.navigation_pairing -> {

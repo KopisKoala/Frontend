@@ -7,6 +7,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.whashow.apiManager.ApiManager.pairingService
 import com.example.whashow.apiManager.ApiManager.searchService
 import com.example.whashow.data.PairDetailListResDto
 import com.example.whashow.data.PopularPairDetailResDto
@@ -100,7 +101,7 @@ class SearchViewModel : ViewModel() {
 
     // 인기 페어 랭킹 반환 함수
     fun fetchPopularPair() {
-        val call: Call<PopularPairRankResponse> = searchService.getPopularPair(
+        val call: Call<PopularPairRankResponse> = pairingService.getPopularPair(
             "Bearer " + LocalDataSource.getAccessToken()!!,
             size = 10
         )

@@ -85,7 +85,7 @@ class RecommandViewModel:ViewModel() {
         Log.d("공연", "1")
         Log.d("공연", genre.toString())
         // 실제 API 호출 로직
-        val call: Call<RecommandPerformanceList> = ApiManager.recommandService.getPerformanceList(
+        val call: Call<RecommandPerformanceList> = ApiManager.performanceService.getPerformanceList(
             "Bearer " + LocalDataSource.getAccessToken()!!,
             genre,
             startYear,
@@ -124,7 +124,7 @@ class RecommandViewModel:ViewModel() {
     }
 
     fun fetchRecommandPair(perId:Int) {
-        val call: Call<RecommandPairList> = ApiManager.recommandService.getPairList(
+        val call: Call<RecommandPairList> = ApiManager.pairingService.getPairList(
             "Bearer " + LocalDataSource.getAccessToken()!!,
             perId
         )

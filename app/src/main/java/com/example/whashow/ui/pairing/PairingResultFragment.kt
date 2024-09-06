@@ -15,14 +15,16 @@ import com.example.whashow.data.PairReviewResult
 import com.example.whashow.data.Review
 import com.example.whashow.databinding.FragmentPairingResultBinding
 import com.example.whashow.login.LocalDataSource
-import com.example.whashow.ui.recommand.SortResultSpinnerAdapter
+import com.example.whashow.ui.pairing.pairingAdapter.PairingReviewAdapter
+import com.example.whashow.ui.pairing.pairingAdapter.PairingViewPagerAdapter
+import com.example.whashow.ui.performance.performanceAdapter.SortResultSpinnerAdapter
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class PairingResultFragment : BaseFragment<FragmentPairingResultBinding>(R.layout.fragment_pairing_result) {
 
-    private lateinit var reviewAdapter: ReviewAdapter
+    private lateinit var pairingReviewAdapter: PairingReviewAdapter
     private lateinit var pairViewPager: PairingViewPagerAdapter
     //리뷰
     val reviewList = arrayListOf<Review>()
@@ -150,7 +152,7 @@ class PairingResultFragment : BaseFragment<FragmentPairingResultBinding>(R.layou
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                 val value = spinnerSortResult.getItemAtPosition(p2).toString()
                 val Call2: Call<PairReview> =
-                    ApiManager.pairingService.getInfo(
+                    ApiManager.reviewService.getInfo(
                         "Bearer " + LocalDataSource.getAccessToken()!!, 1,sortList[p2]
                     )
                 // 비동기적으로 요청 수행
@@ -162,8 +164,8 @@ class PairingResultFragment : BaseFragment<FragmentPairingResultBinding>(R.layou
                         if (response.isSuccessful) {
                             val data = response.body()?.result
                             if (data != null) {
-                                reviewAdapter.reviewList = data.reviewList as ArrayList<Review>
-                                reviewAdapter.notifyDataSetChanged()
+                                pairingReviewAdapter.reviewList = data.reviewList as ArrayList<Review>
+                                pairingReviewAdapter.notifyDataSetChanged()
                             }
 
                             Log.d("리뷰 목록 조회", data.toString())
@@ -189,7 +191,7 @@ class PairingResultFragment : BaseFragment<FragmentPairingResultBinding>(R.layou
 
                 // 선택되지 않은 경우
                 val Call2: Call<PairReview> =
-                    ApiManager.pairingService.getInfo(
+                    ApiManager.reviewService.getInfo(
                         "Bearer " + LocalDataSource.getAccessToken()!!, 1,sortList[0]
                     )
                 // 비동기적으로 요청 수행
@@ -201,8 +203,8 @@ class PairingResultFragment : BaseFragment<FragmentPairingResultBinding>(R.layou
                         if (response.isSuccessful) {
                             val data = response.body()?.result
                             if (data!=null){
-                                reviewAdapter.reviewList=data.reviewList as ArrayList<Review>
-                                reviewAdapter.notifyDataSetChanged()
+                                pairingReviewAdapter.reviewList=data.reviewList as ArrayList<Review>
+                                pairingReviewAdapter.notifyDataSetChanged()
                             }
                             Log.d("리뷰 목록 조회", data.toString())
                             Log.d("리뷰 목록 조회 서버", response.body()?.result.toString())
@@ -231,15 +233,15 @@ class PairingResultFragment : BaseFragment<FragmentPairingResultBinding>(R.layou
                 val selectedPairReview = pairingList[position].reviewList
                 Log.d("리뷰 목록 조회 서버", position.toString())
                 // reviewList를 새 데이터로 갱신
-                reviewAdapter.reviewList = selectedPairReview as ArrayList<Review>
-                reviewAdapter.notifyDataSetChanged()
+                pairingReviewAdapter.reviewList = selectedPairReview as ArrayList<Review>
+                pairingReviewAdapter.notifyDataSetChanged()
 
                 // 다른 필요한 갱신 작업이 있으면 여기에 추가
             }
         })
 
-        reviewAdapter = ReviewAdapter(reviewList)
-        binding.reviewRv.adapter = reviewAdapter
+        pairingReviewAdapter = PairingReviewAdapter(reviewList)
+        binding.reviewRv.adapter = pairingReviewAdapter
         binding.reviewRv.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 

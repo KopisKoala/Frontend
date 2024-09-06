@@ -14,9 +14,9 @@ import com.example.whashow.MainActivity
 import com.example.whashow.R
 import com.example.whashow.base.BaseFragment
 import com.example.whashow.databinding.FragmentDetailReviewBinding
-import com.example.whashow.ui.home.Adapter.PerformanceReviewAdapter
+import com.example.whashow.ui.home.homeAdapter.PerformanceReviewAdapter
 import com.example.whashow.ui.mypage.MakeReviewFragment
-import com.example.whashow.ui.recommand.SortResultSpinnerAdapter
+import com.example.whashow.ui.performance.performanceAdapter.SortResultSpinnerAdapter
 
 class DetailReviewFragment: BaseFragment<FragmentDetailReviewBinding>(R.layout.fragment_detail_review) {
 

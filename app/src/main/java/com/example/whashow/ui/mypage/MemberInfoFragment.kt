@@ -4,7 +4,6 @@ import android.Manifest
 import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Build
 import android.provider.MediaStore
@@ -20,7 +19,6 @@ import com.example.whashow.apiManager.ApiManager
 import com.example.whashow.base.BaseFragment
 import com.example.whashow.data.AddProfile
 import com.example.whashow.data.Info
-import com.example.whashow.data.changeProfileRequestBody
 import com.example.whashow.databinding.FragmentMemberInfoBinding
 import com.example.whashow.login.LocalDataSource
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -29,10 +27,7 @@ import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.http.Multipart
-import java.io.ByteArrayOutputStream
 import java.io.File
-import java.io.FileOutputStream
 
 
 class MemberInfoFragment : BaseFragment<FragmentMemberInfoBinding>(R.layout.fragment_member_info) {
