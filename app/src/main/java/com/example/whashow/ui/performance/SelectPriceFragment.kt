@@ -66,7 +66,7 @@ class SelectPriceFragment : BaseFragment<FragmentPriceBinding>(R.layout.fragment
                                                     // 여기서 API 호출 로직을 구현합니다.
                                                     // API 호출
                                                     Log.d("공연 추천 서버", LocalDataSource.getAccessToken().toString())
-                                                    val call: Call<RecommandPerformanceList> = ApiManager.recommandService.getPerformanceList(
+                                                    val call: Call<RecommandPerformanceList> = ApiManager.performanceService.getPerformanceList(
                                                         "Bearer " + LocalDataSource.getAccessToken()!!,
                                                         genre,
                                                         startYear,
