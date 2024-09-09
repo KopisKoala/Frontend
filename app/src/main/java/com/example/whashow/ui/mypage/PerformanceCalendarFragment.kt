@@ -1,7 +1,6 @@
 package com.example.whashow.ui.mypage
 
 import android.annotation.SuppressLint
-import android.graphics.drawable.Drawable
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
@@ -17,7 +16,6 @@ import com.example.whashow.apiManager.ApiManager
 import com.example.whashow.base.BaseFragment
 import com.example.whashow.data.AddMemo
 import com.example.whashow.data.CalendarDayReview
-import com.example.whashow.data.MemoRequestBody
 import com.example.whashow.data.Partner
 import com.example.whashow.data.ReviewX
 import com.example.whashow.databinding.FragmentPerformanceCalendarBinding

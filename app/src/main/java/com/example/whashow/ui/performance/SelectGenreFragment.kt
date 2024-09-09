@@ -7,12 +7,12 @@ import com.example.whashow.MainActivity
 import com.example.whashow.R
 import com.example.whashow.base.BaseFragment
 import com.example.whashow.databinding.FragmentGenreBinding
-import com.example.whashow.viewModel.RecommandViewModel
+import com.example.whashow.viewModel.PerformanceViewModel
 
 
 class SelectGenreFragment : BaseFragment<FragmentGenreBinding>(R.layout.fragment_genre) {
 
-    private val recommandViewModel: RecommandViewModel by activityViewModels()
+    private val recommandViewModel: PerformanceViewModel by activityViewModels()
 
     override fun initStartView() {
         super.initStartView()

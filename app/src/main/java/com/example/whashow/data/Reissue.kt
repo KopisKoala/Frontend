@@ -15,3 +15,13 @@ data class Reissue(
     @SerialName("result")
     val result: ReissueResult
 )
+
+@Serializable
+data class ReissueResult(
+    @SerialName("accessToken")
+    val accessToken: String,
+    @SerialName("refreshToken")
+    val refreshToken: String,
+    @SerialName("signIn")
+    val signIn: String
+)

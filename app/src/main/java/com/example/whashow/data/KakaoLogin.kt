@@ -15,3 +15,13 @@ data class KakaoLogin(
     @SerialName("result")
     val result: KakaoLoginResult
 )
+
+@Serializable
+data class KakaoLoginResult(
+    @SerialName("accessToken")
+    val accessToken: String,
+    @SerialName("refreshToken")
+    val refreshToken: String,
+    @SerialName("signIn")
+    val signIn: String
+)

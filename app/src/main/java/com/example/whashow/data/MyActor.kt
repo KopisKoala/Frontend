@@ -13,5 +13,25 @@ data class MyActor(
     @SerialName("message")
     val message: String,
     @SerialName("result")
-    val result: ResultXXX
+    val result: MyActorResult
+)
+
+@Serializable
+data class MyActorResult(
+    @SerialName("favoriteActorCount")
+    val favoriteActorCount: Int,
+    @SerialName("favoriteActorResDtoList")
+    val favoriteActorResDtoList: List<FavoriteActorResDto>
+)
+
+@Serializable
+data class FavoriteActorResDto(
+    @SerialName("actorId")
+    val actorId: Int,
+    @SerialName("actorName")
+    val actorName: String,
+    @SerialName("actorProfile")
+    val actorProfile: String,
+    @SerialName("id")
+    val id: Int
 )

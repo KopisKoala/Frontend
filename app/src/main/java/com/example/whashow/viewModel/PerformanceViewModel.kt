@@ -4,22 +4,19 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.example.whashow.apiManager.ApiManager
 import com.example.whashow.data.PerformanceResultDTOList
+import com.example.whashow.data.PerformanceReview
 import com.example.whashow.data.PerformancesByStandard
-import com.example.whashow.data.PerformancesByStandardList
-import com.example.whashow.data.PopularPairRankResponse
 import com.example.whashow.data.RecommandPairList
 import com.example.whashow.data.RecommandPerformanceList
 import com.example.whashow.data.RecommendPairResDto
 import com.example.whashow.login.LocalDataSource
-import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class RecommandViewModel:ViewModel() {
+class PerformanceViewModel : ViewModel() {
 
     // GenreFragment에서 사용하는 데이터
     private val _genre = MutableLiveData<Int>()
@@ -56,17 +53,27 @@ class RecommandViewModel:ViewModel() {
     val recommandResultList: LiveData<List<PerformancesByStandard>> get() = _recommandResultList
 
     private val _performanceRecommandResultList = MutableLiveData<List<RecommendPairResDto>>()
-    val performanceRecommandResultList: LiveData<List<RecommendPairResDto>> get() = _performanceRecommandResultList
+
+    private val _performanceId = MutableLiveData<Int?>()
+    val performanceId: LiveData<Int?> get() = _performanceId
+
+    private val _reviewList = MutableLiveData<List<PerformanceResultDTOList>>()
+    val reviewList: LiveData<List<PerformanceResultDTOList>> get() = _reviewList
 
     // 장르 설정 함수: LiveData로 관리
     fun setGenre(genre: Int) {
         _genre.value = genre
     }
-    fun setRecommandList(recommandResultList: List<PerformancesByStandard>) {
-        _recommandResultList.value = recommandResultList
-    }
 
-    fun setDayAndPlace(startYear: Int, startMonth: Int, startDate: Int, endYear: Int, endMonth: Int, endDate: Int, location: String) {
+    fun setDayAndPlace(
+        startYear: Int,
+        startMonth: Int,
+        startDate: Int,
+        endYear: Int,
+        endMonth: Int,
+        endDate: Int,
+        location: String
+    ) {
         _startYear.value = startYear
         _startMonth.value = startMonth
         _startDate.value = startDate
@@ -81,22 +88,24 @@ class RecommandViewModel:ViewModel() {
         _maxPrice.value = maxPrice
     }
 
-    fun callApi(genre: Int,startYear: Int, startMonth: Int, startDate: Int, endYear: Int, endMonth: Int, endDate: Int, location: String,minPrice: Int, maxPrice: Int) {
-        Log.d("공연", "1")
-        Log.d("공연", genre.toString())
+    fun setPerformanceId(performanceId: Int) {
+        _performanceId.value = performanceId
+    }
+
+    fun fetchPerformanceData() {
         // 실제 API 호출 로직
         val call: Call<RecommandPerformanceList> = ApiManager.performanceService.getPerformanceList(
             "Bearer " + LocalDataSource.getAccessToken()!!,
-            genre,
-            startYear,
-            startMonth,
-            startDate,
-            endYear,
-            endMonth,
-            endDate,
-            location,
-            minPrice,
-            maxPrice
+            _genre.value!!,
+            _startYear.value!!,
+            _startMonth.value!!,
+            _startDate.value!!,
+            _endYear.value!!,
+            _endMonth.value!!,
+            _endDate.value!!,
+            _location.value!!,
+            _minPrice.value!!,
+            _maxPrice.value!!
         )
 
         call.enqueue(object : Callback<RecommandPerformanceList> {
@@ -108,6 +117,8 @@ class RecommandViewModel:ViewModel() {
                     val data = response.body()?.result
                     if (data != null) {
                         _recommandResultList.value = data.performancesByStandardList ?: emptyList()
+                        _performanceId.value =
+                            data.performancesByStandardList[0].performancesByStandard[0].id
                     }
                     Log.d("공연 추천 서버", response.body()?.result.toString())
                 } else {
@@ -123,29 +134,47 @@ class RecommandViewModel:ViewModel() {
         })
     }
 
-    fun fetchRecommandPair(perId:Int) {
-        val call: Call<RecommandPairList> = ApiManager.pairingService.getPairList(
-            "Bearer " + LocalDataSource.getAccessToken()!!,
-            perId
+    fun fetchPerformanceReview(perfId: Int, position: Int) {
+        //정렬
+        val sortList = listOf(
+            "recent",
+            "like",
+            "asc",
+            "desc"
         )
-
-        call.enqueue(object : Callback<RecommandPairList> {
+        val Call2: Call<PerformanceReview> =
+            ApiManager.reviewService.getReview(
+                "Bearer " + LocalDataSource.getAccessToken()!!, perfId, sortList[position]
+            )
+        // 비동기적으로 요청 수행
+        Call2.enqueue(object : Callback<PerformanceReview> {
             override fun onResponse(
-                call: Call<RecommandPairList>,
-                response: Response<RecommandPairList>
+                call: Call<PerformanceReview>,
+                response: Response<PerformanceReview>
             ) {
-                if(response.isSuccessful) {
-                    _performanceRecommandResultList.value = response.body()?.result?.recommendPairResDtoList ?: emptyList()
-                    Log.d("페어 추천 조회 서버", _performanceRecommandResultList.toString())
+                if (response.isSuccessful) {
+                    val data = response.body()?.result
+                    if (data != null) {
+                        _reviewList.value = data.reviewList
+                    }
+
+                    Log.d("페어 리뷰 목록 조회", data.toString())
+                    Log.d("페어 리뷰 목록 조회 서버", response.body()?.result.toString())
+
                 } else {
-                    _error.value = "페어 추천을 불러오는데 실패했습니다."
+                    // 서버에서 오류 응답을 받은 경우 처리
+                    Log.d("페어 리뷰 목록 조회 서버", response.toString())
                 }
+
             }
 
-            override fun onFailure(call: Call<RecommandPairList>, t: Throwable) {
-                _error.value = "오류가 발생했습니다: ${t.message}"
+            override fun onFailure(call: Call<PerformanceReview>, t: Throwable) {
+                // 통신 실패 처리
+                Log.d("페어 리뷰 목록 조회 서버", t.message.toString())
             }
+
         })
+
     }
 
 

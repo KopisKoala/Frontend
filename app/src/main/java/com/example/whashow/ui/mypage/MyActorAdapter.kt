@@ -1,7 +1,6 @@
 package com.example.whashow.ui.mypage
 
 import android.annotation.SuppressLint
-import android.graphics.Paint
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -12,10 +11,6 @@ import com.example.whashow.R
 import com.example.whashow.apiManager.ApiManager
 import com.example.whashow.data.DeleteMyActor
 import com.example.whashow.data.FavoriteActorResDto
-import com.example.whashow.data.GoodsX
-import com.example.whashow.data.MyActor
-import com.example.whashow.data.PopularPairDetailResDto
-import com.example.whashow.databinding.GoodsGridItemBinding
 import com.example.whashow.databinding.MyActorListItemBinding
 import com.example.whashow.login.LocalDataSource
 import retrofit2.Call

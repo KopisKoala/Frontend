@@ -13,5 +13,13 @@ data class CalendarMonth(
     @SerialName("message")
     val message: String,
     @SerialName("result")
-    val result: Result
+    val result: CalendarMonthResult
+)
+
+@Serializable
+data class CalendarMonthResult(
+    @SerialName("reviewCount")
+    val reviewCount: Int,
+    @SerialName("reviewList")
+    val reviewList: List<ReviewX>
 )

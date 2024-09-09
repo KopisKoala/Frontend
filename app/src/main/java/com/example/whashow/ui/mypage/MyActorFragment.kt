@@ -1,20 +1,12 @@
 package com.example.whashow.ui.mypage
 
-import android.graphics.Color
-import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.whashow.MainActivity
 import com.example.whashow.R
 import com.example.whashow.apiManager.ApiManager
 import com.example.whashow.base.BaseFragment
 import com.example.whashow.data.FavoriteActorResDto
-import com.example.whashow.data.Goods
-import com.example.whashow.data.GoodsX
 import com.example.whashow.data.MyActor
 import com.example.whashow.databinding.FragmentMyActorBinding
 import com.example.whashow.login.LocalDataSource

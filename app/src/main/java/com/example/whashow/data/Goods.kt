@@ -13,5 +13,27 @@ data class Goods(
     @SerialName("message")
     val message: String,
     @SerialName("result")
-    val result: ResultXX
+    val result: GoodsResult
+)
+
+@Serializable
+data class GoodsResult(
+    @SerialName("goodsCount")
+    val goodsCount: Int,
+    @SerialName("goodsList")
+    val goodsList: List<GoodsResultDto>
+)
+
+@Serializable
+data class GoodsResultDto(
+    @SerialName("id")
+    val id: Int,
+    @SerialName("image")
+    val image: String,
+    @SerialName("name")
+    val name: String,
+    @SerialName("price")
+    val price: Int,
+    @SerialName("title")
+    val title: String
 )

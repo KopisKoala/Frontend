@@ -122,7 +122,7 @@ class PerformanceDetailViewModel : ViewModel() {
             "desc"
         )
         val Call2: Call<PerformanceReview> =
-            ApiManager.performanceService.getReview(
+            ApiManager.reviewService.getReview(
                 "Bearer " + LocalDataSource.getAccessToken()!!, performanceId,sortList[position]
             )
         // 비동기적으로 요청 수행

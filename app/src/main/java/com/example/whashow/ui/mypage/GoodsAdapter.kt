@@ -7,10 +7,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.whashow.R
-import com.example.whashow.data.GoodsX
+import com.example.whashow.data.GoodsResultDto
 import com.example.whashow.databinding.GoodsGridItemBinding
 
-class GoodsAdapter (var list: ArrayList<GoodsX>): RecyclerView.Adapter<GoodsAdapter.GoodsViewHolder>() {
+class GoodsAdapter (var list: ArrayList<GoodsResultDto>): RecyclerView.Adapter<GoodsAdapter.GoodsViewHolder>() {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,

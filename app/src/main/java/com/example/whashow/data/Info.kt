@@ -15,3 +15,16 @@ data class Info(
     @SerialName("result")
     val result: InfoResult
 )
+@Serializable
+data class InfoResult(
+    @SerialName("address")
+    val address: String,
+    @SerialName("email")
+    val email: String,
+    @SerialName("nickname")
+    val nickname: String,
+    @SerialName("profileImage")
+    val profileImage: String,
+    @SerialName("userRank")
+    val userRank: String
+)

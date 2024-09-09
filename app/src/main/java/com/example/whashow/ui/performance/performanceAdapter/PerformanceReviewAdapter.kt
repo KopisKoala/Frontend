@@ -22,8 +22,8 @@ class PerformanceReviewAdapter (var list: ArrayList<PerformanceResultDTOList>): 
             field=value
             notifyDataSetChanged()
         }
-    var _pairId:Int=0
-    var pairId:Int=_pairId
+    var _performanceId:Int=0
+    var performanceId:Int=_performanceId
         set(value){
             field=value
             notifyDataSetChanged()
@@ -158,8 +158,8 @@ class PerformanceReviewAdapter (var list: ArrayList<PerformanceResultDTOList>): 
         list.addAll(newList)
         notifyDataSetChanged()
     }
-    fun updatePairId(pairId:Int) {
-        _pairId=pairId
+    fun updatePerformanceId(performanceId:Int) {
+        _performanceId=performanceId
         notifyDataSetChanged()
     }
 

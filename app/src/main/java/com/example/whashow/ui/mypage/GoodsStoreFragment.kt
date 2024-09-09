@@ -6,7 +6,7 @@ import com.example.whashow.R
 import com.example.whashow.apiManager.ApiManager
 import com.example.whashow.base.BaseFragment
 import com.example.whashow.data.Goods
-import com.example.whashow.data.GoodsX
+import com.example.whashow.data.GoodsResultDto
 import com.example.whashow.databinding.FragmentGoodsStoreBinding
 import com.example.whashow.login.LocalDataSource
 import retrofit2.Call
@@ -24,12 +24,6 @@ class GoodsStoreFragment : BaseFragment<FragmentGoodsStoreBinding>(R.layout.frag
     override fun initDataBinding() {
         super.initDataBinding()
 
-        val goodsList= arrayListOf(
-            GoodsX(1,"http://www.kopis.or.kr/upload/pfmPoster/PF_PF241368_240520_135016.jpg","위키드", 14500,"친환경 패키지 굿즈 클립서비스"),
-            GoodsX(2,"http://www.kopis.or.kr/upload/pfmPoster/PF_PF241368_240520_135016.jpg","영웅",14500,"머그컵, USB, 카드스티커"),
-            GoodsX(3,"http://www.kopis.or.kr/upload/pfmPoster/PF_PF241368_240520_135016.jpg","안중근",10000, "친환경 패키지 굿즈 클립서비스"),
-            GoodsX(4,"http://www.kopis.or.kr/upload/pfmPoster/PF_PF241368_240520_135016.jpg", "한여름 밤의 꿈",22000,"머그컵, USB, 카드스티커")
-        )
         // 선택되지 않은 경우
         val Call: Call<Goods> =
             ApiManager.mypageService.getGoodsList(
@@ -42,7 +36,7 @@ class GoodsStoreFragment : BaseFragment<FragmentGoodsStoreBinding>(R.layout.frag
                 response: Response<Goods>
             ) {
                 if (response.isSuccessful) {
-                    val list = response.body()?.result?.goodsList as ArrayList<GoodsX>
+                    val list = response.body()?.result?.goodsList as ArrayList<GoodsResultDto>
                     goodsListAdapter.list=list
                     goodsListAdapter.notifyDataSetChanged()
                     Log.d("굿즈 서버", response.body()?.result.toString())
@@ -63,7 +57,7 @@ class GoodsStoreFragment : BaseFragment<FragmentGoodsStoreBinding>(R.layout.frag
 
 
         goodsListManager = GridLayoutManager(requireContext(), 2)
-        goodsListAdapter = GoodsAdapter(goodsList)
+        goodsListAdapter = GoodsAdapter(arrayListOf())
 
         val goodesRecyclerList = binding.rv.apply {
             setHasFixedSize(true)

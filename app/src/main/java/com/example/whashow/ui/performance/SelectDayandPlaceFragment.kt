@@ -16,21 +16,22 @@ import com.example.whashow.base.BaseFragment
 import com.example.whashow.databinding.FragmentDayandPlaceBinding
 import androidx.fragment.app.activityViewModels
 import com.example.whashow.ui.performance.performanceAdapter.CategorySpinnerAdapter
-import com.example.whashow.viewModel.RecommandViewModel
+import com.example.whashow.viewModel.PerformanceViewModel
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.DayViewDecorator
 import com.prolificinteractive.materialcalendarview.DayViewFacade
 import com.prolificinteractive.materialcalendarview.format.ArrayWeekDayFormatter
 
 class SelectDayandPlaceFragment : BaseFragment<FragmentDayandPlaceBinding>(R.layout.fragment_dayand_place) {
-    private val recommandViewModel: RecommandViewModel by activityViewModels()
+    private val recommandViewModel: PerformanceViewModel by activityViewModels()
 
     private var selectedStartDay: String? = null
     private var selectedEndDay: String? = null
     private var selectedLocation: String? = null
     override fun initStartView() {
         super.initStartView()
-        // 장르 정보를 가져와서 UI 업데이트
+        (activity as MainActivity).binding.backTitle.setTextColor(Color.BLACK)
+        (activity as MainActivity).binding.btnBack.setImageResource(R.drawable.btn_back)
         recommandViewModel.genre.observe(viewLifecycleOwner) { genre ->
             (activity as MainActivity).binding.backTitle.text = getGenreTitle(genre)
         }

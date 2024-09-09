@@ -11,13 +11,13 @@ import com.example.whashow.base.BaseFragment
 import com.example.whashow.data.RecommandPerformanceList
 import com.example.whashow.databinding.FragmentPriceBinding
 import com.example.whashow.login.LocalDataSource
-import com.example.whashow.viewModel.RecommandViewModel
+import com.example.whashow.viewModel.PerformanceViewModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class SelectPriceFragment : BaseFragment<FragmentPriceBinding>(R.layout.fragment_price) {
-    private val recommandViewModel: RecommandViewModel by activityViewModels()
+    private val recommandViewModel: PerformanceViewModel by activityViewModels()
 
     private val PriceArr = arrayListOf(
         "0원 ~ 5만원",
@@ -26,6 +26,7 @@ class SelectPriceFragment : BaseFragment<FragmentPriceBinding>(R.layout.fragment
         "15만원 ~ 20만원",
         "20만원 ~ no limit"
     )
+
     override fun initStartView() {
         super.initStartView()
         // 장르 정보를 가져와서 UI 업데이트
@@ -34,7 +35,7 @@ class SelectPriceFragment : BaseFragment<FragmentPriceBinding>(R.layout.fragment
         }
         (activity as MainActivity).binding.toolbar.setBackgroundColor(Color.WHITE)
         (activity as MainActivity).ShowBackandTitle()
-        (activity as MainActivity).binding.navigationMain.visibility=View.GONE
+        (activity as MainActivity).binding.navigationMain.visibility = View.GONE
     }
 
     override fun initDataBinding() {
@@ -52,76 +53,17 @@ class SelectPriceFragment : BaseFragment<FragmentPriceBinding>(R.layout.fragment
             Log.d("가격", minPrice.toString())
             Log.d("가격", maxPrice.toString())
             recommandViewModel.setPrice(minPrice, maxPrice)
-            // ViewModel에서 데이터를 가져와서 API 호출
-            recommandViewModel.genre.observe(viewLifecycleOwner) { genre ->
-                recommandViewModel.startYear.observe(viewLifecycleOwner) { startYear ->
-                    recommandViewModel.startMonth.observe(viewLifecycleOwner) { startMonth ->
-                        recommandViewModel.startDate.observe(viewLifecycleOwner) { startDate ->
-                            recommandViewModel.endYear.observe(viewLifecycleOwner) { endYear ->
-                                recommandViewModel.endMonth.observe(viewLifecycleOwner) { endMonth ->
-                                    recommandViewModel.endDate.observe(viewLifecycleOwner) { endDate ->
-                                        recommandViewModel.location.observe(viewLifecycleOwner) { location ->
-                                            recommandViewModel.minPrice.observe(viewLifecycleOwner) { minPrice ->
-                                                recommandViewModel.maxPrice.observe(viewLifecycleOwner) { maxPrice ->
-                                                    // 여기서 API 호출 로직을 구현합니다.
-                                                    // API 호출
-                                                    Log.d("공연 추천 서버", LocalDataSource.getAccessToken().toString())
-                                                    val call: Call<RecommandPerformanceList> = ApiManager.performanceService.getPerformanceList(
-                                                        "Bearer " + LocalDataSource.getAccessToken()!!,
-                                                        genre,
-                                                        startYear,
-                                                        startMonth,
-                                                        startDate,
-                                                        endYear,
-                                                        endMonth,
-                                                        endDate,
-                                                        location,
-                                                        minPrice,
-                                                        maxPrice
-                                                    )
+            recommandViewModel.fetchPerformanceData()
 
-                                                    call.enqueue(object :
-                                                        Callback<RecommandPerformanceList> {
-                                                        override fun onResponse(
-                                                            call: Call<RecommandPerformanceList>,
-                                                            response: Response<RecommandPerformanceList>
-                                                        ) {
-                                                            if (response.isSuccessful) {
-                                                                val data = response.body()?.result
-                                                                if (data != null) {
-                                                                    recommandViewModel.setRecommandList(data.performancesByStandardList)
-                                                                    (activity as MainActivity).addFragment(PerformanceResultFragment())
-                                                                }
-                                                                Log.d("공연 추천 서버", response.body()?.result.toString())
-                                                            } else {
-                                                                Log.d("공연 추천 서버", response.body()?.result.toString())
-                                                            }
-                                                        }
-
-                                                        override fun onFailure(call: Call<RecommandPerformanceList>, t: Throwable) {
-                                                            Log.d("공연 추천 서버", t.message.toString())
-                                                        }
-                                                    })
-
-
-
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
+            (activity as MainActivity).addFragment(
+                PerformanceResultFragment()
+            )
 
         }
 
 
-
     }
+
     private fun getGenreTitle(genre: Int?): String {
         return when (genre) {
             0 -> "뮤지컬"
