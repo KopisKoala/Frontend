@@ -18,11 +18,9 @@ import retrofit2.Response
 
 class PerformanceViewModel : ViewModel() {
 
-    // GenreFragment에서 사용하는 데이터
     private val _genre = MutableLiveData<Int>()
     val genre: LiveData<Int> get() = _genre
 
-    // DayandPlaceFragment에서 사용하는 데이터
     private val _startYear = MutableLiveData<Int>()
     private val _startMonth = MutableLiveData<Int>()
     private val _startDate = MutableLiveData<Int>()
@@ -31,20 +29,8 @@ class PerformanceViewModel : ViewModel() {
     private val _endDate = MutableLiveData<Int>()
     private val _location = MutableLiveData<String>()
 
-    val startYear: LiveData<Int> get() = _startYear
-    val startMonth: LiveData<Int> get() = _startMonth
-    val startDate: LiveData<Int> get() = _startDate
-    val endYear: LiveData<Int> get() = _endYear
-    val endMonth: LiveData<Int> get() = _endMonth
-    val endDate: LiveData<Int> get() = _endDate
-    val location: LiveData<String> get() = _location
-
-    // PriceFragment에서 사용하는 데이터
     private val _minPrice = MutableLiveData<Int>()
     private val _maxPrice = MutableLiveData<Int>()
-
-    val minPrice: LiveData<Int> get() = _minPrice
-    val maxPrice: LiveData<Int> get() = _maxPrice
 
     private val _error = MutableLiveData<String>()
     val error: LiveData<String> get() = _error
@@ -52,15 +38,12 @@ class PerformanceViewModel : ViewModel() {
     private val _recommandResultList = MutableLiveData<List<PerformancesByStandard>>()
     val recommandResultList: LiveData<List<PerformancesByStandard>> get() = _recommandResultList
 
-    private val _performanceRecommandResultList = MutableLiveData<List<RecommendPairResDto>>()
-
     private val _performanceId = MutableLiveData<Int?>()
     val performanceId: LiveData<Int?> get() = _performanceId
 
     private val _reviewList = MutableLiveData<List<PerformanceResultDTOList>>()
     val reviewList: LiveData<List<PerformanceResultDTOList>> get() = _reviewList
 
-    // 장르 설정 함수: LiveData로 관리
     fun setGenre(genre: Int) {
         _genre.value = genre
     }
@@ -135,7 +118,6 @@ class PerformanceViewModel : ViewModel() {
     }
 
     fun fetchPerformanceReview(perfId: Int, position: Int) {
-        //정렬
         val sortList = listOf(
             "recent",
             "like",

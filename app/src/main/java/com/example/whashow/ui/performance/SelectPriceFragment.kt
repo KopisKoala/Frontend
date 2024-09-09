@@ -50,8 +50,6 @@ class SelectPriceFragment : BaseFragment<FragmentPriceBinding>(R.layout.fragment
             // 선택된 가격 범위를 ViewModel에 저장
             val selectedPriceIndex = binding.pricePicker.value
             val (minPrice, maxPrice) = getPriceRange(selectedPriceIndex)
-            Log.d("가격", minPrice.toString())
-            Log.d("가격", maxPrice.toString())
             recommandViewModel.setPrice(minPrice, maxPrice)
             recommandViewModel.fetchPerformanceData()
 

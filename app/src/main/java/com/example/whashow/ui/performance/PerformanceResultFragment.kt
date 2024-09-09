@@ -27,16 +27,12 @@ class PerformanceResultFragment :
 
     private val performanceViewModel: PerformanceViewModel by activityViewModels()
 
-    //정렬
     private val sortTextList = listOf(
         "최신 순",
         "좋아요 순",
         "별점 낮은 순",
         "별점 높은 순"
     )
-
-    //리뷰
-    val reviewList = arrayListOf<PerformanceResultDTOList>()
 
     override fun initStartView() {
         super.initStartView()
@@ -72,7 +68,6 @@ class PerformanceResultFragment :
             performanceViewPager.updatePerformance(list)
             performanceViewPager.notifyDataSetChanged()
 
-            //공연 아이디 저장
             if (performanceViewPager.performanceList.isNotEmpty()) {
                 binding.spinnerReviewSort.onItemSelectedListener =
                     object : AdapterView.OnItemSelectedListener {

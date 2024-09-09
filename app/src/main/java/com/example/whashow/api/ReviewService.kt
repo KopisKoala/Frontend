@@ -21,7 +21,7 @@ interface ReviewService {
     ): Call<PerformanceReview>
 
     @GET("/review/list/pair")
-    fun getInfo(
+    fun getReviewPair(
         @Header("Authorization") accessToken: String,
         @Query("pairId") id: Int,
         @Query("way") sortWay: String

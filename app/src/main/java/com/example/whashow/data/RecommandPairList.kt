@@ -48,7 +48,7 @@ data class PairDetailResDtoByStandard(
     @SerialName("id")
     val id: Int,
     @SerialName("ratingAverage")
-    val ratingAverage: Int,
+    val ratingAverage: Float,
     @SerialName("reviewCount")
     val reviewCount: Int,
     @SerialName("title")

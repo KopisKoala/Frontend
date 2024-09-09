@@ -24,6 +24,13 @@ class PairingReviewAdapter (var list: ArrayList<Review>): RecyclerView.Adapter<P
             notifyDataSetChanged()
         }
 
+    var _pairId:Int=0
+    var pairId:Int=_pairId
+        set(value){
+            field=value
+            notifyDataSetChanged()
+        }
+
     interface MyItemClickListener{
         fun onClick(position: Int)
 
@@ -147,13 +154,14 @@ class PairingReviewAdapter (var list: ArrayList<Review>): RecyclerView.Adapter<P
         return reviewList.size
     }
 
-    fun removeItem(position: Int) {
-        reviewList.removeAt(position)
-        notifyItemRemoved(position)
-    }
     fun updateReviews(newList: List<Review>) {
         list.clear()
         list.addAll(newList)
+        notifyDataSetChanged()
+    }
+
+    fun updatePairId(pairId:Int) {
+        _pairId=pairId
         notifyDataSetChanged()
     }
 
